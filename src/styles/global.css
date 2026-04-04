@@ -1,0 +1,69 @@
+/* Custom properties */
+:root {
+  --color-parchment: #f5f0e8;
+  --color-parchment-dark: #e8e0cc;
+  --color-text: #2c1a0e;
+  --color-text-light: #5a3a1e;
+  --color-gold: #8b6914;
+  --color-gold-light: #c4991f;
+  --color-border: #8b6914;
+  --font-serif: Georgia, 'Times New Roman', serif;
+  --font-sans: system-ui, -apple-system, sans-serif;
+  --border-ornate: 2px solid var(--color-gold);
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-parchment);
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Section headers shared style */
+.section-header {
+  font-family: var(--font-serif);
+  font-variant: small-caps;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: var(--color-gold);
+  border-bottom: 1px solid var(--color-gold);
+  padding-bottom: 2px;
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+}
+
+/* Input shared style */
+input[type='text'],
+input[type='number'],
+textarea {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--color-text);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-text-light);
+  width: 100%;
+  padding: 1px 2px;
+  outline: none;
+}
+
+input[type='text']:focus,
+input[type='number']:focus,
+textarea:focus {
+  border-bottom-color: var(--color-gold);
+}
