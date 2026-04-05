@@ -13,6 +13,7 @@ export default function Wizard({ onComplete }) {
   const [race, setRace] = useState(null)
   const [characterClass, setCharacterClass] = useState(null)
   const [template, setTemplate] = useState(null)
+  const [templateSettings, setTemplateSettings] = useState(null)
 
   function handleRaceSelect(selectedRace) {
     setRace(selectedRace)
@@ -24,14 +25,15 @@ export default function Wizard({ onComplete }) {
     setStep(2)
   }
 
-  function handleTemplateSelect(templateId) {
+  function handleTemplateSelect(templateId, settings) {
     setTemplate(templateId)
+    setTemplateSettings(settings)
     setStep(3)
   }
 
   function handleGenerate() {
     const preset = resolvePreset(race, characterClass)
-    onComplete({ character: { name: '', race, class: characterClass }, preset, template })
+    onComplete({ character: { name: '', race, class: characterClass }, preset, template, templateSettings })
   }
 
   function handleBack() {

@@ -19,13 +19,13 @@ import SubclassFeats from '../modules/SubclassFeats/SubclassFeats.jsx'
 import { getTemplate } from '../../templates/index.js'
 import styles from './SheetPreview.module.css'
 
-export default function SheetPreview({ character, preset, template, onReset }) {
+export default function SheetPreview({ character, preset, template, templateSettings, onReset }) {
   const tpl = getTemplate(template)
 
-  const cssVars = {}
-  if (tpl.settings.backgroundColor) cssVars['--color-parchment'] = tpl.settings.backgroundColor
-  if (tpl.settings.accentColor) cssVars['--color-gold'] = tpl.settings.accentColor
-  if (tpl.settings.fontFamily) cssVars['--font-serif'] = tpl.settings.fontFamily
+  const userOverrides = {}
+  if (templateSettings?.backgroundColor) userOverrides['--color-parchment'] = templateSettings.backgroundColor
+  if (templateSettings?.accentColor) userOverrides['--color-gold'] = templateSettings.accentColor
+  if (templateSettings?.fontFamily) userOverrides['--font-serif'] = templateSettings.fontFamily
 
   const gridClass = tpl.layout === 'three-column' ? styles.threeColumnGrid : styles.twoColumnGrid
   const templateId = tpl.id
@@ -47,7 +47,7 @@ export default function SheetPreview({ character, preset, template, onReset }) {
       </div>
 
       {/* A4 sheet */}
-      <div className={`sheet-preview ${styles.sheet}`} style={cssVars}>
+      <div className={`sheet-preview ${styles.sheet}`} data-template={tpl.layout} style={userOverrides}>
         <div className={`sheet-grid ${styles.grid} ${gridClass}`}>
 
           <div className={styles.headerArea}>
