@@ -1,0 +1,84 @@
+.wrapper {
+  background: #ccc;
+  min-height: 100vh;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Toolbar above the sheet */
+.toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.printBtn {
+  background: var(--color-gold);
+  border: 2px solid var(--color-gold);
+  border-radius: 4px;
+  color: var(--color-parchment);
+  font-family: var(--font-serif);
+  font-variant: small-caps;
+  font-size: 0.9rem;
+  padding: 8px 20px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: background 0.15s;
+}
+
+.printBtn:hover {
+  background: var(--color-text);
+  border-color: var(--color-text);
+}
+
+.resetBtn {
+  background: none;
+  border: 1px solid var(--color-parchment);
+  border-radius: 4px;
+  color: var(--color-parchment);
+  font-size: 0.8rem;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.resetBtn:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+/* A4 sheet */
+.sheet {
+  width: 210mm;
+  min-height: 297mm;
+  background: var(--color-parchment);
+  padding: 8mm;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+/* Shared grid base */
+.grid {
+  display: grid;
+  gap: 4px;
+}
+
+
+.headerArea        { grid-area: header; }
+.portraitArea      { grid-area: portrait; }
+.raceClassArea     { grid-area: raceclass; }
+.backgroundArea    { grid-area: background; }
+.abilityArea       { grid-area: ability; }
+.passiveArea       { grid-area: passive; }
+.inspirationArea   { grid-area: insp; }
+.savingArea        { grid-area: saving; }
+.combatArea        { grid-area: combat; }
+.hpArea            { grid-area: hp; }
+.featurePrimaryArea    { grid-area: featurePrimary; }
+.traitsArea        { grid-area: traits; }
+.featureSecondaryArea  { grid-area: featureSecondary; }
+.abilitiesFeaturesArea { grid-area: abilities; }
+.subclassFeatsArea { grid-area: subclassFeats; }
+.attacksArea       { grid-area: attacks; }
+.equipmentArea     { grid-area: equipment; }
+.proficiencyArea   { grid-area: proficiency; }

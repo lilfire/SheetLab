@@ -1,0 +1,41 @@
+.traits {
+  border: var(--border-ornate);
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--color-parchment);
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.trait {
+  font-size: 0.72rem;
+  color: var(--color-text);
+  padding: 2px 0;
+  border-bottom: 1px dotted var(--color-parchment-dark);
+  padding-left: 12px;
+  position: relative;
+}
+
+.trait::before {
+  content: '◆';
+  position: absolute;
+  left: 0;
+  font-size: 0.45rem;
+  color: var(--color-gold);
+  top: 4px;
+}
+
+.blank input {
+  font-size: 0.72rem;
+}
+
+.placeholder {
+  font-size: 0.7rem;
+  color: var(--color-text-light);
+  font-style: italic;
+}

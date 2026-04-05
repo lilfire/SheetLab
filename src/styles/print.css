@@ -1,0 +1,49 @@
+@media print {
+  :root {
+    --color-parchment: #ffffff;
+    --color-parchment-dark: #f0f0f0;
+  }
+
+  /* A4: 210mm × 297mm */
+  @page {
+    size: A4 portrait;
+    margin: 8mm;
+  }
+
+  body {
+    background: white;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Hide wizard and non-sheet UI */
+  .wizard-container,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Sheet fills the page */
+  .sheet-preview {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    page-break-after: avoid;
+  }
+
+  /* Ensure grid columns render correctly */
+  .sheet-grid {
+    display: grid !important;
+  }
+
+  /* Ensure write-in lines print clearly */
+  .write-line {
+    border-bottom: 1px solid #999;
+  }
+
+  /* Avoid page breaks inside modules */
+  .module-box {
+    break-inside: avoid;
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "class": "Wizard",
+  "defaultSkillProficiencies": ["Arcana", "History", "Insight", "Investigation", "Medicine", "Religion"],
+  "raceModifiers": {
+    "Human": {
+      "traits": ["+1 to All Ability Scores", "Extra Language", "Extra Skill Proficiency"]
+    },
+    "Elf": {
+      "traits": ["+2 Dexterity", "Darkvision 60ft", "Keen Senses (Perception proficiency)", "Fey Ancestry (Charm resistance)", "Trance (Meditate 4 hours instead of sleep)"]
+    },
+    "Dwarf": {
+      "traits": ["+2 Constitution", "Darkvision 60ft", "Dwarven Resilience (Poison advantage)", "Stonecunning"]
+    },
+    "Halfling": {
+      "traits": ["+2 Dexterity", "Lucky (Reroll 1s)", "Brave (Frightened advantage)", "Halfling Nimbleness"]
+    },
+    "Half-Orc": {
+      "traits": ["+2 Strength", "+1 Constitution", "Darkvision 60ft", "Relentless Endurance", "Savage Attacks"]
+    },
+    "Gnome": {
+      "traits": ["+2 Intelligence", "Darkvision 60ft", "Gnome Cunning (INT/WIS/CHA saves vs. magic)"]
+    },
+    "Tiefling": {
+      "traits": ["+1 Intelligence", "+2 Charisma", "Darkvision 60ft", "Hellish Resistance (Fire)", "Infernal Legacy (Thaumaturgy, Hellish Rebuke, Darkness)"]
+    },
+    "Dragonborn": {
+      "traits": ["+2 Strength", "+1 Charisma", "Draconic Ancestry", "Breath Weapon", "Damage Resistance"]
+    }
+  },
+  "modules": {
+    "classFeaturePrimary": {
+      "title": "Spellcasting",
+      "description": "Intelligence is your spellcasting ability. Spell save DC = 8 + proficiency bonus + INT modifier. Spell attack modifier = proficiency bonus + INT modifier. You can prepare a number of spells equal to your INT modifier + Wizard level. You can cast prepared spells using spell slots."
+    },
+    "classFeatureSecondary": {
+      "title": "Arcane Recovery",
+      "description": "Once per day when you finish a short rest, you can recover expended spell slots. The slots can have a combined level equal to or less than half your Wizard level (rounded up), and none of the slots can be 6th level or higher."
+    },
+    "subclassFeats": {
+      "title": "Arcane Tradition Features",
+      "slots": 8
+    }
+  }
+}

@@ -1,0 +1,38 @@
+.portrait {
+  border: var(--border-ornate);
+  border-radius: 4px;
+  padding: 6px;
+  background: var(--color-parchment);
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border: 1px dashed var(--color-gold);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 4px;
+  pointer-events: none;
+}
+
+.icon {
+  font-size: 2rem;
+  color: var(--color-gold);
+  opacity: 0.5;
+}
+
+.hint {
+  font-size: 0.65rem;
+  color: var(--color-text-light);
+  font-style: italic;
+}
+

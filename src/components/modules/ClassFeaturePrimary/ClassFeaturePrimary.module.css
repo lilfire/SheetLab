@@ -1,0 +1,38 @@
+.feature {
+  border: var(--border-ornate);
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--color-parchment);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: var(--color-text);
+}
+
+.description {
+  font-size: 0.7rem;
+  color: var(--color-text-light);
+  line-height: 1.4;
+}
+
+.notes {
+  margin-top: auto;
+  border-top: 1px dotted var(--color-gold);
+  padding-top: 4px;
+}
+
+.notes input {
+  font-size: 0.7rem;
+}

@@ -1,0 +1,39 @@
+.passive {
+  border: var(--border-ornate);
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--color-parchment);
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px dotted var(--color-gold);
+  padding-bottom: 2px;
+}
+
+.label {
+  font-size: 0.7rem;
+  color: var(--color-text);
+}
+
+.value {
+  display: inline-block;
+  width: 36px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.8rem;
+  border-bottom: 1px solid var(--color-text-light);
+  background: transparent;
+  color: var(--color-text);
+  padding: 0;
+  min-height: 1.1em;
+}

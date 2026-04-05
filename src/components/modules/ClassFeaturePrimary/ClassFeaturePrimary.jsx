@@ -1,0 +1,18 @@
+import styles from './ClassFeaturePrimary.module.css'
+
+export default function ClassFeaturePrimary({ preset, templateId }) {
+  const feature = preset?.modules?.classFeaturePrimary
+
+  return (
+    <section className={`module-box ${styles.feature} ${templateId ? (styles[templateId] || '') : ''}`}>
+      <h3 className="section-header">Class Feature (Primary)</h3>
+      <div className={styles.content}>
+        <p className={styles.title}>{feature?.title ?? 'Primary Feature'}</p>
+        <p className={styles.description}>{feature?.description ?? 'Select a class to populate this feature.'}</p>
+      </div>
+      <div className={styles.notes}>
+        <span className="write-line" />
+      </div>
+    </section>
+  )
+}
