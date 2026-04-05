@@ -109,6 +109,42 @@
   display: flex;
 }
 
+/* ── Drag handle ─────────────────────────────────────────────── */
+
+/*
+ * Drag handle lives inside every module slot div.
+ * Always rendered when isEditMode=true; hidden on print via no-print class.
+ */
+.dragHandle {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  z-index: 10;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(44, 26, 14, 0.75);
+  border: 1px solid #8b6914;
+  border-radius: 3px;
+  color: #c4991f;
+  font-size: 0.75rem;
+  line-height: 1;
+  cursor: grab;
+  transition: background 0.1s;
+  touch-action: none;
+}
+
+.dragHandle:hover {
+  background: rgba(139, 105, 20, 0.6);
+}
+
+.dragHandle:active {
+  cursor: grabbing;
+}
+
 /* A4 sheet */
 .sheet {
   width: 210mm;
