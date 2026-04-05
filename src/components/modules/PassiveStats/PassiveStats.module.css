@@ -26,14 +26,14 @@
 }
 
 .value {
-  width: 36px !important;
+  display: inline-block;
+  width: 36px;
   text-align: center;
   font-weight: bold;
   font-size: 0.8rem;
-  border: none !important;
-  border-bottom: 1px solid var(--color-text-light) !important;
+  border-bottom: 1px solid var(--color-text-light);
   background: transparent;
   color: var(--color-text);
-  outline: none;
   padding: 0;
+  min-height: 1.1em;
 }

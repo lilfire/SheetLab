@@ -7,14 +7,8 @@ export default function CharacterPortrait() {
       <div className={styles.frame}>
         <div className={styles.placeholder}>
           <span className={styles.icon}>⚔</span>
-          <p className={styles.hint}>Tap to upload image</p>
+          <p className={styles.hint}>Paste or draw portrait here</p>
         </div>
-        <input
-          type="file"
-          accept="image/*"
-          className={styles.fileInput}
-          aria-label="Upload character portrait"
-        />
       </div>
     </section>
   )

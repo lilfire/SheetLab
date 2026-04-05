@@ -5,10 +5,10 @@ export default function Inspiration() {
     <section className={`module-box ${styles.inspiration}`}>
       <h3 className="section-header">Inspiration</h3>
       <div className={styles.tracker}>
-        <label className={styles.label}>
-          <input type="checkbox" className={styles.checkbox} />
+        <div className={styles.label}>
+          <span className={styles.checkbox}>○</span>
           <span className={styles.inspired}>Inspired</span>
-        </label>
+        </div>
       </div>
     </section>
   )

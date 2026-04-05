@@ -18,12 +18,12 @@ export default function AttacksCantrips() {
         <tbody>
           {[...Array(5)].map((_, i) => (
             <tr key={i} className={styles.row}>
-              <td><input type="text" placeholder="—" /></td>
-              <td><input type="text" placeholder="5 ft" /></td>
-              <td><input type="text" placeholder="+0" /></td>
-              <td><input type="text" placeholder="Action" /></td>
-              <td><input type="text" placeholder="1d6" /></td>
-              <td><input type="text" placeholder="Notes..." /></td>
+              <td><span className="write-line" /></td>
+              <td><span className="write-line" /></td>
+              <td><span className="write-line" /></td>
+              <td><span className="write-line" /></td>
+              <td><span className="write-line" /></td>
+              <td><span className="write-line" /></td>
             </tr>
           ))}
         </tbody>

@@ -7,27 +7,27 @@ export default function BackgroundInfo() {
       <div className={styles.grid}>
         <fieldset className={styles.field}>
           <label className={styles.label}>Background</label>
-          <input type="text" placeholder="e.g. Soldier, Sage..." />
+          <span className="write-line" />
         </fieldset>
         <fieldset className={styles.field}>
           <label className={styles.label}>Alignment</label>
-          <input type="text" placeholder="e.g. Neutral Good..." />
+          <span className="write-line" />
         </fieldset>
         <fieldset className={`${styles.field} ${styles.wide}`}>
           <label className={styles.label}>Personality Traits</label>
-          <input type="text" placeholder="Personality traits..." />
+          <span className="write-line" />
         </fieldset>
         <fieldset className={styles.field}>
           <label className={styles.label}>Ideals</label>
-          <input type="text" placeholder="Ideals..." />
+          <span className="write-line" />
         </fieldset>
         <fieldset className={styles.field}>
           <label className={styles.label}>Bonds</label>
-          <input type="text" placeholder="Bonds..." />
+          <span className="write-line" />
         </fieldset>
         <fieldset className={`${styles.field} ${styles.wide}`}>
           <label className={styles.label}>Flaws</label>
-          <input type="text" placeholder="Flaws..." />
+          <span className="write-line" />
         </fieldset>
       </div>
     </section>

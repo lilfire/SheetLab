@@ -32,8 +32,8 @@ export default function SavingThrowsSkills({ preset }) {
         <h3 className="section-header">Saving Throws</h3>
         {SAVING_THROWS.map((ability) => (
           <div key={ability} className={styles.row}>
-            <input type="checkbox" className={styles.check} aria-label={`${ability} saving throw proficiency`} />
-            <input type="text" className={styles.modifier} placeholder="+0" />
+            <span className={styles.check} aria-label={`${ability} saving throw proficiency`}>○</span>
+            <span className={styles.modifier} />
             <span className={styles.name}>{ability}</span>
           </div>
         ))}
@@ -43,13 +43,11 @@ export default function SavingThrowsSkills({ preset }) {
         <h3 className="section-header">Skills</h3>
         {SKILLS.map(({ name, ability }) => (
           <div key={name} className={styles.row}>
-            <input
-              type="checkbox"
+            <span
               className={styles.check}
-              defaultChecked={proficiencies.includes(name)}
               aria-label={`${name} proficiency`}
-            />
-            <input type="text" className={styles.modifier} placeholder="+0" />
+            >{proficiencies.includes(name) ? '●' : '○'}</span>
+            <span className={styles.modifier} />
             <span className={styles.name}>{name} <span className={styles.ability}>({ability})</span></span>
           </div>
         ))}

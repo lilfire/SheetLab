@@ -21,9 +21,12 @@
 }
 
 .capacityValue {
-  width: 40px !important;
+  display: inline-block;
+  width: 40px;
   text-align: center;
   font-size: 0.7rem;
+  border-bottom: 1px solid var(--color-text-light);
+  min-height: 1.1em;
 }
 
 .unit {
@@ -37,6 +40,6 @@
   gap: 1px;
 }
 
-.item input {
+.item span {
   font-size: 0.7rem;
 }

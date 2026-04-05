@@ -20,10 +20,14 @@
 }
 
 .checkbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 20px;
   height: 20px;
-  accent-color: var(--color-gold);
-  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  user-select: none;
 }
 
 .inspired {

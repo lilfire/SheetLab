@@ -17,12 +17,7 @@ export default function AbilityScores() {
         {ABILITIES.map(({ key, label, full }) => (
           <div key={key} className={styles.shield} title={full}>
             <span className={styles.abilityLabel}>{label}</span>
-            <input
-              type="text"
-              className={styles.scoreInput}
-              placeholder="10"
-              aria-label={full}
-            />
+            <span className={styles.scoreInput} aria-label={full} />
             <div className={styles.modifierBubble}>
               <span className={styles.modifier}>+0</span>
             </div>

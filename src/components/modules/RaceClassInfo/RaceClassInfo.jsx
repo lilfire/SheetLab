@@ -7,27 +7,27 @@ export default function RaceClassInfo({ preset }) {
       <div className={styles.fields}>
         <fieldset className={styles.field}>
           <label className={styles.label}>Race</label>
-          <input type="text" defaultValue={preset?.race ?? ''} placeholder="Race" />
+          <span className="write-line">{preset?.race ?? ''}</span>
         </fieldset>
         <fieldset className={styles.field}>
           <label className={styles.label}>Class</label>
-          <input type="text" defaultValue={preset?.class ?? ''} placeholder="Class" />
+          <span className="write-line">{preset?.class ?? ''}</span>
         </fieldset>
         <fieldset className={styles.field}>
           <label className={styles.label}>Subclass</label>
-          <input type="text" placeholder="Subclass" />
+          <span className="write-line" />
         </fieldset>
         <fieldset className={styles.field}>
           <label className={styles.label}>Level</label>
-          <input type="text" placeholder="1" />
+          <span className="write-line" />
         </fieldset>
         <fieldset className={styles.field}>
           <label className={styles.label}>Experience</label>
-          <input type="text" placeholder="0 XP" />
+          <span className="write-line" />
         </fieldset>
         <fieldset className={styles.field}>
           <label className={styles.label}>Proficiency Bonus</label>
-          <input type="text" placeholder="+2" />
+          <span className="write-line" />
         </fieldset>
       </div>
     </section>

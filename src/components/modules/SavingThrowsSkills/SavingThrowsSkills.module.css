@@ -23,24 +23,28 @@
 }
 
 .check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
   width: 12px;
   height: 12px;
-  accent-color: var(--color-gold);
-  cursor: pointer;
+  font-size: 0.7rem;
+  line-height: 1;
+  user-select: none;
 }
 
 .modifier {
-  width: 28px !important;
+  display: inline-block;
+  width: 28px;
   flex-shrink: 0;
   font-size: 0.7rem;
   text-align: center;
-  border: none !important;
-  border-bottom: 1px solid var(--color-text-light) !important;
+  border-bottom: 1px solid var(--color-text-light);
   padding: 0 2px;
   background: transparent;
   color: var(--color-text);
-  outline: none;
+  min-height: 1em;
 }
 
 .name {

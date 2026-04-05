@@ -7,19 +7,19 @@ export default function Proficiency() {
       <div className={styles.grid}>
         <fieldset className={styles.group}>
           <legend className={styles.groupLabel}>Armour</legend>
-          <input type="text" placeholder="Light, Medium, Shields..." />
+          <span className="write-line" />
         </fieldset>
         <fieldset className={styles.group}>
           <legend className={styles.groupLabel}>Weapons</legend>
-          <input type="text" placeholder="Simple weapons..." />
+          <span className="write-line" />
         </fieldset>
         <fieldset className={styles.group}>
           <legend className={styles.groupLabel}>Tools</legend>
-          <input type="text" placeholder="Artisan's tools..." />
+          <span className="write-line" />
         </fieldset>
         <fieldset className={styles.group}>
           <legend className={styles.groupLabel}>Languages</legend>
-          <input type="text" placeholder="Common, Elvish..." />
+          <span className="write-line" />
         </fieldset>
       </div>
     </section>

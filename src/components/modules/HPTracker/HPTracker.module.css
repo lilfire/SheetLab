@@ -37,17 +37,17 @@
 }
 
 .hpInput {
+  display: inline-block;
   font-family: var(--font-serif);
   font-size: 1.4rem;
   font-weight: bold;
   text-align: center;
-  width: 50px !important;
+  width: 50px;
   background: transparent;
-  border: none !important;
-  border-bottom: 1px solid var(--color-text-light) !important;
+  border-bottom: 1px solid var(--color-text-light);
   color: var(--color-text);
-  outline: none;
   padding: 0;
+  min-height: 1.2em;
 }
 
 .divider {
@@ -56,15 +56,15 @@
 }
 
 .maxInput {
+  display: inline-block;
   font-size: 0.75rem;
   text-align: center;
-  width: 40px !important;
+  width: 40px;
   background: transparent;
-  border: none !important;
-  border-bottom: 1px solid var(--color-text-light) !important;
+  border-bottom: 1px solid var(--color-text-light);
   color: var(--color-text-light);
-  outline: none;
   padding: 0;
+  min-height: 1.1em;
 }
 
 .tempHp {
@@ -116,8 +116,12 @@
 }
 
 .bubble {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 14px;
   height: 14px;
-  accent-color: var(--color-gold);
-  cursor: pointer;
+  font-size: 0.75rem;
+  line-height: 1;
+  user-select: none;
 }
