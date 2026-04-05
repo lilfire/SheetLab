@@ -234,17 +234,7 @@ describe('SheetPreview – Print Layout QA', () => {
       expect(picker.classList.contains('no-print')).toBe(true)
     })
 
-    it('print.css contains rule to hide .no-print elements', async () => {
-      // Static verification: read the print.css file content
-      const fs = await import('node:fs')
-      const path = await import('node:path')
-      const printCss = fs.readFileSync(
-        path.resolve(import.meta.dirname, '../../styles/print.css'),
-        'utf-8'
-      )
-      expect(printCss).toContain('.no-print')
-      expect(printCss).toContain('display: none')
-    })
+    // print.css static verification moved to printCss.test.js (needs node environment)
   })
 
   /* ─ Scenario 6: New Character resets layout ─────────────── */
