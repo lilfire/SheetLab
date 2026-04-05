@@ -1,8 +1,8 @@
 import styles from './CombatStats.module.css'
 
-export default function CombatStats() {
+export default function CombatStats({ templateId }) {
   return (
-    <section className={`module-box ${styles.combat}`}>
+    <section className={`module-box ${styles.combat} ${templateId ? (styles[templateId] || '') : ''}`}>
       <h3 className="section-header">Combat Stats</h3>
       <div className={styles.stats}>
         <div className={styles.stat}>

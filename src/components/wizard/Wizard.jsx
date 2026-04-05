@@ -1,16 +1,18 @@
 import { useState } from 'react'
 import StepRace from './StepRace.jsx'
 import StepClass from './StepClass.jsx'
+import StepTemplate from './StepTemplate.jsx'
 import StepPreview from './StepPreview.jsx'
 import { resolvePreset } from '../../presets/index.js'
 import styles from './Wizard.module.css'
 
-const STEPS = ['Race', 'Class', 'Preview']
+const STEPS = ['Race', 'Class', 'Template', 'Preview']
 
 export default function Wizard({ onComplete }) {
   const [step, setStep] = useState(0)
   const [race, setRace] = useState(null)
   const [characterClass, setCharacterClass] = useState(null)
+  const [template, setTemplate] = useState(null)
 
   function handleRaceSelect(selectedRace) {
     setRace(selectedRace)
@@ -22,9 +24,14 @@ export default function Wizard({ onComplete }) {
     setStep(2)
   }
 
+  function handleTemplateSelect(templateId) {
+    setTemplate(templateId)
+    setStep(3)
+  }
+
   function handleGenerate() {
     const preset = resolvePreset(race, characterClass)
-    onComplete({ character: { name: '', race, class: characterClass }, preset })
+    onComplete({ character: { name: '', race, class: characterClass }, preset, template })
   }
 
   function handleBack() {
@@ -52,9 +59,18 @@ export default function Wizard({ onComplete }) {
         {step === 0 && <StepRace onSelect={handleRaceSelect} />}
         {step === 1 && <StepClass onSelect={handleClassSelect} onBack={handleBack} race={race} />}
         {step === 2 && (
+          <StepTemplate
+            characterClass={characterClass}
+            race={race}
+            onSelect={handleTemplateSelect}
+            onBack={handleBack}
+          />
+        )}
+        {step === 3 && (
           <StepPreview
             race={race}
             characterClass={characterClass}
+            template={template}
             onGenerate={handleGenerate}
             onBack={handleBack}
           />

@@ -1,8 +1,8 @@
 import styles from './RaceClassInfo.module.css'
 
-export default function RaceClassInfo({ preset }) {
+export default function RaceClassInfo({ preset, templateId }) {
   return (
-    <section className={`module-box ${styles.raceClass}`}>
+    <section className={`module-box ${styles.raceClass} ${templateId ? (styles[templateId] || '') : ''}`}>
       <h3 className="section-header">Race, Class &amp; Experience</h3>
       <div className={styles.fields}>
         <fieldset className={styles.field}>

@@ -1,8 +1,8 @@
 import styles from './CharacterPortrait.module.css'
 
-export default function CharacterPortrait() {
+export default function CharacterPortrait({ templateId }) {
   return (
-    <section className={`module-box ${styles.portrait}`}>
+    <section className={`module-box ${styles.portrait} ${templateId ? (styles[templateId] || '') : ''}`}>
       <h3 className="section-header">Portrait</h3>
       <div className={styles.frame}>
         <div className={styles.placeholder}>

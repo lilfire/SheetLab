@@ -1,8 +1,8 @@
 import styles from './BackgroundInfo.module.css'
 
-export default function BackgroundInfo() {
+export default function BackgroundInfo({ templateId }) {
   return (
-    <section className={`module-box ${styles.background}`}>
+    <section className={`module-box ${styles.background} ${templateId ? (styles[templateId] || '') : ''}`}>
       <h3 className="section-header">Background &amp; Personality</h3>
       <div className={styles.grid}>
         <fieldset className={styles.field}>

@@ -1,8 +1,8 @@
 import styles from './PassiveStats.module.css'
 
-export default function PassiveStats() {
+export default function PassiveStats({ templateId }) {
   return (
-    <section className={`module-box ${styles.passive}`}>
+    <section className={`module-box ${styles.passive} ${templateId ? (styles[templateId] || '') : ''}`}>
       <h3 className="section-header">Passive Stats</h3>
       <div className={styles.stats}>
         <div className={styles.stat}>

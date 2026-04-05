@@ -1,10 +1,10 @@
 import styles from './ClassFeatureSecondary.module.css'
 
-export default function ClassFeatureSecondary({ preset }) {
+export default function ClassFeatureSecondary({ preset, templateId }) {
   const feature = preset?.modules?.classFeatureSecondary
 
   return (
-    <section className={`module-box ${styles.feature}`}>
+    <section className={`module-box ${styles.feature} ${templateId ? (styles[templateId] || '') : ''}`}>
       <h3 className="section-header">Class Feature (Secondary)</h3>
       <div className={styles.content}>
         <p className={styles.title}>{feature?.title ?? 'Secondary Feature'}</p>

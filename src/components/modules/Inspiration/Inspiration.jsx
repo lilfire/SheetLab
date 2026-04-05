@@ -1,8 +1,8 @@
 import styles from './Inspiration.module.css'
 
-export default function Inspiration() {
+export default function Inspiration({ templateId }) {
   return (
-    <section className={`module-box ${styles.inspiration}`}>
+    <section className={`module-box ${styles.inspiration} ${templateId ? (styles[templateId] || '') : ''}`}>
       <h3 className="section-header">Inspiration</h3>
       <div className={styles.tracker}>
         <label className={styles.label}>

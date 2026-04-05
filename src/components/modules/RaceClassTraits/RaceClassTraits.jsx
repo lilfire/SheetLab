@@ -1,10 +1,10 @@
 import styles from './RaceClassTraits.module.css'
 
-export default function RaceClassTraits({ preset }) {
+export default function RaceClassTraits({ preset, templateId }) {
   const traits = preset?.raceTraits ?? []
 
   return (
-    <section className={`module-box ${styles.traits}`}>
+    <section className={`module-box ${styles.traits} ${templateId ? (styles[templateId] || '') : ''}`}>
       <h3 className="section-header">Race &amp; Class Traits</h3>
       <ul className={styles.list}>
         {traits.length > 0

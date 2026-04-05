@@ -1,8 +1,8 @@
 import styles from './HeaderBanner.module.css'
 
-export default function HeaderBanner({ character }) {
+export default function HeaderBanner({ character, templateId }) {
   return (
-    <section className={styles.banner}>
+    <section className={`${styles.banner} ${templateId ? (styles[templateId] || '') : ''}`}>
       <div className={styles.scrollShape}>
         <div className={styles.scrollLeft} />
         <div className={styles.content}>

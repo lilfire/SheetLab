@@ -1,8 +1,8 @@
 import styles from './Equipment.module.css'
 
-export default function Equipment() {
+export default function Equipment({ templateId }) {
   return (
-    <section className={`module-box ${styles.equipment}`}>
+    <section className={`module-box ${styles.equipment} ${templateId ? (styles[templateId] || '') : ''}`}>
       <h3 className="section-header">Equipment</h3>
       <div className={styles.capacity}>
         <span className={styles.capacityLabel}>Carrying Capacity:</span>

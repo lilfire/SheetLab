@@ -1,8 +1,8 @@
 import styles from './HPTracker.module.css'
 
-export default function HPTracker() {
+export default function HPTracker({ templateId }) {
   return (
-    <section className={`module-box ${styles.hpTracker}`}>
+    <section className={`module-box ${styles.hpTracker} ${templateId ? (styles[templateId] || '') : ''}`}>
       <h3 className="section-header">Hit Points</h3>
       <div className={styles.orb}>
         <div className={styles.orbInner}>

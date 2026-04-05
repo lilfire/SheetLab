@@ -1,12 +1,12 @@
 import styles from './SubclassFeats.module.css'
 
-export default function SubclassFeats({ preset }) {
+export default function SubclassFeats({ preset, templateId }) {
   const subclass = preset?.modules?.subclassFeats
   const title = subclass?.title ?? 'Subclass Feats'
   const slots = subclass?.slots ?? 8
 
   return (
-    <section className={`module-box ${styles.feats}`}>
+    <section className={`module-box ${styles.feats} ${templateId ? (styles[templateId] || '') : ''}`}>
       <h3 className="section-header">{title}</h3>
       <ul className={styles.list}>
         {[...Array(slots)].map((_, i) => (

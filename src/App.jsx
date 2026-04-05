@@ -14,7 +14,14 @@ export default function App() {
   }
 
   if (sheetData) {
-    return <SheetPreview character={sheetData.character} preset={sheetData.preset} onReset={handleReset} />
+    return (
+      <SheetPreview
+        character={sheetData.character}
+        preset={sheetData.preset}
+        template={sheetData.template}
+        onReset={handleReset}
+      />
+    )
   }
 
   return <Wizard onComplete={handleWizardComplete} />

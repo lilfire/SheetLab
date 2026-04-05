@@ -9,9 +9,9 @@ const ABILITIES = [
   { key: 'cha', label: 'CHA', full: 'Charisma' },
 ]
 
-export default function AbilityScores() {
+export default function AbilityScores({ templateId }) {
   return (
-    <section className={`module-box ${styles.abilities}`}>
+    <section className={`module-box ${styles.abilities} ${templateId ? (styles[templateId] || '') : ''}`}>
       <h3 className="section-header">Ability Scores</h3>
       <div className={styles.grid}>
         {ABILITIES.map(({ key, label, full }) => (

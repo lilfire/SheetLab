@@ -1,8 +1,10 @@
 import { resolvePreset } from '../../presets/index.js'
+import { getTemplate } from '../../templates/index.js'
 import styles from './StepPreview.module.css'
 
-export default function StepPreview({ race, characterClass, onGenerate, onBack }) {
+export default function StepPreview({ race, characterClass, template, onGenerate, onBack }) {
   const preset = resolvePreset(race, characterClass)
+  const tpl = getTemplate(template)
 
   return (
     <div className={styles.step}>
@@ -16,6 +18,10 @@ export default function StepPreview({ race, characterClass, onGenerate, onBack }
         <div className={styles.summaryRow}>
           <span className={styles.summaryLabel}>Class</span>
           <span className={styles.summaryValue}>{characterClass}</span>
+        </div>
+        <div className={styles.summaryRow}>
+          <span className={styles.summaryLabel}>Template</span>
+          <span className={styles.summaryValue}>{tpl.name}</span>
         </div>
         <div className={styles.summaryRow}>
           <span className={styles.summaryLabel}>Primary Feature</span>
