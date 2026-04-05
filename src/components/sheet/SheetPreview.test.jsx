@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen, within } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import SheetPreview from './SheetPreview.jsx'
 import { MODULE_REGISTRY } from '../../data/moduleRegistry.js'
@@ -204,7 +204,7 @@ describe('SheetPreview – Print Layout QA', () => {
 
     it('drag handles have no-print class when in edit mode', async () => {
       const user = userEvent.setup()
-      const { container } = render(<SheetPreview {...defaultProps()} />)
+      render(<SheetPreview {...defaultProps()} />)
       await user.click(screen.getByRole('button', { name: /edit layout/i }))
 
       const dragHandles = screen.getAllByRole('button', { name: /drag to rearrange/i })
@@ -267,7 +267,6 @@ describe('SheetPreview – Print Layout QA', () => {
     })
 
     it('remounting after rearrangement resets grid areas to defaults', async () => {
-      const user = userEvent.setup()
       const { unmount } = render(<SheetPreview {...defaultProps()} />)
       unmount()
 
