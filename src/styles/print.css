@@ -1,4 +1,9 @@
 @media print {
+  :root {
+    --color-parchment: #ffffff;
+    --color-parchment-dark: #f0f0f0;
+  }
+
   /* A4: 210mm × 297mm */
   @page {
     size: A4 portrait;
