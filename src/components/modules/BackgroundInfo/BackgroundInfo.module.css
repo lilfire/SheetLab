@@ -1,0 +1,31 @@
+.background {
+  border: var(--border-ornate);
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--color-parchment);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 8px;
+}
+
+.field {
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.wide {
+  grid-column: span 2;
+}
+
+.label {
+  font-size: 0.6rem;
+  font-variant: small-caps;
+  color: var(--color-gold);
+  letter-spacing: 0.05em;
+}

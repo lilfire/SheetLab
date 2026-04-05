@@ -1,0 +1,44 @@
+{
+  "class": "Barbarian",
+  "defaultSkillProficiencies": ["Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"],
+  "raceModifiers": {
+    "Human": {
+      "traits": ["+1 to All Ability Scores", "Extra Language", "Extra Skill Proficiency"]
+    },
+    "Elf": {
+      "traits": ["+2 Dexterity", "Darkvision 60ft", "Keen Senses (Perception proficiency)", "Fey Ancestry (Charm resistance)"]
+    },
+    "Dwarf": {
+      "traits": ["+2 Constitution", "Darkvision 60ft", "Dwarven Resilience (Poison advantage)", "Stonecunning"]
+    },
+    "Halfling": {
+      "traits": ["+2 Dexterity", "Lucky (Reroll 1s)", "Brave (Frightened advantage)", "Halfling Nimbleness"]
+    },
+    "Half-Orc": {
+      "traits": ["+2 Strength", "+1 Constitution", "Darkvision 60ft", "Relentless Endurance", "Savage Attacks"]
+    },
+    "Gnome": {
+      "traits": ["+2 Intelligence", "Darkvision 60ft", "Gnome Cunning (INT/WIS/CHA saves)"]
+    },
+    "Tiefling": {
+      "traits": ["+1 Intelligence", "+2 Charisma", "Darkvision 60ft", "Hellish Resistance (Fire)"]
+    },
+    "Dragonborn": {
+      "traits": ["+2 Strength", "+1 Charisma", "Draconic Ancestry", "Breath Weapon", "Damage Resistance"]
+    }
+  },
+  "modules": {
+    "classFeaturePrimary": {
+      "title": "Rage",
+      "description": "As a bonus action, enter a rage that lasts 1 minute. Advantage on STR checks and saving throws. Resistance to bludgeoning, piercing, and slashing damage. Bonus damage on STR melee attacks. Cannot cast or concentrate on spells while raging."
+    },
+    "classFeatureSecondary": {
+      "title": "Brutal Critical",
+      "description": "Roll one additional weapon damage die when determining extra damage for a critical hit. Increases to 2 extra dice at level 13, and 3 extra dice at level 17."
+    },
+    "subclassFeats": {
+      "title": "Primal Path Feats",
+      "slots": 8
+    }
+  }
+}

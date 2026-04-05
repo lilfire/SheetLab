@@ -1,0 +1,35 @@
+.inspiration {
+  border: var(--border-ornate);
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--color-parchment);
+}
+
+.tracker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 0;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--color-gold);
+  cursor: pointer;
+}
+
+.inspired {
+  font-family: var(--font-serif);
+  font-variant: small-caps;
+  font-size: 0.85rem;
+  color: var(--color-text);
+  letter-spacing: 0.05em;
+}

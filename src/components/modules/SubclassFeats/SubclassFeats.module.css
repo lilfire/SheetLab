@@ -1,0 +1,33 @@
+.feats {
+  border: var(--border-ornate);
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--color-parchment);
+  height: 100%;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.slot {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-bottom: 1px dotted var(--color-parchment-dark);
+  padding-bottom: 1px;
+}
+
+.index {
+  font-size: 0.6rem;
+  color: var(--color-gold);
+  flex-shrink: 0;
+  width: 14px;
+}
+
+.slot input {
+  font-size: 0.7rem;
+}

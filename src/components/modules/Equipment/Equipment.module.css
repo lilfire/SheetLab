@@ -1,0 +1,42 @@
+.equipment {
+  border: var(--border-ornate);
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--color-parchment);
+}
+
+.capacity {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--color-gold);
+}
+
+.capacityLabel {
+  font-size: 0.65rem;
+  color: var(--color-text-light);
+  white-space: nowrap;
+}
+
+.capacityValue {
+  width: 40px !important;
+  text-align: center;
+  font-size: 0.7rem;
+}
+
+.unit {
+  font-size: 0.65rem;
+  color: var(--color-text-light);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.item input {
+  font-size: 0.7rem;
+}

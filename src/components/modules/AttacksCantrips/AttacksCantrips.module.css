@@ -1,0 +1,33 @@
+.attacks {
+  border: var(--border-ornate);
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--color-parchment);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.65rem;
+}
+
+.th {
+  font-family: var(--font-serif);
+  font-variant: small-caps;
+  color: var(--color-gold);
+  text-align: left;
+  padding: 2px 3px;
+  border-bottom: 1px solid var(--color-gold);
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.row td {
+  padding: 1px 3px;
+  border-bottom: 1px dotted var(--color-parchment-dark);
+}
+
+.row td input {
+  font-size: 0.65rem;
+}

@@ -1,0 +1,72 @@
+.abilities {
+  border: var(--border-ornate);
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--color-parchment);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+/* Shield shape via clip-path */
+.shield {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 4px 10px;
+  background: var(--color-parchment-dark);
+  border: 1px solid var(--color-gold);
+  clip-path: polygon(50% 0%, 100% 15%, 100% 70%, 50% 100%, 0% 70%, 0% 15%);
+  gap: 2px;
+  position: relative;
+}
+
+.abilityLabel {
+  font-family: var(--font-serif);
+  font-variant: small-caps;
+  font-size: 0.6rem;
+  color: var(--color-gold);
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+.scoreInput {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  color: var(--color-text);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-text-light);
+  width: 36px;
+  outline: none;
+  padding: 0;
+}
+
+.scoreInput::placeholder {
+  color: var(--color-text-light);
+  opacity: 0.5;
+}
+
+.modifierBubble {
+  position: absolute;
+  bottom: 8px;
+  background: var(--color-parchment);
+  border: 1px solid var(--color-gold);
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modifier {
+  font-size: 0.6rem;
+  font-weight: bold;
+  color: var(--color-text);
+}
