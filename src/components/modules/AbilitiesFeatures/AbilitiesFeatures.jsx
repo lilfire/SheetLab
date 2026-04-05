@@ -1,8 +1,8 @@
 import styles from './AbilitiesFeatures.module.css'
 
-export default function AbilitiesFeatures() {
+export default function AbilitiesFeatures({ templateId }) {
   return (
-    <section className={`module-box ${styles.abilities}`}>
+    <section className={`module-box ${styles.abilities} ${templateId ? (styles[templateId] || '') : ''}`}>
       <h3 className="section-header">Abilities &amp; Features</h3>
       <table className={styles.table}>
         <thead>

@@ -23,11 +23,11 @@ const SKILLS = [
   { name: 'Survival', ability: 'Wis' },
 ]
 
-export default function SavingThrowsSkills({ preset }) {
+export default function SavingThrowsSkills({ preset, templateId }) {
   const proficiencies = preset?.defaultSkillProficiencies ?? []
 
   return (
-    <section className={`module-box ${styles.savingSkills}`}>
+    <section className={`module-box ${styles.savingSkills} ${templateId ? (styles[templateId] || '') : ''}`}>
       <div className={styles.savingThrows}>
         <h3 className="section-header">Saving Throws</h3>
         {SAVING_THROWS.map((ability) => (

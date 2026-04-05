@@ -1,8 +1,8 @@
 import styles from './AttacksCantrips.module.css'
 
-export default function AttacksCantrips() {
+export default function AttacksCantrips({ templateId }) {
   return (
-    <section className={`module-box ${styles.attacks}`}>
+    <section className={`module-box ${styles.attacks} ${templateId ? (styles[templateId] || '') : ''}`}>
       <h3 className="section-header">Attacks &amp; Cantrips</h3>
       <table className={styles.table}>
         <thead>

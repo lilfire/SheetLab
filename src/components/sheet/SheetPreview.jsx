@@ -16,9 +16,20 @@ import RaceClassTraits from '../modules/RaceClassTraits/RaceClassTraits.jsx'
 import ClassFeaturePrimary from '../modules/ClassFeaturePrimary/ClassFeaturePrimary.jsx'
 import ClassFeatureSecondary from '../modules/ClassFeatureSecondary/ClassFeatureSecondary.jsx'
 import SubclassFeats from '../modules/SubclassFeats/SubclassFeats.jsx'
+import { getTemplate } from '../../templates/index.js'
 import styles from './SheetPreview.module.css'
 
-export default function SheetPreview({ character, preset, onReset }) {
+export default function SheetPreview({ character, preset, template, onReset }) {
+  const tpl = getTemplate(template)
+
+  const cssVars = {}
+  if (tpl.settings.backgroundColor) cssVars['--color-parchment'] = tpl.settings.backgroundColor
+  if (tpl.settings.accentColor) cssVars['--color-gold'] = tpl.settings.accentColor
+  if (tpl.settings.fontFamily) cssVars['--font-serif'] = tpl.settings.fontFamily
+
+  const gridClass = tpl.layout === 'three-column' ? styles.threeColumnGrid : styles.twoColumnGrid
+  const templateId = tpl.id
+
   function handlePrint() {
     window.print()
   }
@@ -36,90 +47,79 @@ export default function SheetPreview({ character, preset, onReset }) {
       </div>
 
       {/* A4 sheet */}
-      <div className={`sheet-preview ${styles.sheet}`}>
-        {/* Row 1: Header Banner + Portrait */}
-        <div className={`sheet-grid ${styles.grid}`}>
+      <div className={`sheet-preview ${styles.sheet}`} style={cssVars}>
+        <div className={`sheet-grid ${styles.grid} ${gridClass}`}>
 
           <div className={styles.headerArea}>
-            <HeaderBanner character={character} />
+            <HeaderBanner character={character} templateId={templateId} />
           </div>
 
           <div className={styles.portraitArea}>
-            <CharacterPortrait character={character} />
+            <CharacterPortrait character={character} templateId={templateId} />
           </div>
 
-          {/* Row 2: Race/Class Info + Background (full width) */}
           <div className={styles.raceClassArea}>
-            <RaceClassInfo character={character} preset={preset} />
+            <RaceClassInfo character={character} preset={preset} templateId={templateId} />
           </div>
 
           <div className={styles.backgroundArea}>
-            <BackgroundInfo character={character} />
+            <BackgroundInfo character={character} templateId={templateId} />
           </div>
 
-          {/* Row 3: Left column — Ability Scores + Passive Stats + Inspiration */}
           <div className={styles.abilityArea}>
-            <AbilityScores character={character} />
+            <AbilityScores character={character} templateId={templateId} />
           </div>
 
           <div className={styles.passiveArea}>
-            <PassiveStats character={character} />
+            <PassiveStats character={character} templateId={templateId} />
           </div>
 
           <div className={styles.inspirationArea}>
-            <Inspiration character={character} />
+            <Inspiration character={character} templateId={templateId} />
           </div>
 
-          {/* Row 3: Right column — Saving Throws & Skills */}
           <div className={styles.savingArea}>
-            <SavingThrowsSkills character={character} preset={preset} />
+            <SavingThrowsSkills character={character} preset={preset} templateId={templateId} />
           </div>
 
-          {/* Row 4: Combat Stats (full width) */}
           <div className={styles.combatArea}>
-            <CombatStats character={character} />
+            <CombatStats character={character} templateId={templateId} />
           </div>
 
-          {/* Row 5 */}
           <div className={styles.hpArea}>
-            <HPTracker character={character} />
+            <HPTracker character={character} templateId={templateId} />
           </div>
 
           <div className={styles.featurePrimaryArea}>
-            <ClassFeaturePrimary character={character} preset={preset} />
+            <ClassFeaturePrimary character={character} preset={preset} templateId={templateId} />
           </div>
 
-          {/* Row 6 */}
           <div className={styles.traitsArea}>
-            <RaceClassTraits character={character} preset={preset} />
+            <RaceClassTraits character={character} preset={preset} templateId={templateId} />
           </div>
 
           <div className={styles.featureSecondaryArea}>
-            <ClassFeatureSecondary character={character} preset={preset} />
+            <ClassFeatureSecondary character={character} preset={preset} templateId={templateId} />
           </div>
 
-          {/* Row 7 */}
           <div className={styles.abilitiesFeaturesArea}>
-            <AbilitiesFeatures character={character} />
+            <AbilitiesFeatures character={character} templateId={templateId} />
           </div>
 
           <div className={styles.subclassFeatsArea}>
-            <SubclassFeats character={character} preset={preset} />
+            <SubclassFeats character={character} preset={preset} templateId={templateId} />
           </div>
 
-          {/* Row 8 */}
           <div className={styles.attacksArea}>
-            <AttacksCantrips character={character} />
+            <AttacksCantrips character={character} templateId={templateId} />
           </div>
 
-          {/* Row 9 */}
           <div className={styles.equipmentArea}>
-            <Equipment character={character} />
+            <Equipment character={character} templateId={templateId} />
           </div>
 
-          {/* Row 10 */}
           <div className={styles.proficiencyArea}>
-            <Proficiency character={character} />
+            <Proficiency character={character} templateId={templateId} />
           </div>
         </div>
       </div>

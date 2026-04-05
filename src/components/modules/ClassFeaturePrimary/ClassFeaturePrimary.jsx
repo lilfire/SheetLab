@@ -1,10 +1,10 @@
 import styles from './ClassFeaturePrimary.module.css'
 
-export default function ClassFeaturePrimary({ preset }) {
+export default function ClassFeaturePrimary({ preset, templateId }) {
   const feature = preset?.modules?.classFeaturePrimary
 
   return (
-    <section className={`module-box ${styles.feature}`}>
+    <section className={`module-box ${styles.feature} ${templateId ? (styles[templateId] || '') : ''}`}>
       <h3 className="section-header">Class Feature (Primary)</h3>
       <div className={styles.content}>
         <p className={styles.title}>{feature?.title ?? 'Primary Feature'}</p>

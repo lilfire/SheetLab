@@ -1,8 +1,8 @@
 import styles from './Proficiency.module.css'
 
-export default function Proficiency() {
+export default function Proficiency({ templateId }) {
   return (
-    <section className={`module-box ${styles.proficiency}`}>
+    <section className={`module-box ${styles.proficiency} ${templateId ? (styles[templateId] || '') : ''}`}>
       <h3 className="section-header">Proficiencies</h3>
       <div className={styles.grid}>
         <fieldset className={styles.group}>
