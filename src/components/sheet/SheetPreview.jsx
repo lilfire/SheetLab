@@ -1,3 +1,5 @@
+import { memo, useCallback, useMemo, useState } from 'react'
+import { DndContext } from '@dnd-kit/core'
 import HeaderBanner from '../modules/HeaderBanner/HeaderBanner.jsx'
 import CharacterPortrait from '../modules/CharacterPortrait/CharacterPortrait.jsx'
 import RaceClassInfo from '../modules/RaceClassInfo/RaceClassInfo.jsx'
@@ -17,111 +19,156 @@ import ClassFeaturePrimary from '../modules/ClassFeaturePrimary/ClassFeaturePrim
 import ClassFeatureSecondary from '../modules/ClassFeatureSecondary/ClassFeatureSecondary.jsx'
 import SubclassFeats from '../modules/SubclassFeats/SubclassFeats.jsx'
 import { getTemplate } from '../../templates/index.js'
+import { MODULE_REGISTRY, buildInitialLayoutConfig } from '../../data/moduleRegistry.js'
+import DraggableModule from './DraggableModule.jsx'
+import ComponentPicker from './ComponentPicker.jsx'
 import styles from './SheetPreview.module.css'
 
+/**
+ * Build a map of module key → rendered React element.
+ * Memoized on character, preset, templateId so modules don't remount unnecessarily.
+ */
+function useRenderMap(character, preset, templateId) {
+  return useMemo(() => ({
+    header:          <HeaderBanner character={character} templateId={templateId} />,
+    portrait:        <CharacterPortrait character={character} templateId={templateId} />,
+    raceclass:       <RaceClassInfo character={character} preset={preset} templateId={templateId} />,
+    background:      <BackgroundInfo character={character} templateId={templateId} />,
+    ability:         <AbilityScores character={character} templateId={templateId} />,
+    passive:         <PassiveStats character={character} templateId={templateId} />,
+    insp:            <Inspiration character={character} templateId={templateId} />,
+    saving:          <SavingThrowsSkills character={character} preset={preset} templateId={templateId} />,
+    combat:          <CombatStats character={character} templateId={templateId} />,
+    hp:              <HPTracker character={character} templateId={templateId} />,
+    featurePrimary:  <ClassFeaturePrimary character={character} preset={preset} templateId={templateId} />,
+    traits:          <RaceClassTraits character={character} preset={preset} templateId={templateId} />,
+    featureSecondary:<ClassFeatureSecondary character={character} preset={preset} templateId={templateId} />,
+    abilities:       <AbilitiesFeatures character={character} templateId={templateId} />,
+    subclassFeats:   <SubclassFeats character={character} preset={preset} templateId={templateId} />,
+    attacks:         <AttacksCantrips character={character} templateId={templateId} />,
+    equipment:       <Equipment character={character} templateId={templateId} />,
+    proficiency:     <Proficiency character={character} templateId={templateId} />,
+  }), [character, preset, templateId])
+}
+
+/**
+ * SheetGrid renders the A4 sheet with all visible modules inside a DnD context.
+ * Memoized so that parent state changes don't remount module children.
+ */
+const SheetGrid = memo(function SheetGrid({
+  character, preset, templateId, tpl, userOverrides,
+  layoutConfig, isEditMode, onRemove, onSwapAreas,
+}) {
+  const renderMap = useRenderMap(character, preset, templateId)
+
+  function handleDragEnd({ active, over }) {
+    if (over && active.id !== over.id) {
+      onSwapAreas(String(active.id), String(over.id))
+    }
+  }
+
+  return (
+    <DndContext onDragEnd={handleDragEnd}>
+      <div
+        className={`sheet-preview ${styles.sheet}`}
+        data-template={tpl.layout}
+        style={userOverrides}
+      >
+        <div className={`sheet-grid ${styles.grid}`}>
+          {MODULE_REGISTRY.map((mod) => {
+            const lc = layoutConfig[mod.key]
+            if (!lc.visible) return null
+            return (
+              <DraggableModule
+                key={mod.key}
+                id={mod.key}
+                areaClass={mod.areaClass}
+                gridArea={lc.gridArea}
+                isEditMode={isEditMode}
+                onRemove={() => onRemove(mod.key)}
+              >
+                {renderMap[mod.key]}
+              </DraggableModule>
+            )
+          })}
+        </div>
+      </div>
+    </DndContext>
+  )
+})
+
 export default function SheetPreview({ character, preset, template, templateSettings, onReset }) {
-  const tpl = getTemplate(template)
+  const tpl = useMemo(() => getTemplate(template), [template])
+  const [isEditMode, setIsEditMode] = useState(false)
+  const [layoutConfig, setLayoutConfig] = useState(buildInitialLayoutConfig)
 
-  const userOverrides = {}
-  if (templateSettings?.backgroundColor) userOverrides['--color-parchment'] = templateSettings.backgroundColor
-  if (templateSettings?.accentColor) userOverrides['--color-gold'] = templateSettings.accentColor
-  if (templateSettings?.fontFamily) userOverrides['--font-serif'] = templateSettings.fontFamily
+  const userOverrides = useMemo(() => {
+    const o = {}
+    if (templateSettings?.backgroundColor) o['--color-parchment'] = templateSettings.backgroundColor
+    if (templateSettings?.accentColor) o['--color-gold'] = templateSettings.accentColor
+    if (templateSettings?.fontFamily) o['--font-serif'] = templateSettings.fontFamily
+    return o
+  }, [templateSettings])
 
-  const templateId = tpl.id
+  const handleRemove = useCallback((key) => {
+    setLayoutConfig((prev) => ({ ...prev, [key]: { ...prev[key], visible: false } }))
+  }, [])
+
+  const handleToggle = useCallback((key) => {
+    setLayoutConfig((prev) => ({ ...prev, [key]: { ...prev[key], visible: !prev[key].visible } }))
+  }, [])
+
+  const handleSwapAreas = useCallback((keyA, keyB) => {
+    setLayoutConfig((prev) => {
+      const gridAreaA = prev[keyA].gridArea
+      const gridAreaB = prev[keyB].gridArea
+      return {
+        ...prev,
+        [keyA]: { ...prev[keyA], gridArea: gridAreaB },
+        [keyB]: { ...prev[keyB], gridArea: gridAreaA },
+      }
+    })
+  }, [])
 
   function handlePrint() {
     window.print()
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper}${isEditMode ? ' ' + styles.editMode : ''}`}>
       {/* Toolbar — hidden on print */}
       <div className={`no-print ${styles.toolbar}`}>
         <button className={styles.printBtn} onClick={handlePrint} type="button">
           🖨 Print Sheet
+        </button>
+        <button
+          className={`${styles.editBtn}${isEditMode ? ' ' + styles.editBtnActive : ''}`}
+          onClick={() => setIsEditMode((e) => !e)}
+          type="button"
+        >
+          {isEditMode ? '✓ Done Editing' : '✏ Edit Layout'}
         </button>
         <button className={styles.resetBtn} onClick={onReset} type="button">
           ← New Character
         </button>
       </div>
 
-      {/* A4 sheet */}
-      <div className={`sheet-preview ${styles.sheet}`} data-template={tpl.layout} style={userOverrides}>
-        <div className={`sheet-grid ${styles.grid}`}>
+      <SheetGrid
+        character={character}
+        preset={preset}
+        templateId={tpl.id}
+        tpl={tpl}
+        userOverrides={userOverrides}
+        layoutConfig={layoutConfig}
+        isEditMode={isEditMode}
+        onRemove={handleRemove}
+        onSwapAreas={handleSwapAreas}
+      />
 
-          <div className={styles.headerArea}>
-            <HeaderBanner character={character} templateId={templateId} />
-          </div>
-
-          <div className={styles.portraitArea}>
-            <CharacterPortrait character={character} templateId={templateId} />
-          </div>
-
-          <div className={styles.raceClassArea}>
-            <RaceClassInfo character={character} preset={preset} templateId={templateId} />
-          </div>
-
-          <div className={styles.backgroundArea}>
-            <BackgroundInfo character={character} templateId={templateId} />
-          </div>
-
-          <div className={styles.abilityArea}>
-            <AbilityScores character={character} templateId={templateId} />
-          </div>
-
-          <div className={styles.passiveArea}>
-            <PassiveStats character={character} templateId={templateId} />
-          </div>
-
-          <div className={styles.inspirationArea}>
-            <Inspiration character={character} templateId={templateId} />
-          </div>
-
-          <div className={styles.savingArea}>
-            <SavingThrowsSkills character={character} preset={preset} templateId={templateId} />
-          </div>
-
-          <div className={styles.combatArea}>
-            <CombatStats character={character} templateId={templateId} />
-          </div>
-
-          <div className={styles.hpArea}>
-            <HPTracker character={character} templateId={templateId} />
-          </div>
-
-          <div className={styles.featurePrimaryArea}>
-            <ClassFeaturePrimary character={character} preset={preset} templateId={templateId} />
-          </div>
-
-          <div className={styles.traitsArea}>
-            <RaceClassTraits character={character} preset={preset} templateId={templateId} />
-          </div>
-
-          <div className={styles.featureSecondaryArea}>
-            <ClassFeatureSecondary character={character} preset={preset} templateId={templateId} />
-          </div>
-
-          <div className={styles.abilitiesFeaturesArea}>
-            <AbilitiesFeatures character={character} templateId={templateId} />
-          </div>
-
-          <div className={styles.subclassFeatsArea}>
-            <SubclassFeats character={character} preset={preset} templateId={templateId} />
-          </div>
-
-          <div className={styles.attacksArea}>
-            <AttacksCantrips character={character} templateId={templateId} />
-          </div>
-
-          <div className={styles.equipmentArea}>
-            <Equipment character={character} templateId={templateId} />
-          </div>
-
-          <div className={styles.proficiencyArea}>
-            <Proficiency character={character} templateId={templateId} />
-          </div>
-        </div>
-      </div>
+      {/* ComponentPicker — shown only in edit mode, hidden on print */}
+      {isEditMode && (
+        <ComponentPicker layoutConfig={layoutConfig} onToggle={handleToggle} />
+      )}
     </div>
   )
 }

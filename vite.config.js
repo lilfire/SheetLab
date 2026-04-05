@@ -3,4 +3,11 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./src/test/setup.js'],
+    css: { modules: { classNameStrategy: 'non-scoped' } },
+    env: { NODE_ENV: 'development' },
+  },
 })
