@@ -19,6 +19,7 @@ export default function App() {
         character={sheetData.character}
         preset={sheetData.preset}
         template={sheetData.template}
+        templateSettings={sheetData.templateSettings}
         onReset={handleReset}
       />
     )

@@ -1,0 +1,14 @@
+/* Template-scoped CSS custom property defaults.
+   These are overridden by the [data-template] attribute on the sheet wrapper.
+   User overrides (from StepTemplate settings panel) are applied as inline styles
+   and take precedence over these defaults. */
+
+[data-template="two-column"] {
+  --color-parchment: #f5f0e8;
+  --color-gold: #8b6914;
+  --font-serif: Georgia, serif;
+}
+
+[data-template="three-column"] {
+  --color-parchment: #f0f4f8;
+}

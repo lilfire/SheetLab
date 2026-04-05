@@ -107,3 +107,83 @@
   background: var(--color-gold);
   color: var(--color-parchment);
 }
+
+/* Settings panel */
+.settingsPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: var(--color-parchment-dark);
+  border: 2px solid var(--color-gold);
+  border-radius: 6px;
+  padding: 24px;
+}
+
+.settingsHeading {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--color-text);
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+
+.settingsFields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fieldLabel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--color-text);
+  gap: 12px;
+}
+
+.colorInput {
+  width: 48px;
+  height: 32px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 2px;
+  background: transparent;
+}
+
+.fontSelect {
+  flex: 1;
+  max-width: 240px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  background: var(--color-parchment);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.settingsActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.continueBtn {
+  background: var(--color-gold);
+  border: 1px solid var(--color-gold);
+  border-radius: 4px;
+  color: var(--color-parchment);
+  font-size: 0.85rem;
+  padding: 8px 20px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
+
+.continueBtn:hover {
+  background: var(--color-gold-light);
+  border-color: var(--color-gold-light);
+}
