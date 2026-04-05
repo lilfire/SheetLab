@@ -1,0 +1,19 @@
+/* Three-column template: owns all grid layout and CSS variable overrides. */
+
+[data-template="three-column"] {
+  --color-parchment: #f0f4f8;
+}
+
+[data-template="three-column"] .sheet-grid {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+    "header      header       portrait"
+    "raceclass   raceclass    raceclass"
+    "ability     saving       featurePrimary"
+    "passive     combat       featurePrimary"
+    "insp        combat       featureSecondary"
+    "background  hp           featureSecondary"
+    "traits      attacks      subclassFeats"
+    "abilities   equipment    subclassFeats"
+    "proficiency proficiency  subclassFeats";
+}

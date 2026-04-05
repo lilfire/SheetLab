@@ -27,7 +27,6 @@ export default function SheetPreview({ character, preset, template, templateSett
   if (templateSettings?.accentColor) userOverrides['--color-gold'] = templateSettings.accentColor
   if (templateSettings?.fontFamily) userOverrides['--font-serif'] = templateSettings.fontFamily
 
-  const gridClass = tpl.layout === 'three-column' ? styles.threeColumnGrid : styles.twoColumnGrid
   const templateId = tpl.id
 
   function handlePrint() {
@@ -48,7 +47,7 @@ export default function SheetPreview({ character, preset, template, templateSett
 
       {/* A4 sheet */}
       <div className={`sheet-preview ${styles.sheet}`} data-template={tpl.layout} style={userOverrides}>
-        <div className={`sheet-grid ${styles.grid} ${gridClass}`}>
+        <div className={`sheet-grid ${styles.grid}`}>
 
           <div className={styles.headerArea}>
             <HeaderBanner character={character} templateId={templateId} />

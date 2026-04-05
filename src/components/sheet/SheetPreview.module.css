@@ -63,39 +63,6 @@
   gap: 4px;
 }
 
-/* Two-column CSS Grid layout */
-.twoColumnGrid {
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    "header   portrait"
-    "raceclass raceclass"
-    "background background"
-    "ability  saving"
-    "passive  saving"
-    "insp     saving"
-    "combat   combat"
-    "hp       featurePrimary"
-    "traits   featureSecondary"
-    "abilities subclassFeats"
-    "attacks  subclassFeats"
-    "equipment subclassFeats"
-    "proficiency subclassFeats";
-}
-
-/* Three-column CSS Grid layout */
-.threeColumnGrid {
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-areas:
-    "header      header       portrait"
-    "raceclass   raceclass    raceclass"
-    "ability     saving       featurePrimary"
-    "passive     combat       featurePrimary"
-    "insp        combat       featureSecondary"
-    "background  hp           featureSecondary"
-    "traits      attacks      subclassFeats"
-    "abilities   equipment    subclassFeats"
-    "proficiency proficiency  subclassFeats";
-}
 
 .headerArea        { grid-area: header; }
 .portraitArea      { grid-area: portrait; }
