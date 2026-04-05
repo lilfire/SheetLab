@@ -15,9 +15,9 @@ export default function AbilitiesFeatures({ templateId }) {
         <tbody>
           {[...Array(6)].map((_, i) => (
             <tr key={i} className={styles.row}>
-              <td><input type="text" placeholder="Ability name" /></td>
-              <td><input type="text" placeholder="Class / Race" /></td>
-              <td><input type="text" placeholder="Brief description..." /></td>
+              <td><span className="write-line" /></td>
+              <td><span className="write-line" /></td>
+              <td><span className="write-line" /></td>
             </tr>
           ))}
         </tbody>

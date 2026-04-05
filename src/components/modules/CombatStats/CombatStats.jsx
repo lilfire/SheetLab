@@ -7,25 +7,25 @@ export default function CombatStats({ templateId }) {
       <div className={styles.stats}>
         <div className={styles.stat}>
           <div className={styles.circle}>
-            <input type="text" className={styles.value} placeholder="10" aria-label="Armor Class" />
+            <span className={styles.value} aria-label="Armor Class" />
           </div>
           <span className={styles.label}>Armor Class</span>
         </div>
         <div className={styles.stat}>
           <div className={styles.circle}>
-            <input type="text" className={styles.value} placeholder="30" aria-label="Speed" />
+            <span className={styles.value} aria-label="Speed" />
           </div>
           <span className={styles.label}>Speed</span>
         </div>
         <div className={styles.stat}>
           <div className={styles.circle}>
-            <input type="text" className={styles.value} placeholder="+0" aria-label="Initiative" />
+            <span className={styles.value} aria-label="Initiative" />
           </div>
           <span className={styles.label}>Initiative</span>
         </div>
         <div className={styles.stat}>
           <div className={styles.circle}>
-            <input type="text" className={styles.value} placeholder="+2" aria-label="Proficiency Bonus" />
+            <span className={styles.value} aria-label="Proficiency Bonus" />
           </div>
           <span className={styles.label}>Prof. Bonus</span>
         </div>

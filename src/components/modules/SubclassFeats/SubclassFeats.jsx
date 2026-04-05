@@ -12,7 +12,7 @@ export default function SubclassFeats({ preset, templateId }) {
         {[...Array(slots)].map((_, i) => (
           <li key={i} className={styles.slot}>
             <span className={styles.index}>{i + 1}.</span>
-            <input type="text" placeholder={`Feat ${i + 1}...`} />
+            <span className="write-line" />
           </li>
         ))}
       </ul>

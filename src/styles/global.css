@@ -47,23 +47,25 @@ body {
   letter-spacing: 0.05em;
 }
 
-/* Input shared style */
-input[type='text'],
-input[type='number'],
-textarea {
-  font-family: var(--font-sans);
+/* Static write-in line (replaces input[type=text] for pen-filling) */
+.write-line {
+  display: inline-block;
+  width: 100%;
+  border-bottom: 1px solid var(--color-text-light);
+  min-height: 1.2em;
+  padding: 1px 2px;
   font-size: 0.8rem;
   color: var(--color-text);
   background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--color-text-light);
-  width: 100%;
-  padding: 1px 2px;
-  outline: none;
 }
 
-input[type='text']:focus,
-input[type='number']:focus,
-textarea:focus {
-  border-bottom-color: var(--color-gold);
+/* Pen-fill circle (replaces checkbox for pen-filling) */
+.pen-checkbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  line-height: 1;
+  user-select: none;
 }

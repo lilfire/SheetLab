@@ -34,22 +34,17 @@
 }
 
 .scoreInput {
+  display: inline-block;
   font-family: var(--font-serif);
   font-size: 1rem;
   font-weight: bold;
   text-align: center;
   color: var(--color-text);
   background: transparent;
-  border: none;
   border-bottom: 1px solid var(--color-text-light);
   width: 36px;
-  outline: none;
   padding: 0;
-}
-
-.scoreInput::placeholder {
-  color: var(--color-text-light);
-  opacity: 0.5;
+  min-height: 1.2em;
 }
 
 .modifierBubble {

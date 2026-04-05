@@ -7,15 +7,15 @@ export default function PassiveStats({ templateId }) {
       <div className={styles.stats}>
         <div className={styles.stat}>
           <span className={styles.label}>Passive Perception</span>
-          <input type="text" className={styles.value} placeholder="10" />
+          <span className={styles.value} />
         </div>
         <div className={styles.stat}>
           <span className={styles.label}>Passive Investigation</span>
-          <input type="text" className={styles.value} placeholder="10" />
+          <span className={styles.value} />
         </div>
         <div className={styles.stat}>
           <span className={styles.label}>Passive Insight</span>
-          <input type="text" className={styles.value} placeholder="10" />
+          <span className={styles.value} />
         </div>
       </div>
     </section>

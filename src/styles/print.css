@@ -32,10 +32,8 @@
     display: grid !important;
   }
 
-  /* Remove interactive borders */
-  input[type='text'],
-  input[type='number'],
-  textarea {
+  /* Ensure write-in lines print clearly */
+  .write-line {
     border-bottom: 1px solid #999;
   }
 

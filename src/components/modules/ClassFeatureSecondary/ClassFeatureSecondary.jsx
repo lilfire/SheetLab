@@ -11,7 +11,7 @@ export default function ClassFeatureSecondary({ preset, templateId }) {
         <p className={styles.description}>{feature?.description ?? 'Select a class to populate this feature.'}</p>
       </div>
       <div className={styles.notes}>
-        <input type="text" placeholder="Notes..." />
+        <span className="write-line" />
       </div>
     </section>
   )

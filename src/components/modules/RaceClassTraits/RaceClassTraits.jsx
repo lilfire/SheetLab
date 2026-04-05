@@ -16,7 +16,7 @@ export default function RaceClassTraits({ preset, templateId }) {
         {/* Extra blank rows for handwriting */}
         {[...Array(Math.max(0, 6 - traits.length))].map((_, i) => (
           <li key={`blank-${i}`} className={styles.blank}>
-            <input type="text" placeholder="Additional trait..." />
+            <span className="write-line" />
           </li>
         ))}
       </ul>

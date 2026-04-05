@@ -32,17 +32,17 @@
 }
 
 .value {
-  width: 40px !important;
+  display: inline-block;
+  width: 40px;
   text-align: center;
   font-family: var(--font-serif);
   font-size: 1rem;
   font-weight: bold;
   color: var(--color-text);
   background: transparent;
-  border: none !important;
-  border-bottom: 1px solid var(--color-text-light) !important;
-  outline: none;
+  border-bottom: 1px solid var(--color-text-light);
   padding: 0;
+  min-height: 1.2em;
 }
 
 .label {
