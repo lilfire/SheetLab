@@ -48,6 +48,67 @@
   background: rgba(255,255,255,0.15);
 }
 
+.editBtn {
+  background: none;
+  border: 1px solid #8b6914;
+  border-radius: 4px;
+  color: #c4991f;
+  font-size: 0.8rem;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.editBtn:hover {
+  background: rgba(139, 105, 20, 0.2);
+}
+
+.editBtnActive {
+  background: rgba(139, 105, 20, 0.3);
+  border-color: #c4991f;
+  color: #f5f0e8;
+}
+
+/* ── Edit-mode overlay ───────────────────────────────────────── */
+
+/*
+ * The remove button lives inside every module slot div.
+ * It is always in the DOM but hidden by default so that toggling
+ * edit mode (a CSS class change on the wrapper) does not force
+ * the module components to re-render.
+ */
+.removeBtn {
+  display: none;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 10;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  background: rgba(44, 26, 14, 0.85);
+  border: 1px solid #8b6914;
+  border-radius: 50%;
+  color: #c4991f;
+  font-size: 0.65rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.removeBtn:hover {
+  background: #8b1414;
+  border-color: #c43f3f;
+  color: #fff;
+}
+
+/* Show remove buttons when wrapper has editMode class */
+.editMode .removeBtn {
+  display: flex;
+}
+
 /* A4 sheet */
 .sheet {
   width: 210mm;
@@ -63,6 +124,28 @@
   gap: 4px;
 }
 
+
+/* All area slots need position:relative for the remove-button overlay */
+.headerArea,
+.portraitArea,
+.raceClassArea,
+.backgroundArea,
+.abilityArea,
+.passiveArea,
+.inspirationArea,
+.savingArea,
+.combatArea,
+.hpArea,
+.featurePrimaryArea,
+.traitsArea,
+.featureSecondaryArea,
+.abilitiesFeaturesArea,
+.subclassFeatsArea,
+.attacksArea,
+.equipmentArea,
+.proficiencyArea {
+  position: relative;
+}
 
 .headerArea        { grid-area: header; }
 .portraitArea      { grid-area: portrait; }
@@ -82,3 +165,26 @@
 .attacksArea       { grid-area: attacks; }
 .equipmentArea     { grid-area: equipment; }
 .proficiencyArea   { grid-area: proficiency; }
+
+/* In edit mode, highlight all slots with a dashed outline */
+.editMode .headerArea,
+.editMode .portraitArea,
+.editMode .raceClassArea,
+.editMode .backgroundArea,
+.editMode .abilityArea,
+.editMode .passiveArea,
+.editMode .inspirationArea,
+.editMode .savingArea,
+.editMode .combatArea,
+.editMode .hpArea,
+.editMode .featurePrimaryArea,
+.editMode .traitsArea,
+.editMode .featureSecondaryArea,
+.editMode .abilitiesFeaturesArea,
+.editMode .subclassFeatsArea,
+.editMode .attacksArea,
+.editMode .equipmentArea,
+.editMode .proficiencyArea {
+  outline: 1px dashed rgba(139, 105, 20, 0.5);
+  outline-offset: -1px;
+}
