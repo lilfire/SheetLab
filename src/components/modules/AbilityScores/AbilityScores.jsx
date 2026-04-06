@@ -1,6 +1,7 @@
 import defaultStyles from './AbilityScores.module.css'
 import modernStyles from './AbilityScores.modern.module.css'
 import { mergeStyles } from '../../../utils/mergeStyles'
+import { cx } from '../../../utils/cx'
 
 const TEMPLATE_MAP = { modern: modernStyles }
 
@@ -18,8 +19,8 @@ export default function AbilityScores({ preset, templateId }) {
   const proficiencies = preset?.defaultSkillProficiencies ?? []
 
   return (
-    <section className={`module-box ${styles.abilities}`}>
-      <h3 className="section-header">Ability Scores</h3>
+    <section className={cx('module-box', styles.moduleBox, styles.abilities)}>
+      <h3 className={cx('section-header', styles.sectionHeader)}>Ability Scores</h3>
       <div className={styles.grid}>
         {ABILITIES.map(({ key, label, full, save, skills }) => (
           <div key={key} className={styles.abilityColumn}>

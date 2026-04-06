@@ -1,6 +1,7 @@
 import defaultStyles from './ClassFeatureSecondary.module.css'
 import modernStyles from './ClassFeatureSecondary.modern.module.css'
 import { mergeStyles } from '../../../utils/mergeStyles'
+import { cx } from '../../../utils/cx'
 
 const TEMPLATE_MAP = { modern: modernStyles }
 
@@ -9,8 +10,8 @@ export default function ClassFeatureSecondary({ preset, templateId }) {
   const feature = preset?.modules?.classFeatureSecondary
 
   return (
-    <section className={`module-box ${styles.feature}`}>
-      <h3 className="section-header">Class Feature (Secondary)</h3>
+    <section className={cx('module-box', styles.moduleBox, styles.feature)}>
+      <h3 className={cx('section-header', styles.sectionHeader)}>Class Feature (Secondary)</h3>
       <div className={styles.content}>
         <p className={styles.title}>{feature?.title ?? 'Secondary Feature'}</p>
         <p className={styles.description}>{feature?.description ?? 'Select a class to populate this feature.'}</p>
@@ -24,14 +25,14 @@ export default function ClassFeatureSecondary({ preset, templateId }) {
         </div>
         {[1, 2, 3, 4, 5, 6].map((i) => (
           <div key={i} className={styles.usageRow}>
-            <span className="pen-checkbox">○</span>
-            <span className="write-line" />
-            <span className="write-line" />
+            <span className={cx('pen-checkbox', styles.penCheckbox)}>○</span>
+            <span className={cx('write-line', styles.writeLine)} />
+            <span className={cx('write-line', styles.writeLine)} />
           </div>
         ))}
       </div>
       <div className={styles.notes}>
-        <span className="write-line" />
+        <span className={cx('write-line', styles.writeLine)} />
       </div>
     </section>
   )

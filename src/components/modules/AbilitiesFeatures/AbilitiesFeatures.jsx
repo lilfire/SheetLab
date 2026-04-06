@@ -1,14 +1,15 @@
 import defaultStyles from './AbilitiesFeatures.module.css'
 import modernStyles from './AbilitiesFeatures.modern.module.css'
 import { mergeStyles } from '../../../utils/mergeStyles'
+import { cx } from '../../../utils/cx'
 
 const TEMPLATE_MAP = { modern: modernStyles }
 
 export default function AbilitiesFeatures({ templateId }) {
   const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
   return (
-    <section className={`module-box ${styles.abilities}`}>
-      <h3 className="section-header">Abilities &amp; Features</h3>
+    <section className={cx('module-box', styles.moduleBox, styles.abilities)}>
+      <h3 className={cx('section-header', styles.sectionHeader)}>Abilities &amp; Features</h3>
       <table className={styles.table}>
         <thead>
           <tr>
@@ -20,9 +21,9 @@ export default function AbilitiesFeatures({ templateId }) {
         <tbody>
           {[...Array(6)].map((_, i) => (
             <tr key={i} className={styles.row}>
-              <td><span className="write-line" /></td>
-              <td><span className="write-line" /></td>
-              <td><span className="write-line" /></td>
+              <td><span className={cx('write-line', styles.writeLine)} /></td>
+              <td><span className={cx('write-line', styles.writeLine)} /></td>
+              <td><span className={cx('write-line', styles.writeLine)} /></td>
             </tr>
           ))}
         </tbody>
