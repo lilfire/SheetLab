@@ -1,6 +1,7 @@
 import defaultStyles from './SavingThrowsSkills.module.css'
 import modernStyles from './SavingThrowsSkills.modern.module.css'
 import { mergeStyles } from '../../../utils/mergeStyles'
+import { cx } from '../../../utils/cx'
 
 const TEMPLATE_MAP = { modern: modernStyles }
 
@@ -32,9 +33,9 @@ export default function SavingThrowsSkills({ preset, templateId }) {
   const proficiencies = preset?.defaultSkillProficiencies ?? []
 
   return (
-    <section className={`module-box ${styles.savingSkills}`}>
+    <section className={cx('module-box', styles.moduleBox, styles.savingSkills)}>
       <div className={styles.savingThrows}>
-        <h3 className="section-header">Saving Throws</h3>
+        <h3 className={cx('section-header', styles.sectionHeader)}>Saving Throws</h3>
         {SAVING_THROWS.map((ability) => (
           <div key={ability} className={styles.row}>
             <span className={styles.check} aria-label={`${ability} saving throw proficiency`}>○</span>
@@ -45,7 +46,7 @@ export default function SavingThrowsSkills({ preset, templateId }) {
       </div>
 
       <div className={styles.skills}>
-        <h3 className="section-header">Skills</h3>
+        <h3 className={cx('section-header', styles.sectionHeader)}>Skills</h3>
         {SKILLS.map(({ name, ability }) => (
           <div key={name} className={styles.row}>
             <span

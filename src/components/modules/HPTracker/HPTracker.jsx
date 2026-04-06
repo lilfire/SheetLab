@@ -1,14 +1,15 @@
 import defaultStyles from './HPTracker.module.css'
 import modernStyles from './HPTracker.modern.module.css'
 import { mergeStyles } from '../../../utils/mergeStyles'
+import { cx } from '../../../utils/cx'
 
 const TEMPLATE_MAP = { modern: modernStyles }
 
 export default function HPTracker({ templateId }) {
   const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
   return (
-    <section className={`module-box ${styles.hpTracker}`}>
-      <h3 className="section-header">Hit Points</h3>
+    <section className={cx('module-box', styles.moduleBox, styles.hpTracker)}>
+      <h3 className={cx('section-header', styles.sectionHeader)}>Hit Points</h3>
 
       {/* Ring layout: 3 circles (maxHP — mainHP — tempHP) with connectors */}
       <div className={styles.ringLayout}>
@@ -47,13 +48,13 @@ export default function HPTracker({ templateId }) {
       {/* Hit Dice row — hidden by default, shown in modern */}
       <div className={styles.hitDiceRow}>
         <span className={styles.hitDiceLabel}>Hit Dice</span>
-        <span className="write-line" aria-label="Hit Dice" />
+        <span className={cx('write-line', styles.writeLine)} aria-label="Hit Dice" />
       </div>
 
       {/* Inline temp HP — shown by default, hidden in modern */}
       <div className={styles.tempHp}>
         <span className={styles.tempLabel}>Temporary HP</span>
-        <span className="write-line" aria-label="Temporary HP" />
+        <span className={cx('write-line', styles.writeLine)} aria-label="Temporary HP" />
       </div>
 
       <div className={styles.deathSaves}>

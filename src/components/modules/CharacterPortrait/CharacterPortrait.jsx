@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import defaultStyles from './CharacterPortrait.module.css'
 import modernStyles from './CharacterPortrait.modern.module.css'
 import { mergeStyles } from '../../../utils/mergeStyles'
+import { cx } from '../../../utils/cx'
 
 const TEMPLATE_MAP = { modern: modernStyles }
 
@@ -19,8 +20,8 @@ export default function CharacterPortrait({ templateId }) {
   }
 
   return (
-    <section className={`module-box ${styles.portrait}`}>
-      <h3 className="section-header">Portrait</h3>
+    <section className={cx('module-box', styles.moduleBox, styles.portrait)}>
+      <h3 className={cx('section-header', styles.sectionHeader)}>Portrait</h3>
       <div className={styles.frame} onClick={() => inputRef.current?.click()}>
         {imageSrc ? (
           <img src={imageSrc} alt="Character portrait" className={styles.image} />
@@ -34,7 +35,7 @@ export default function CharacterPortrait({ templateId }) {
           ref={inputRef}
           type="file"
           accept="image/*"
-          className={`no-print ${styles.fileInput}`}
+          className={cx('no-print', styles.fileInput)}
           aria-label="Upload character portrait"
           onChange={handleFile}
         />
