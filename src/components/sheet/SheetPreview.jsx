@@ -57,8 +57,6 @@ function useRenderMap(character, preset, templateId) {
  * SheetGrid renders the A4 sheet with all visible modules inside a DnD context.
  * Memoized so that parent state changes don't remount module children.
  */
-const SHEET_PADDING_MM = 8
-
 const SheetGrid = memo(function SheetGrid({
   character, preset, templateId, tpl, userOverrides,
   layoutConfig, isEditMode, onRemove, onSwapAreas, onColSpan, onRowSpan,
@@ -73,11 +71,6 @@ const SheetGrid = memo(function SheetGrid({
       onSwapAreas(String(active.id), String(over.id))
     }
   }
-
-  // Convert padding from mm to px using the sheet's rendered width
-  const paddingPx = sheetRef.current
-    ? SHEET_PADDING_MM * (sheetRef.current.offsetWidth / 210)
-    : 0
 
   return (
     <DndContext onDragEnd={handleDragEnd}>
@@ -116,7 +109,7 @@ const SheetGrid = memo(function SheetGrid({
           <div
             key={pageNumber}
             className={`no-print ${styles.pageBreakLine}`}
-            style={{ top: `${yPx + paddingPx}px` }}
+            style={{ top: `${yPx}px` }}
           >
             <span className={styles.pageLabel}>Page {pageNumber}</span>
           </div>

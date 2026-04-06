@@ -4,10 +4,12 @@
     --color-parchment-dark: #f0f0f0;
   }
 
-  /* A4: 210mm × 297mm */
+  /* A4: 210mm × 297mm — margin: 0 so page breaks align regardless of
+     the user's print-dialog margin setting. The sheet's own padding
+     provides visual spacing on the first page. */
   @page {
     size: A4 portrait;
-    margin: 8mm 0;
+    margin: 0;
   }
 
   body {
@@ -22,13 +24,12 @@
     display: none !important;
   }
 
-  /* Sheet fills the page — padding must be 0 so @page margin handles
-     per-page spacing (sheet padding only applies once, not per page). */
+  /* Sheet fills the page — keep the sheet's own padding so content
+     doesn't sit flush against the page edge. */
   .sheet-preview {
     width: 100%;
     min-height: 100%;
     margin: 0;
-    padding: 0 !important;
     box-shadow: none;
     page-break-after: avoid;
   }
