@@ -12,11 +12,12 @@ import styles from './SheetPreview.module.css'
  *   isEditMode  — whether edit mode is active; shows drag handle when true
  *   onRemove    — called when the remove button is clicked
  *   onColSpan   — called with (key, delta) to adjust column span
+ *   styleOverrides — optional CSS style object (background, border, etc.)
  *   children    — the module component to render inside
  */
 export default function DraggableModule({
   id, areaClass, row, col, rowSpan, colSpan,
-  maxColumns, isEditMode, onRemove, onColSpan, children,
+  maxColumns, isEditMode, onRemove, onColSpan, styleOverrides = {}, children,
 }) {
   const { attributes, listeners, setNodeRef: setDragRef, transform, isDragging } = useDraggable({ id })
   const { setNodeRef: setDropRef, isOver } = useDroppable({ id })
@@ -31,6 +32,7 @@ export default function DraggableModule({
     gridColumnStart: col,
     gridColumnEnd: col + colSpan,
     overflow: 'hidden',
+    ...styleOverrides,
     ...(transformStyle && { transform: transformStyle, zIndex: 20 }),
     ...(isDragging && { opacity: 0.45 }),
     ...(isOver && isEditMode && { boxShadow: '0 0 0 2px #8b6914' }),
