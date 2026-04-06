@@ -47,6 +47,7 @@ export default function DraggableModule({
       ref={(el) => { setDragRef(el); setDropRef(el) }}
       style={style}
       className={styles[areaClass]}
+      data-module-key={id}
     >
       {isEditMode && (
         <button

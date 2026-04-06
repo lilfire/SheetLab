@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo, useState } from 'react'
+import { memo, useCallback, useMemo, useRef, useState } from 'react'
 import { DndContext } from '@dnd-kit/core'
 import HeaderBanner from '../modules/HeaderBanner/HeaderBanner.jsx'
 import CharacterPortrait from '../modules/CharacterPortrait/CharacterPortrait.jsx'
@@ -23,6 +23,7 @@ import { MODULE_REGISTRY, buildInitialLayoutConfig } from '../../data/moduleRegi
 import { reflowLayout } from '../../data/layoutReflow.js'
 import DraggableModule from './DraggableModule.jsx'
 import ComponentPicker from './ComponentPicker.jsx'
+import usePageBreaks from '../../hooks/usePageBreaks.js'
 import styles from './SheetPreview.module.css'
 
 /**
@@ -56,11 +57,16 @@ function useRenderMap(character, preset, templateId) {
  * SheetGrid renders the A4 sheet with all visible modules inside a DnD context.
  * Memoized so that parent state changes don't remount module children.
  */
+const SHEET_PADDING_MM = 8
+
 const SheetGrid = memo(function SheetGrid({
   character, preset, templateId, tpl, userOverrides,
   layoutConfig, isEditMode, onRemove, onSwapAreas, onColSpan, onRowSpan,
 }) {
+  const sheetRef = useRef(null)
+  const gridRef = useRef(null)
   const renderMap = useRenderMap(character, preset, templateId)
+  const { pageBreakLines } = usePageBreaks(gridRef, sheetRef, [layoutConfig])
 
   function handleDragEnd({ active, over }) {
     if (over && active.id !== over.id) {
@@ -68,14 +74,20 @@ const SheetGrid = memo(function SheetGrid({
     }
   }
 
+  // Convert padding from mm to px using the sheet's rendered width
+  const paddingPx = sheetRef.current
+    ? SHEET_PADDING_MM * (sheetRef.current.offsetWidth / 210)
+    : 0
+
   return (
     <DndContext onDragEnd={handleDragEnd}>
       <div
+        ref={sheetRef}
         className={`sheet-preview ${styles.sheet}`}
         data-template={tpl.layout}
         style={userOverrides}
       >
-        <div className={`sheet-grid ${styles.grid}`}>
+        <div ref={gridRef} className={`sheet-grid ${styles.grid}`}>
           {MODULE_REGISTRY.map((mod) => {
             const lc = layoutConfig[mod.key]
             if (!lc.visible) return null
@@ -100,6 +112,15 @@ const SheetGrid = memo(function SheetGrid({
             )
           })}
         </div>
+        {pageBreakLines.map(({ yPx, pageNumber }) => (
+          <div
+            key={pageNumber}
+            className={`no-print ${styles.pageBreakLine}`}
+            style={{ top: `${yPx + paddingPx}px` }}
+          >
+            <span className={styles.pageLabel}>Page {pageNumber}</span>
+          </div>
+        ))}
       </div>
     </DndContext>
   )
