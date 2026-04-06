@@ -35,11 +35,11 @@ function getSheetGrid(container) {
 
 /**
  * Returns all DraggableModule wrapper divs inside the sheet grid.
- * Each visible module produces a direct child div with gridRow/gridColumn styles.
+ * Each visible module produces a direct child div with gridRowStart/gridColumnStart styles.
  */
 function getVisibleModuleSlots(container) {
   const grid = getSheetGrid(container)
-  return Array.from(grid.children).filter((el) => el.style.gridRow)
+  return Array.from(grid.children).filter((el) => el.style.gridRowStart)
 }
 
 /* ── Test Suite ─────────────────────────────────────────────── */
@@ -57,8 +57,8 @@ describe('SheetPreview – Print Layout QA', () => {
       const { container } = render(<SheetPreview {...defaultProps()} />)
       const slots = getVisibleModuleSlots(container)
       for (const slot of slots) {
-        expect(slot.style.gridRow).toBeTruthy()
-        expect(slot.style.gridColumn).toBeTruthy()
+        expect(slot.style.gridRowStart).toBeTruthy()
+        expect(slot.style.gridColumnStart).toBeTruthy()
       }
     })
 
@@ -271,8 +271,8 @@ describe('SheetPreview – Print Layout QA', () => {
       const slots = getVisibleModuleSlots(container)
       expect(slots).toHaveLength(MODULE_REGISTRY.length)
       for (const slot of slots) {
-        expect(slot.style.gridRow).toBeTruthy()
-        expect(slot.style.gridColumn).toBeTruthy()
+        expect(slot.style.gridRowStart).toBeTruthy()
+        expect(slot.style.gridColumnStart).toBeTruthy()
       }
     })
   })

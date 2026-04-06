@@ -26,8 +26,11 @@ export default function DraggableModule({
     : undefined
 
   const style = {
-    gridRow: `${row} / span ${rowSpan}`,
-    gridColumn: `${col} / span ${colSpan}`,
+    gridRowStart: row,
+    gridRowEnd: row + rowSpan,
+    gridColumnStart: col,
+    gridColumnEnd: col + colSpan,
+    overflow: 'hidden',
     ...(transformStyle && { transform: transformStyle, zIndex: 20 }),
     ...(isDragging && { opacity: 0.45 }),
     ...(isOver && isEditMode && { boxShadow: '0 0 0 2px #8b6914' }),

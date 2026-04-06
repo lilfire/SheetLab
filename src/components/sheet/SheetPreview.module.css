@@ -158,6 +158,7 @@
 .grid {
   display: grid;
   gap: 4px;
+  grid-auto-rows: min-content;
 }
 
 
