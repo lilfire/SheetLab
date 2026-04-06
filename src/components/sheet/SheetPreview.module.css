@@ -8,6 +8,14 @@
   gap: 16px;
 }
 
+@media print {
+  .wrapper {
+    background: none;
+    padding: 0;
+    gap: 0;
+  }
+}
+
 /* Toolbar above the sheet */
 .toolbar {
   display: flex;
