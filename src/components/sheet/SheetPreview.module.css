@@ -261,9 +261,25 @@
   padding: 3px;
 }
 
-/* Zebra rows, column separators, and padding are applied
-   via inline styles in DraggableModule.jsx to guarantee
-   they override module backgrounds.                         */
+/* ── Zebra striping ──────────────────────────────────────── */
+
+.editMode .grid > *:nth-child(odd) {
+  background-color: rgba(139, 105, 20, 0.15);
+  padding: 3px;
+  border-radius: 4px;
+}
+
+.editMode .grid > *:nth-child(even) {
+  background-color: rgba(139, 105, 20, 0.05);
+  padding: 3px;
+  border-radius: 4px;
+}
+
+/* ── Column separator lines ──────────────────────────────── */
+
+.editMode .grid > *:not(:first-child) {
+  border-left: 2px solid rgba(139, 105, 20, 0.3);
+}
 
 /* ── Column shift controls ───────────────────────────────── */
 
