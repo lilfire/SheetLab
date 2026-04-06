@@ -159,8 +159,17 @@
   display: grid;
   gap: 4px;
   grid-auto-rows: min-content;
+  align-items: start;
 }
 
+
+/* Spanning modules that should fill their grid area */
+.savingArea,
+.featurePrimaryArea,
+.featureSecondaryArea,
+.subclassFeatsArea {
+  align-self: stretch;
+}
 
 /* All area slots need position:relative for the remove-button overlay */
 .headerArea,
