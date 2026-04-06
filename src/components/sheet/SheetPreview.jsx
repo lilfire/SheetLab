@@ -86,6 +86,7 @@ const SheetGrid = memo(function SheetGrid({
                 gridArea={lc.gridArea}
                 isEditMode={isEditMode}
                 onRemove={() => onRemove(mod.key)}
+                styleOverrides={lc.style || {}}
               >
                 {renderMap[mod.key]}
               </DraggableModule>
@@ -97,10 +98,10 @@ const SheetGrid = memo(function SheetGrid({
   )
 })
 
-export default function SheetPreview({ character, preset, template, templateSettings, onReset }) {
+export default function SheetPreview({ character, preset, template, templateSettings, initialModuleStyles = {}, onReset }) {
   const tpl = useMemo(() => getTemplate(template), [template])
   const [isEditMode, setIsEditMode] = useState(false)
-  const [layoutConfig, setLayoutConfig] = useState(buildInitialLayoutConfig)
+  const [layoutConfig, setLayoutConfig] = useState(() => buildInitialLayoutConfig(initialModuleStyles))
 
   const userOverrides = useMemo(() => {
     const o = {}
