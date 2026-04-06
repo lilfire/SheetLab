@@ -43,3 +43,26 @@
 .item span {
   font-size: 0.7rem;
 }
+
+/* ── Modern template ─────────────────────────────────────────── */
+
+.modern {
+  border-radius: var(--modern-radius);
+  box-shadow: var(--modern-shadow);
+  border: 1px solid rgba(107, 76, 42, 0.18);
+  padding: 8px 10px;
+}
+
+.modern .capacity {
+  border-bottom-color: rgba(107, 76, 42, 0.2);
+}
+
+.modern .capacityLabel {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.62rem;
+  color: #6b4c2a;
+}
+
+.modern .capacityValue {
+  border-bottom-color: rgba(107, 76, 42, 0.2);
+}

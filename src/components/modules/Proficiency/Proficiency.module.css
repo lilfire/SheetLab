@@ -25,3 +25,29 @@
   padding: 0 3px;
   letter-spacing: 0.04em;
 }
+
+/* ── Modern template ─────────────────────────────────────────── */
+
+.modern {
+  border-radius: var(--modern-radius);
+  box-shadow: var(--modern-shadow);
+  border: 1px solid rgba(107, 76, 42, 0.18);
+  padding: 8px 10px;
+}
+
+.modern .group {
+  border: 1px solid rgba(107, 76, 42, 0.2);
+  border-radius: 6px;
+  background: rgba(107, 76, 42, 0.03);
+  padding: 5px 8px;
+}
+
+.modern .groupLabel {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-variant: normal;
+  text-transform: uppercase;
+  font-size: 0.5rem;
+  font-weight: 700;
+  color: #6b4c2a;
+  letter-spacing: 0.06em;
+}

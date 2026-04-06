@@ -65,3 +65,48 @@
   font-weight: bold;
   color: var(--color-text);
 }
+
+/* ── Modern template ─────────────────────────────────────────── */
+
+.modern {
+  border-radius: var(--modern-radius);
+  box-shadow: var(--modern-shadow);
+  border: 1px solid rgba(107, 76, 42, 0.18);
+  padding: 8px 10px;
+}
+
+.modern .grid {
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.modern .shield {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(180deg, #e8dfd0 0%, #ddd4c2 100%);
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 4px 14px;
+}
+
+.modern .abilityLabel {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-variant: normal;
+  text-transform: uppercase;
+  font-size: 0.5rem;
+  font-weight: 700;
+  color: #6b4c2a;
+  letter-spacing: 0.08em;
+}
+
+.modern .modifierBubble {
+  background: #6b4c2a;
+  border-color: #6b4c2a;
+  width: 24px;
+  height: 24px;
+  bottom: 6px;
+}
+
+.modern .modifier {
+  color: #f5f0e8;
+  font-size: 0.6rem;
+}

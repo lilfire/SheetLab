@@ -31,3 +31,27 @@
 .row td input {
   font-size: 0.7rem;
 }
+
+/* ── Modern template ─────────────────────────────────────────── */
+
+.modern {
+  border-radius: var(--modern-radius);
+  box-shadow: var(--modern-shadow);
+  border: 1px solid rgba(107, 76, 42, 0.18);
+  padding: 8px 10px;
+}
+
+.modern .th {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-variant: normal;
+  text-transform: uppercase;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #6b4c2a;
+  border-bottom-color: rgba(107, 76, 42, 0.3);
+  letter-spacing: 0.06em;
+}
+
+.modern .row td {
+  border-bottom-color: rgba(107, 76, 42, 0.1);
+}
