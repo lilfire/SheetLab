@@ -38,6 +38,9 @@ export default function usePageBreaks(gridRef, sheetRef, deps = []) {
       el.style.marginTop = ''
     }
 
+    // Offset from the sheet top to the grid top (accounts for sheet padding)
+    const gridTop = grid.offsetTop
+
     // Iterative pass: measure → fix → re-measure
     for (let pass = 0; pass < MAX_ITERATIONS; pass++) {
       let adjusted = false
@@ -51,7 +54,7 @@ export default function usePageBreaks(gridRef, sheetRef, deps = []) {
       )
 
       for (const el of sorted) {
-        const top = el.offsetTop
+        const top = el.offsetTop - gridTop
         const height = el.offsetHeight
         const bottom = top + height
 
