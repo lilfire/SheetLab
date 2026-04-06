@@ -30,8 +30,13 @@ export const MODULE_REGISTRY = [
 
 /**
  * Build the initial layoutConfig: all modules visible, each in its natural grid slot.
- * Returns { [key]: { visible: true, gridArea: string } }
+ * @param {Object} initialStyles - Optional map of { [moduleKey]: { backgroundColor?, borderColor?, borderStyle?, borderWidth? } }
+ * Returns { [key]: { visible: true, gridArea: string, style: object } }
  */
-export function buildInitialLayoutConfig() {
-  return Object.fromEntries(MODULE_REGISTRY.map((m) => [m.key, { visible: true, gridArea: m.gridArea }]))
+export function buildInitialLayoutConfig(initialStyles = {}) {
+  return Object.fromEntries(MODULE_REGISTRY.map((m) => [m.key, {
+    visible: true,
+    gridArea: m.gridArea,
+    style: initialStyles[m.key] || {},
+  }]))
 }
