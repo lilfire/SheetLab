@@ -39,7 +39,7 @@ export default function DraggableModule({
   }
 
   const canShrink = colSpan > 1
-  const canGrow = col + colSpan <= maxColumns
+  const canGrow = colSpan < maxColumns
 
   return (
     <div
