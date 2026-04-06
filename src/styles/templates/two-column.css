@@ -8,18 +8,4 @@
 
 [data-template="two-column"] .sheet-grid {
   grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    "header   portrait"
-    "raceclass raceclass"
-    "background background"
-    "ability  saving"
-    "passive  saving"
-    "insp     saving"
-    "combat   combat"
-    "hp       featurePrimary"
-    "traits   featureSecondary"
-    "abilities subclassFeats"
-    "attacks  subclassFeats"
-    "equipment subclassFeats"
-    "proficiency subclassFeats";
 }

@@ -17,17 +17,6 @@
 [data-template="modern"] .sheet-grid {
   grid-template-columns: 1fr 1.2fr 1fr;
   gap: 5px;
-  grid-template-areas:
-    "header       header        portrait"
-    "raceclass    raceclass     raceclass"
-    "ability      ability       ability"
-    "passive      saving        featurePrimary"
-    "insp         saving        featurePrimary"
-    "combat       hp            featureSecondary"
-    "background   hp            featureSecondary"
-    "traits       attacks       subclassFeats"
-    "abilities    attacks       subclassFeats"
-    "equipment    proficiency   subclassFeats";
 }
 
 /* ── Global module box overrides ─────────────────────────────── */

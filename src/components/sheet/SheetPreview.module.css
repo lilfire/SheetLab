@@ -183,24 +183,7 @@
   position: relative;
 }
 
-.headerArea        { grid-area: header; }
-.portraitArea      { grid-area: portrait; }
-.raceClassArea     { grid-area: raceclass; }
-.backgroundArea    { grid-area: background; }
-.abilityArea       { grid-area: ability; }
-.passiveArea       { grid-area: passive; }
-.inspirationArea   { grid-area: insp; }
-.savingArea        { grid-area: saving; }
-.combatArea        { grid-area: combat; }
-.hpArea            { grid-area: hp; }
-.featurePrimaryArea    { grid-area: featurePrimary; }
-.traitsArea        { grid-area: traits; }
-.featureSecondaryArea  { grid-area: featureSecondary; }
-.abilitiesFeaturesArea { grid-area: abilities; }
-.subclassFeatsArea { grid-area: subclassFeats; }
-.attacksArea       { grid-area: attacks; }
-.equipmentArea     { grid-area: equipment; }
-.proficiencyArea   { grid-area: proficiency; }
+/* Grid placement is now handled by inline styles (gridRow / gridColumn) */
 
 /* In edit mode, highlight all slots with a dashed outline */
 .editMode .headerArea,
@@ -223,4 +206,41 @@
 .editMode .proficiencyArea {
   outline: 1px dashed rgba(139, 105, 20, 0.5);
   outline-offset: -1px;
+}
+
+/* ── Column span controls ──────────────────────────────────── */
+
+.spanControls {
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+  z-index: 10;
+  display: flex;
+  gap: 2px;
+}
+
+.spanBtn {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(44, 26, 14, 0.75);
+  border: 1px solid #8b6914;
+  border-radius: 3px;
+  color: #c4991f;
+  font-size: 0.8rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.spanBtn:hover:not(:disabled) {
+  background: rgba(139, 105, 20, 0.6);
+}
+
+.spanBtn:disabled {
+  opacity: 0.3;
+  cursor: default;
 }

@@ -57,7 +57,7 @@ function useRenderMap(character, preset, templateId) {
  */
 const SheetGrid = memo(function SheetGrid({
   character, preset, templateId, tpl, userOverrides,
-  layoutConfig, isEditMode, onRemove, onSwapAreas,
+  layoutConfig, isEditMode, onRemove, onSwapAreas, onColSpan,
 }) {
   const renderMap = useRenderMap(character, preset, templateId)
 
@@ -83,9 +83,14 @@ const SheetGrid = memo(function SheetGrid({
                 key={mod.key}
                 id={mod.key}
                 areaClass={mod.areaClass}
-                gridArea={lc.gridArea}
+                row={lc.row}
+                col={lc.col}
+                rowSpan={lc.rowSpan}
+                colSpan={lc.colSpan}
+                maxColumns={tpl.columns}
                 isEditMode={isEditMode}
                 onRemove={() => onRemove(mod.key)}
+                onColSpan={onColSpan}
               >
                 {renderMap[mod.key]}
               </DraggableModule>
@@ -100,7 +105,7 @@ const SheetGrid = memo(function SheetGrid({
 export default function SheetPreview({ character, preset, template, templateSettings, onReset }) {
   const tpl = useMemo(() => getTemplate(template), [template])
   const [isEditMode, setIsEditMode] = useState(false)
-  const [layoutConfig, setLayoutConfig] = useState(buildInitialLayoutConfig)
+  const [layoutConfig, setLayoutConfig] = useState(() => buildInitialLayoutConfig(template))
 
   const userOverrides = useMemo(() => {
     const o = {}
@@ -120,13 +125,21 @@ export default function SheetPreview({ character, preset, template, templateSett
 
   const handleSwapAreas = useCallback((keyA, keyB) => {
     setLayoutConfig((prev) => {
-      const gridAreaA = prev[keyA].gridArea
-      const gridAreaB = prev[keyB].gridArea
+      const a = prev[keyA]
+      const b = prev[keyB]
       return {
         ...prev,
-        [keyA]: { ...prev[keyA], gridArea: gridAreaB },
-        [keyB]: { ...prev[keyB], gridArea: gridAreaA },
+        [keyA]: { ...a, row: b.row, col: b.col, rowSpan: b.rowSpan, colSpan: b.colSpan },
+        [keyB]: { ...b, row: a.row, col: a.col, rowSpan: a.rowSpan, colSpan: a.colSpan },
       }
+    })
+  }, [])
+
+  const handleColSpan = useCallback((key, delta) => {
+    setLayoutConfig((prev) => {
+      const lc = prev[key]
+      const newSpan = Math.max(1, lc.colSpan + delta)
+      return { ...prev, [key]: { ...lc, colSpan: newSpan } }
     })
   }, [])
 
@@ -163,6 +176,7 @@ export default function SheetPreview({ character, preset, template, templateSett
         isEditMode={isEditMode}
         onRemove={handleRemove}
         onSwapAreas={handleSwapAreas}
+        onColSpan={handleColSpan}
       />
 
       {/* ComponentPicker — shown only in edit mode, hidden on print */}
