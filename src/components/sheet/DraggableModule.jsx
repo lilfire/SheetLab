@@ -12,7 +12,7 @@ import styles from './SheetPreview.module.css'
  *   onRemove    — called when the remove button is clicked
  *   children    — the module component to render inside
  */
-export default function DraggableModule({ id, areaClass, gridArea, isEditMode, onRemove, children }) {
+export default function DraggableModule({ id, areaClass, gridArea, isEditMode, onRemove, styleOverrides = {}, children }) {
   const { attributes, listeners, setNodeRef: setDragRef, transform, isDragging } = useDraggable({ id })
   const { setNodeRef: setDropRef, isOver } = useDroppable({ id })
 
@@ -22,6 +22,7 @@ export default function DraggableModule({ id, areaClass, gridArea, isEditMode, o
 
   const style = {
     gridArea,
+    ...styleOverrides,
     ...(transformStyle && { transform: transformStyle, zIndex: 20 }),
     ...(isDragging && { opacity: 0.45 }),
     ...(isOver && isEditMode && { boxShadow: '0 0 0 2px #8b6914' }),

@@ -20,6 +20,7 @@ export default function App() {
         preset={sheetData.preset}
         template={sheetData.template}
         templateSettings={sheetData.templateSettings}
+        initialModuleStyles={sheetData.moduleStyles}
         onReset={handleReset}
       />
     )
