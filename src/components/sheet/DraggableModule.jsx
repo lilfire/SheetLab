@@ -22,9 +22,20 @@ export default function DraggableModule({ id, areaClass, gridArea, colSpan, isEd
     ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
     : undefined
 
+  // When colSpan > 1, we can't use the gridArea shorthand because it sets all
+  // 4 sub-properties and prevents gridColumnEnd from being overridden.
+  // Split into explicit row/column properties instead.
+  const gridStyles = colSpan > 1
+    ? {
+        gridRowStart: gridArea,
+        gridRowEnd: gridArea,
+        gridColumnStart: gridArea,
+        gridColumnEnd: `span ${colSpan}`,
+      }
+    : { gridArea }
+
   const style = {
-    gridArea,
-    ...(colSpan > 1 && { gridColumn: `span ${colSpan}` }),
+    ...gridStyles,
     ...(transformStyle && { transform: transformStyle, zIndex: 20 }),
     ...(isDragging && { opacity: 0.45 }),
     ...(isOver && isEditMode && { boxShadow: '0 0 0 2px #8b6914' }),
