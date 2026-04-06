@@ -33,5 +33,5 @@ export const MODULE_REGISTRY = [
  * Returns { [key]: { visible: true, gridArea: string } }
  */
 export function buildInitialLayoutConfig() {
-  return Object.fromEntries(MODULE_REGISTRY.map((m) => [m.key, { visible: true, gridArea: m.gridArea, colSpan: 1 }]))
+  return Object.fromEntries(MODULE_REGISTRY.map((m) => [m.key, { visible: true, gridArea: m.gridArea }]))
 }
