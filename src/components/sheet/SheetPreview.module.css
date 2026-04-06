@@ -264,14 +264,28 @@
 
 /* ── Edit mode: zebra rows (odd rows get a warm tint) ───────── */
 
-.editMode [data-grid-row-odd] {
-  box-shadow: inset 0 0 0 1000px rgba(139, 105, 20, 0.08);
+.editMode [data-grid-row-odd]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(139, 105, 20, 0.08);
+  pointer-events: none;
+  z-index: 1;
+  border-radius: inherit;
 }
 
 /* ── Edit mode: column separator lines ─────────────────────── */
 
-.editMode .grid > [data-grid-col]:not([data-grid-col="1"]) {
-  border-left: 2px dashed rgba(139, 105, 20, 0.35);
+.editMode .grid > [data-grid-col]:not([data-grid-col="1"])::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(139, 105, 20, 0.35);
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* ── Column shift controls ───────────────────────────────── */
