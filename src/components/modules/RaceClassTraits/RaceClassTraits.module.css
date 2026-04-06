@@ -39,3 +39,23 @@
   color: var(--color-text-light);
   font-style: italic;
 }
+
+/* ── Modern template ─────────────────────────────────────────── */
+
+.modern {
+  border-radius: var(--modern-radius);
+  box-shadow: var(--modern-shadow);
+  border: 1px solid rgba(107, 76, 42, 0.18);
+  padding: 8px 10px;
+}
+
+.modern .trait {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  border-bottom-color: rgba(107, 76, 42, 0.1);
+  padding: 3px 0 3px 14px;
+}
+
+.modern .trait::before {
+  color: #6b4c2a;
+  font-size: 0.4rem;
+}

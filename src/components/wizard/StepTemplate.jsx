@@ -132,6 +132,15 @@ export default function StepTemplate({ characterClass, race, onSelect, onBack })
                   <div className={styles.thumbCol} />
                   <div className={styles.thumbCol} />
                 </div>
+              ) : tpl.layout === 'modern' ? (
+                <div className={styles.thumbModern}>
+                  <div className={styles.thumbModernHeader} />
+                  <div className={styles.thumbModernBody}>
+                    <div className={styles.thumbCol} />
+                    <div className={styles.thumbCol} />
+                    <div className={styles.thumbCol} />
+                  </div>
+                </div>
               ) : (
                 <div className={styles.thumbThreeCol}>
                   <div className={styles.thumbCol} />

@@ -56,3 +56,37 @@
   font-size: 0.6rem;
   color: var(--color-text-light);
 }
+
+/* ── Modern template ─────────────────────────────────────────── */
+
+.modern {
+  border-radius: var(--modern-radius);
+  box-shadow: var(--modern-shadow);
+  border: 1px solid rgba(107, 76, 42, 0.18);
+  padding: 8px 10px;
+}
+
+.modern .row {
+  padding: 2px 4px;
+  border-radius: 3px;
+  transition: background 0.1s;
+}
+
+.modern .row:nth-child(even) {
+  background: rgba(107, 76, 42, 0.04);
+}
+
+.modern .check {
+  color: #6b4c2a;
+}
+
+.modern .name {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.68rem;
+}
+
+.modern .ability {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.58rem;
+  color: rgba(107, 76, 42, 0.6);
+}

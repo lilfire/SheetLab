@@ -77,6 +77,26 @@
   border-radius: 2px;
 }
 
+.thumbModern {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  height: 100%;
+}
+
+.thumbModernHeader {
+  height: 20px;
+  background: linear-gradient(135deg, #3d2b1f 0%, #6b4c2a 50%, #8b6914 100%);
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.thumbModernBody {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+
 .templateName {
   font-family: var(--font-serif);
   font-variant: small-caps;

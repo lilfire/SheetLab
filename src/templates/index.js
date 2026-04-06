@@ -19,6 +19,17 @@ export const TEMPLATES = [
     },
     layout: 'three-column',
   },
+  {
+    id: 'modern',
+    name: 'Modern',
+    description: 'Modern fantasy character sheet with card-based design.',
+    settings: {
+      backgroundColor: '#f5f0e8',
+      accentColor: '#6b4c2a',
+      fontFamily: "'Segoe UI', system-ui, sans-serif",
+    },
+    layout: 'modern',
+  },
 ]
 
 export function getTemplate(id) {

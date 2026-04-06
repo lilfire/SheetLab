@@ -5,6 +5,7 @@ import './styles/global.css'
 import './styles/print.css'
 import './styles/templates/two-column.css'
 import './styles/templates/three-column.css'
+import './styles/templates/modern.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
