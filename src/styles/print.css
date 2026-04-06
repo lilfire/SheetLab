@@ -7,7 +7,7 @@
   /* A4: 210mm × 297mm */
   @page {
     size: A4 portrait;
-    margin: 0;
+    margin: 8mm 0;
   }
 
   body {
@@ -22,12 +22,13 @@
     display: none !important;
   }
 
-  /* Sheet fills the page */
+  /* Sheet fills the page — padding must be 0 so @page margin handles
+     per-page spacing (sheet padding only applies once, not per page). */
   .sheet-preview {
     width: 100%;
     min-height: 100%;
     margin: 0;
-    padding: 0;
+    padding: 0 !important;
     box-shadow: none;
     page-break-after: avoid;
   }
