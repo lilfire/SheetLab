@@ -20,6 +20,7 @@ import ClassFeatureSecondary from '../modules/ClassFeatureSecondary/ClassFeature
 import SubclassFeats from '../modules/SubclassFeats/SubclassFeats.jsx'
 import { getTemplate } from '../../templates/index.js'
 import { MODULE_REGISTRY, buildInitialLayoutConfig } from '../../data/moduleRegistry.js'
+import { reflowLayout } from '../../data/layoutReflow.js'
 import DraggableModule from './DraggableModule.jsx'
 import ComponentPicker from './ComponentPicker.jsx'
 import styles from './SheetPreview.module.css'
@@ -139,10 +140,11 @@ export default function SheetPreview({ character, preset, template, templateSett
   const handleColSpan = useCallback((key, delta) => {
     setLayoutConfig((prev) => {
       const lc = prev[key]
-      const newSpan = Math.max(1, lc.colSpan + delta)
-      return { ...prev, [key]: { ...lc, colSpan: newSpan } }
+      const newSpan = Math.min(Math.max(1, lc.colSpan + delta), tpl.columns - lc.col + 1)
+      const updated = { ...prev, [key]: { ...lc, colSpan: newSpan } }
+      return reflowLayout(updated, key, tpl.columns)
     })
-  }, [])
+  }, [tpl.columns])
 
   function handlePrint() {
     window.print()
