@@ -1,8 +1,13 @@
-import styles from './HeaderBanner.module.css'
+import defaultStyles from './HeaderBanner.module.css'
+import modernStyles from './HeaderBanner.modern.module.css'
+import { mergeStyles } from '../../../utils/mergeStyles'
+
+const TEMPLATE_MAP = { modern: modernStyles }
 
 export default function HeaderBanner({ character, templateId }) {
+  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
   return (
-    <section className={`${styles.banner} ${templateId ? (styles[templateId] || '') : ''}`}>
+    <section className={`${styles.banner}`}>
       <div className={styles.scrollShape}>
         <div className={styles.scrollLeft} />
         <div className={styles.content}>

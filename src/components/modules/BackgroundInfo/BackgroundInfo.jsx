@@ -1,8 +1,13 @@
-import styles from './BackgroundInfo.module.css'
+import defaultStyles from './BackgroundInfo.module.css'
+import modernStyles from './BackgroundInfo.modern.module.css'
+import { mergeStyles } from '../../../utils/mergeStyles'
+
+const TEMPLATE_MAP = { modern: modernStyles }
 
 export default function BackgroundInfo({ templateId }) {
+  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
   return (
-    <section className={`module-box ${styles.background} ${templateId ? (styles[templateId] || '') : ''}`}>
+    <section className={`module-box ${styles.background}`}>
       <h3 className="section-header">Background &amp; Personality</h3>
       <div className={styles.grid}>
         <fieldset className={styles.field}>

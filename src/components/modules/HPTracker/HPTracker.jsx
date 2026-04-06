@@ -1,8 +1,13 @@
-import styles from './HPTracker.module.css'
+import defaultStyles from './HPTracker.module.css'
+import modernStyles from './HPTracker.modern.module.css'
+import { mergeStyles } from '../../../utils/mergeStyles'
+
+const TEMPLATE_MAP = { modern: modernStyles }
 
 export default function HPTracker({ templateId }) {
+  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
   return (
-    <section className={`module-box ${styles.hpTracker} ${templateId ? (styles[templateId] || '') : ''}`}>
+    <section className={`module-box ${styles.hpTracker}`}>
       <h3 className="section-header">Hit Points</h3>
 
       {/* Ring layout: 3 circles (maxHP — mainHP — tempHP) with connectors */}

@@ -1,4 +1,8 @@
-import styles from './SavingThrowsSkills.module.css'
+import defaultStyles from './SavingThrowsSkills.module.css'
+import modernStyles from './SavingThrowsSkills.modern.module.css'
+import { mergeStyles } from '../../../utils/mergeStyles'
+
+const TEMPLATE_MAP = { modern: modernStyles }
 
 const SAVING_THROWS = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma']
 
@@ -24,10 +28,11 @@ const SKILLS = [
 ]
 
 export default function SavingThrowsSkills({ preset, templateId }) {
+  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
   const proficiencies = preset?.defaultSkillProficiencies ?? []
 
   return (
-    <section className={`module-box ${styles.savingSkills} ${templateId ? (styles[templateId] || '') : ''}`}>
+    <section className={`module-box ${styles.savingSkills}`}>
       <div className={styles.savingThrows}>
         <h3 className="section-header">Saving Throws</h3>
         {SAVING_THROWS.map((ability) => (

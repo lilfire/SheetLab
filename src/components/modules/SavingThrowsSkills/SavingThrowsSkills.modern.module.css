@@ -1,0 +1,35 @@
+.savingSkills {
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(139, 115, 85, 0.25);
+  background: #fefcf8;
+  padding: 8px 10px;
+}
+
+.row {
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.row:nth-child(even) {
+  background: rgba(139, 115, 85, 0.04);
+}
+
+.check {
+  color: #8b7355;
+}
+
+.modifier {
+  border-bottom-color: rgba(139, 115, 85, 0.2);
+}
+
+.name {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.65rem;
+}
+
+.ability {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.55rem;
+  color: rgba(139, 115, 85, 0.6);
+}

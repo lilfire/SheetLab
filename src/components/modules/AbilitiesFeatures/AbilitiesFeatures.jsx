@@ -1,8 +1,13 @@
-import styles from './AbilitiesFeatures.module.css'
+import defaultStyles from './AbilitiesFeatures.module.css'
+import modernStyles from './AbilitiesFeatures.modern.module.css'
+import { mergeStyles } from '../../../utils/mergeStyles'
+
+const TEMPLATE_MAP = { modern: modernStyles }
 
 export default function AbilitiesFeatures({ templateId }) {
+  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
   return (
-    <section className={`module-box ${styles.abilities} ${templateId ? (styles[templateId] || '') : ''}`}>
+    <section className={`module-box ${styles.abilities}`}>
       <h3 className="section-header">Abilities &amp; Features</h3>
       <table className={styles.table}>
         <thead>

@@ -1,8 +1,13 @@
-import styles from './AttacksCantrips.module.css'
+import defaultStyles from './AttacksCantrips.module.css'
+import modernStyles from './AttacksCantrips.modern.module.css'
+import { mergeStyles } from '../../../utils/mergeStyles'
+
+const TEMPLATE_MAP = { modern: modernStyles }
 
 export default function AttacksCantrips({ templateId }) {
+  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
   return (
-    <section className={`module-box ${styles.attacks} ${templateId ? (styles[templateId] || '') : ''}`}>
+    <section className={`module-box ${styles.attacks}`}>
       <h3 className="section-header">Attacks &amp; Cantrips</h3>
       <table className={styles.table}>
         <thead>

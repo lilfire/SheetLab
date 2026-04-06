@@ -31,23 +31,3 @@
 .slot input {
   font-size: 0.7rem;
 }
-
-/* ── Modern template ─────────────────────────────────────────── */
-
-.modern {
-  border-radius: 10px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(139, 115, 85, 0.25);
-  background: #fefcf8;
-  padding: 8px 10px;
-}
-
-.modern .slot {
-  border-bottom-color: rgba(139, 115, 85, 0.1);
-  padding: 3px 0;
-}
-
-.modern .index {
-  color: #8b7355;
-  font-weight: 600;
-}
