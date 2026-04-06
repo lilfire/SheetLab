@@ -50,6 +50,7 @@ export default function DraggableModule({
       style={style}
       className={styles[areaClass]}
       data-module-key={id}
+      data-grid-row-odd={row % 2 === 1 ? '' : undefined}
     >
       {isEditMode && (
         <button
