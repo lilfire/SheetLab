@@ -69,6 +69,7 @@ export default function DraggableModule({
           >
             −
           </button>
+          <span className={styles.spanLabel}>{colSpan}/{maxColumns}</span>
           <button
             type="button"
             className={styles.spanBtn}

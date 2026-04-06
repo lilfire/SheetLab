@@ -15,7 +15,7 @@
 }
 
 [data-template="modern"] .sheet-grid {
-  grid-template-columns: 1fr 1.2fr 1fr;
+  grid-template-columns: repeat(12, 1fr);
   gap: 5px;
 }
 

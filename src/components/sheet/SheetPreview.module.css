@@ -245,3 +245,17 @@
   opacity: 0.3;
   cursor: default;
 }
+
+.spanLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+  background: rgba(44, 26, 14, 0.75);
+  border: 1px solid #8b6914;
+  border-radius: 3px;
+  color: #c4991f;
+  font-size: 0.6rem;
+  line-height: 1;
+  white-space: nowrap;
+}
