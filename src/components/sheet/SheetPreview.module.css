@@ -261,24 +261,12 @@
   padding: 3px;
 }
 
-/* ── Zebra striping ──────────────────────────────────────── */
+/* ── Row-level zebra overlay ─────────────────────────────── */
 
-.editMode .grid > *:nth-child(odd) {
-  background-color: rgba(139, 105, 20, 0.15);
-  padding: 3px;
+.editRowOverlay {
+  pointer-events: none;
   border-radius: 4px;
-}
-
-.editMode .grid > *:nth-child(even) {
-  background-color: rgba(139, 105, 20, 0.05);
-  padding: 3px;
-  border-radius: 4px;
-}
-
-/* ── Column separator lines ──────────────────────────────── */
-
-.editMode .grid > *:not(:first-child) {
-  border-left: 2px solid rgba(139, 105, 20, 0.3);
+  z-index: 0;
 }
 
 /* ── Column shift controls ───────────────────────────────── */

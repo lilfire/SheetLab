@@ -81,6 +81,26 @@ const SheetGrid = memo(function SheetGrid({
         style={userOverrides}
       >
         <div ref={gridRef} className={`sheet-grid ${styles.grid}`}>
+          {isEditMode && (() => {
+            const maxRow = Math.max(
+              ...MODULE_REGISTRY
+                .filter((m) => layoutConfig[m.key].visible)
+                .map((m) => { const lc = layoutConfig[m.key]; return lc.row + lc.rowSpan - 1 })
+            )
+            return Array.from({ length: maxRow }, (_, i) => (
+              <div
+                key={`row-bg-${i}`}
+                className={styles.editRowOverlay}
+                style={{
+                  gridRow: i + 1,
+                  gridColumn: '1 / -1',
+                  background: i % 2 === 0
+                    ? 'rgba(34, 197, 94, 0.12)'
+                    : 'rgba(147, 51, 234, 0.12)',
+                }}
+              />
+            ))
+          })()}
           {MODULE_REGISTRY.map((mod) => {
             const lc = layoutConfig[mod.key]
             if (!lc.visible) return null
