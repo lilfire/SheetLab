@@ -26,6 +26,8 @@ export default function DraggableModule({
     ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
     : undefined
 
+  const isOddRow = row % 2 === 1
+
   const style = {
     gridRowStart: row,
     gridRowEnd: row + rowSpan,
@@ -33,9 +35,21 @@ export default function DraggableModule({
     gridColumnEnd: col + colSpan,
     overflow: 'hidden',
     ...styleOverrides,
+    ...(isEditMode && {
+      padding: '3px',
+      borderRadius: '4px',
+      background: isOddRow
+        ? 'rgba(139, 105, 20, 0.18)'
+        : 'rgba(139, 105, 20, 0.06)',
+      ...(col > 1 && {
+        boxShadow: '-3px 0 0 0 rgba(139, 105, 20, 0.4)',
+      }),
+    }),
     ...(transformStyle && { transform: transformStyle, zIndex: 20 }),
     ...(isDragging && { opacity: 0.45 }),
-    ...(isOver && isEditMode && { boxShadow: '0 0 0 2px #8b6914' }),
+    ...(isOver && isEditMode && { boxShadow: col > 1
+      ? '-3px 0 0 0 rgba(139, 105, 20, 0.4), 0 0 0 2px #8b6914'
+      : '0 0 0 2px #8b6914' }),
   }
 
   const canShrink = colSpan > 1
