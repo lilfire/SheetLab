@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState, useCallback } from 'react'
 
-const PAGE_CONTENT_HEIGHT_MM = 281 // A4 (297mm) minus 2 × 8mm padding
+const PAGE_HEIGHT_MM = 297 // Full A4 height — @page margin is 0
 const MAX_ITERATIONS = 5
 
 /**
@@ -23,7 +23,7 @@ export default function usePageBreaks(gridRef, sheetRef, deps = []) {
     if (!grid || !sheet) return
 
     const pxPerMm = sheet.offsetWidth / 210
-    const pageHeightPx = PAGE_CONTENT_HEIGHT_MM * pxPerMm
+    const pageHeightPx = PAGE_HEIGHT_MM * pxPerMm
 
     if (pageHeightPx <= 0) return
 
@@ -38,9 +38,6 @@ export default function usePageBreaks(gridRef, sheetRef, deps = []) {
       el.style.marginTop = ''
     }
 
-    // Offset from the sheet top to the grid top (accounts for sheet padding)
-    const gridTop = grid.offsetTop
-
     // Iterative pass: measure → fix → re-measure
     for (let pass = 0; pass < MAX_ITERATIONS; pass++) {
       let adjusted = false
@@ -54,7 +51,8 @@ export default function usePageBreaks(gridRef, sheetRef, deps = []) {
       )
 
       for (const el of sorted) {
-        const top = el.offsetTop - gridTop
+        // Use sheet-absolute position (offsetParent is the sheet)
+        const top = el.offsetTop
         const height = el.offsetHeight
         const bottom = top + height
 
@@ -84,12 +82,12 @@ export default function usePageBreaks(gridRef, sheetRef, deps = []) {
       if (!adjusted) break
     }
 
-    // Compute page break line positions from the final grid height
-    const gridHeight = grid.scrollHeight
+    // Compute page break line positions from the final sheet height
+    const sheetHeight = sheet.scrollHeight
     const lines = []
     let boundary = pageHeightPx
     let page = 1
-    while (boundary < gridHeight) {
+    while (boundary < sheetHeight) {
       lines.push({ yPx: boundary, pageNumber: page })
       boundary += pageHeightPx
       page++
