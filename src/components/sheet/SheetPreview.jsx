@@ -66,6 +66,23 @@ const SheetGrid = memo(function SheetGrid({
   const renderMap = useRenderMap(character, preset, templateId)
   const { pageBreakLines } = usePageBreaks(gridRef, sheetRef, [layoutConfig])
 
+  const gridOverlayCells = useMemo(() => {
+    if (!isEditMode) return []
+    let maxRow = 1
+    for (const lc of Object.values(layoutConfig)) {
+      if (!lc.visible) continue
+      const end = lc.row + lc.rowSpan - 1
+      if (end > maxRow) maxRow = end
+    }
+    const cells = []
+    for (let r = 1; r <= maxRow; r++) {
+      for (let c = 1; c <= tpl.columns; c++) {
+        cells.push({ key: `overlay-${r}-${c}`, row: r, col: c })
+      }
+    }
+    return cells
+  }, [isEditMode, layoutConfig, tpl.columns])
+
   function handleDragEnd({ active, over }) {
     if (over && active.id !== over.id) {
       onSwapAreas(String(active.id), String(over.id))
@@ -81,6 +98,13 @@ const SheetGrid = memo(function SheetGrid({
         style={userOverrides}
       >
         <div ref={gridRef} className={`sheet-grid ${styles.grid}`}>
+          {isEditMode && gridOverlayCells.map(cell => (
+            <div
+              key={cell.key}
+              className={`no-print ${styles.gridOverlayCell}`}
+              style={{ gridRowStart: cell.row, gridColumnStart: cell.col }}
+            />
+          ))}
           {MODULE_REGISTRY.map((mod) => {
             const lc = layoutConfig[mod.key]
             if (!lc.visible) return null

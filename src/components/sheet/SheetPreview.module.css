@@ -253,6 +253,20 @@
   outline-offset: -1px;
 }
 
+/* ── Grid overlay cells (edit mode only) ────────────────────── */
+
+.gridOverlayCell {
+  min-height: 40px;
+  border: 1px dashed rgba(139, 105, 20, 0.18);
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.editMode [data-module-key] {
+  z-index: 1;
+}
+
 /* ── Column shift controls ───────────────────────────────── */
 
 .colShiftControls {
