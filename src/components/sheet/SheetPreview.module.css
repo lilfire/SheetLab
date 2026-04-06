@@ -256,36 +256,28 @@
 /* ── Edit mode: grid lines (gap becomes visible) ───────────── */
 
 .editMode .grid {
-  background: rgba(139, 105, 20, 0.12);
   gap: 6px;
   border-radius: 4px;
   padding: 3px;
 }
 
-/* ── Edit mode: zebra rows (odd rows get a warm tint) ───────── */
+/* ── Edit mode: zebra rows & column lines ────────────────────
+   Padding on area divs exposes the area background around
+   the module-box child, making row tint visible.            */
 
-.editMode [data-grid-row-odd]::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(139, 105, 20, 0.08);
-  pointer-events: none;
-  z-index: 1;
-  border-radius: inherit;
+.editMode .grid > * {
+  padding: 3px;
+  background: rgba(139, 105, 20, 0.06);
+  border-radius: 4px;
 }
 
-/* ── Edit mode: column separator lines ─────────────────────── */
+.editMode [data-grid-row-odd] {
+  background: rgba(139, 105, 20, 0.18);
+}
 
-.editMode .grid > [data-grid-col]:not([data-grid-col="1"])::before {
-  content: '';
-  position: absolute;
-  left: -4px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: rgba(139, 105, 20, 0.35);
-  pointer-events: none;
-  z-index: 1;
+/* Column separators — box-shadow is not clipped by overflow:hidden */
+.editMode .grid > [data-grid-col]:not([data-grid-col="1"]) {
+  box-shadow: -3px 0 0 0 rgba(139, 105, 20, 0.4);
 }
 
 /* ── Column shift controls ───────────────────────────────── */
