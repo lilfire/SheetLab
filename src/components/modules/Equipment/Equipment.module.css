@@ -47,22 +47,23 @@
 /* ── Modern template ─────────────────────────────────────────── */
 
 .modern {
-  border-radius: var(--modern-radius);
-  box-shadow: var(--modern-shadow);
-  border: 1px solid rgba(107, 76, 42, 0.18);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(139, 115, 85, 0.25);
+  background: #fefcf8;
   padding: 8px 10px;
 }
 
 .modern .capacity {
-  border-bottom-color: rgba(107, 76, 42, 0.2);
+  border-bottom-color: rgba(139, 115, 85, 0.2);
 }
 
 .modern .capacityLabel {
   font-family: 'Segoe UI', system-ui, sans-serif;
-  font-size: 0.62rem;
-  color: #6b4c2a;
+  color: #8b7355;
+  font-size: 0.6rem;
 }
 
 .modern .capacityValue {
-  border-bottom-color: rgba(107, 76, 42, 0.2);
+  border-bottom-color: rgba(139, 115, 85, 0.2);
 }

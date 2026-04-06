@@ -8,7 +8,7 @@ import DraggableModule from './DraggableModule.jsx'
 
 describe('buildInitialLayoutConfig – style field', () => {
   it('includes style:{} for every module when no initialStyles provided', () => {
-    const config = buildInitialLayoutConfig()
+    const config = buildInitialLayoutConfig('two-column')
     for (const mod of MODULE_REGISTRY) {
       expect(config[mod.key]).toHaveProperty('style')
       expect(config[mod.key].style).toEqual({})
@@ -20,7 +20,7 @@ describe('buildInitialLayoutConfig – style field', () => {
       header: { backgroundColor: '#ff0000', borderColor: '#000000', borderStyle: 'solid', borderWidth: '2px' },
       ability: { backgroundColor: '#00ff00' },
     }
-    const config = buildInitialLayoutConfig(initialStyles)
+    const config = buildInitialLayoutConfig('two-column', initialStyles)
 
     expect(config.header.style).toEqual({
       backgroundColor: '#ff0000',
@@ -32,16 +32,17 @@ describe('buildInitialLayoutConfig – style field', () => {
   })
 
   it('leaves style:{} for modules not present in initialStyles', () => {
-    const config = buildInitialLayoutConfig({ header: { backgroundColor: '#ff0000' } })
+    const config = buildInitialLayoutConfig('two-column', { header: { backgroundColor: '#ff0000' } })
     expect(config.portrait.style).toEqual({})
     expect(config.combat.style).toEqual({})
   })
 
-  it('preserves visible and gridArea fields alongside style', () => {
-    const config = buildInitialLayoutConfig()
+  it('preserves visible and coordinate fields alongside style', () => {
+    const config = buildInitialLayoutConfig('two-column')
     for (const mod of MODULE_REGISTRY) {
       expect(config[mod.key].visible).toBe(true)
-      expect(config[mod.key].gridArea).toBe(mod.gridArea)
+      expect(config[mod.key].row).toBeDefined()
+      expect(config[mod.key].col).toBeDefined()
       expect(config[mod.key].style).toBeDefined()
     }
   })
@@ -53,9 +54,11 @@ describe('DraggableModule – styleOverrides prop', () => {
   const baseProps = {
     id: 'ability',
     areaClass: 'abilityArea',
-    gridArea: 'ability',
+    row: 4, col: 1, rowSpan: 1, colSpan: 1,
+    maxColumns: 2,
     isEditMode: false,
     onRemove: vi.fn(),
+    onColSpan: vi.fn(),
   }
 
   it('applies backgroundColor from styleOverrides to wrapper div', () => {
@@ -133,7 +136,8 @@ describe('SheetPreview – initialModuleStyles', () => {
       />
     )
     const grid = container.querySelector('.sheet-grid')
-    const headerSlot = Array.from(grid.children).find((el) => el.style.gridArea === 'header')
+    // Header is at row 1, col 1 in the two-column template
+    const headerSlot = Array.from(grid.children).find((el) => el.style.gridRowStart === '1' && el.style.gridColumnStart === '1')
     expect(headerSlot).toBeTruthy()
     expect(headerSlot.style.backgroundColor).toBe('rgb(170, 187, 204)')
   })
@@ -150,7 +154,8 @@ describe('SheetPreview – initialModuleStyles', () => {
       />
     )
     const grid = container.querySelector('.sheet-grid')
-    const portraitSlot = Array.from(grid.children).find((el) => el.style.gridArea === 'portrait')
+    // Portrait is at row 1, col 2 in the two-column template
+    const portraitSlot = Array.from(grid.children).find((el) => el.style.gridRowStart === '1' && el.style.gridColumnStart === '2')
     expect(portraitSlot).toBeTruthy()
     expect(portraitSlot.style.backgroundColor).toBe('')
   })
@@ -181,7 +186,7 @@ describe('SheetPreview – initialModuleStyles', () => {
 
     // Check that the style is preserved
     const grid = container.querySelector('.sheet-grid')
-    const headerSlot = Array.from(grid.children).find((el) => el.style.gridArea === 'header')
+    const headerSlot = Array.from(grid.children).find((el) => el.style.gridRowStart === '1' && el.style.gridColumnStart === '1')
     expect(headerSlot).toBeTruthy()
     expect(headerSlot.style.backgroundColor).toBe('rgb(255, 0, 0)')
   })

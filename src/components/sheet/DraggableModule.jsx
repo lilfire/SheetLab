@@ -7,12 +7,18 @@ import styles from './SheetPreview.module.css'
  * Props:
  *   id          — module key (unique, used as dnd id)
  *   areaClass   — CSS module class name for position/outline styles
- *   gridArea    — current CSS grid-area value (from layoutConfig)
+ *   row, col, rowSpan, colSpan — integer grid coordinates
+ *   maxColumns  — max columns in the grid (for clamping colSpan)
  *   isEditMode  — whether edit mode is active; shows drag handle when true
  *   onRemove    — called when the remove button is clicked
+ *   onColSpan   — called with (key, delta) to adjust column span
+ *   styleOverrides — optional CSS style object (background, border, etc.)
  *   children    — the module component to render inside
  */
-export default function DraggableModule({ id, areaClass, gridArea, isEditMode, onRemove, styleOverrides = {}, children }) {
+export default function DraggableModule({
+  id, areaClass, row, col, rowSpan, colSpan,
+  maxColumns, isEditMode, onRemove, onColSpan, styleOverrides = {}, children,
+}) {
   const { attributes, listeners, setNodeRef: setDragRef, transform, isDragging } = useDraggable({ id })
   const { setNodeRef: setDropRef, isOver } = useDroppable({ id })
 
@@ -21,12 +27,19 @@ export default function DraggableModule({ id, areaClass, gridArea, isEditMode, o
     : undefined
 
   const style = {
-    gridArea,
+    gridRowStart: row,
+    gridRowEnd: row + rowSpan,
+    gridColumnStart: col,
+    gridColumnEnd: col + colSpan,
+    overflow: 'hidden',
     ...styleOverrides,
     ...(transformStyle && { transform: transformStyle, zIndex: 20 }),
     ...(isDragging && { opacity: 0.45 }),
     ...(isOver && isEditMode && { boxShadow: '0 0 0 2px #8b6914' }),
   }
+
+  const canShrink = colSpan > 1
+  const canGrow = col + colSpan <= maxColumns
 
   return (
     <div
@@ -44,6 +57,28 @@ export default function DraggableModule({ id, areaClass, gridArea, isEditMode, o
         >
           ⠿
         </button>
+      )}
+      {isEditMode && (
+        <div className={`no-print ${styles.spanControls}`}>
+          <button
+            type="button"
+            className={styles.spanBtn}
+            onClick={() => onColSpan(id, -1)}
+            disabled={!canShrink}
+            aria-label="Decrease column span"
+          >
+            −
+          </button>
+          <button
+            type="button"
+            className={styles.spanBtn}
+            onClick={() => onColSpan(id, 1)}
+            disabled={!canGrow}
+            aria-label="Increase column span"
+          >
+            +
+          </button>
+        </div>
       )}
       <button
         className={`no-print ${styles.removeBtn}`}

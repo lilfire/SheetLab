@@ -30,6 +30,21 @@ export default function RaceClassInfo({ preset, templateId }) {
           <span className="write-line" />
         </fieldset>
       </div>
+      {/* Extra fields — hidden by default, shown in modern */}
+      <div className={styles.extraFields}>
+        <fieldset className={styles.field}>
+          <label className={styles.label}>Background &amp; Alignment</label>
+          <span className="write-line" />
+        </fieldset>
+        <fieldset className={styles.field}>
+          <label className={styles.label}>Character Features</label>
+          <span className="write-line" />
+        </fieldset>
+        <fieldset className={styles.field}>
+          <label className={styles.label}>Character Traits</label>
+          <span className="write-line" />
+        </fieldset>
+      </div>
     </section>
   )
 }

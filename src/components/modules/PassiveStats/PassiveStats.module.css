@@ -41,28 +41,24 @@
 /* ── Modern template ─────────────────────────────────────────── */
 
 .modern {
-  border-radius: var(--modern-radius);
-  box-shadow: var(--modern-shadow);
-  border: 1px solid rgba(107, 76, 42, 0.18);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(139, 115, 85, 0.25);
+  background: #fefcf8;
   padding: 8px 10px;
 }
 
 .modern .stat {
-  border-bottom: 1px dotted rgba(107, 76, 42, 0.2);
-  padding: 3px 4px;
-  border-radius: 3px;
-}
-
-.modern .stat:nth-child(even) {
-  background: rgba(107, 76, 42, 0.04);
+  border-bottom-color: rgba(139, 115, 85, 0.15);
+  padding: 3px 0;
 }
 
 .modern .label {
   font-family: 'Segoe UI', system-ui, sans-serif;
-  font-size: 0.68rem;
+  font-size: 0.65rem;
 }
 
 .modern .value {
   font-family: 'Segoe UI', system-ui, sans-serif;
-  border-bottom-color: rgba(107, 76, 42, 0.2);
+  border-bottom-color: rgba(139, 115, 85, 0.2);
 }

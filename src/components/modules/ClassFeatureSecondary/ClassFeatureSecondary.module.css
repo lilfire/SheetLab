@@ -27,6 +27,37 @@
   line-height: 1.4;
 }
 
+/* Usage tracking — hidden by default */
+.usageTracker {
+  display: none;
+}
+
+.usageHeader {
+  display: grid;
+  grid-template-columns: 24px 1fr 1fr;
+  gap: 4px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--color-gold);
+  margin-bottom: 2px;
+}
+
+.usageCol {
+  font-size: 0.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-gold);
+  text-align: center;
+}
+
+.usageRow {
+  display: grid;
+  grid-template-columns: 24px 1fr 1fr;
+  gap: 4px;
+  align-items: center;
+  padding: 1px 0;
+}
+
 .notes {
   margin-top: auto;
   border-top: 1px dotted var(--color-gold);
@@ -40,25 +71,45 @@
 /* ── Modern template ─────────────────────────────────────────── */
 
 .modern {
-  border-radius: var(--modern-radius);
-  box-shadow: var(--modern-shadow);
-  border: 1px solid rgba(107, 76, 42, 0.18);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(139, 115, 85, 0.25);
+  background: #fefcf8;
   padding: 8px 10px;
 }
 
 .modern .title {
   font-family: 'Segoe UI', system-ui, sans-serif;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  color: #6b4c2a;
+  color: #8b7355;
 }
 
 .modern .description {
   font-family: 'Segoe UI', system-ui, sans-serif;
-  font-size: 0.68rem;
-  color: #5a3a1e;
+  font-size: 0.65rem;
+  color: #5a4a3a;
+  line-height: 1.5;
+}
+
+/* Show usage tracker in modern */
+.modern .usageTracker {
+  display: block;
+  border-top: 1px solid rgba(139, 115, 85, 0.15);
+  padding-top: 6px;
+  margin-top: 4px;
+}
+
+.modern .usageHeader {
+  border-bottom-color: rgba(139, 115, 85, 0.3);
+}
+
+.modern .usageCol {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #8b7355;
+  font-size: 0.45rem;
 }
 
 .modern .notes {
-  border-top-color: rgba(107, 76, 42, 0.15);
+  border-top-color: rgba(139, 115, 85, 0.15);
 }

@@ -46,4 +46,9 @@
   .module-box {
     break-inside: avoid;
   }
+
+  /* Modern template: remove shadows for clean print */
+  [data-template="modern"] .module-box {
+    box-shadow: none;
+  }
 }

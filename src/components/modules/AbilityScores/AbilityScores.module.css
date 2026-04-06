@@ -11,6 +11,12 @@
   gap: 6px;
 }
 
+.abilityColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* Shield shape via clip-path */
 .shield {
   display: flex;
@@ -66,47 +72,152 @@
   color: var(--color-text);
 }
 
+/* ── Inline saving throws + skills (hidden by default) ───────── */
+
+.skillGroup {
+  display: none;
+  flex-direction: column;
+  gap: 1px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.saveRow,
+.skillRow {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 0;
+}
+
+.saveCheck,
+.skillCheck {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  font-size: 0.6rem;
+  line-height: 1;
+  user-select: none;
+}
+
+.saveModifier,
+.skillModifier {
+  display: inline-block;
+  width: 22px;
+  flex-shrink: 0;
+  font-size: 0.6rem;
+  text-align: center;
+  border-bottom: 1px solid var(--color-text-light);
+  padding: 0 1px;
+  background: transparent;
+  color: var(--color-text);
+  min-height: 0.9em;
+}
+
+.saveName {
+  font-size: 0.55rem;
+  font-weight: bold;
+  color: var(--color-text);
+}
+
+.skillName {
+  font-size: 0.55rem;
+  color: var(--color-text);
+}
+
 /* ── Modern template ─────────────────────────────────────────── */
 
 .modern {
-  border-radius: var(--modern-radius);
-  box-shadow: var(--modern-shadow);
-  border: 1px solid rgba(107, 76, 42, 0.18);
-  padding: 8px 10px;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(139, 115, 85, 0.25);
+  background: #fefcf8;
+  padding: 8px 6px;
 }
 
 .modern .grid {
   grid-template-columns: repeat(6, 1fr);
-  gap: 8px;
+  gap: 4px;
 }
 
 .modern .shield {
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  background: linear-gradient(180deg, #e8dfd0 0%, #ddd4c2 100%);
+  background: linear-gradient(180deg, #f0e8d8 0%, #e4dac8 100%);
   border: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  padding: 10px 4px 14px;
+  padding: 8px 4px 14px;
+  width: 100%;
+  min-height: 55px;
 }
 
 .modern .abilityLabel {
   font-family: 'Segoe UI', system-ui, sans-serif;
   font-variant: normal;
   text-transform: uppercase;
-  font-size: 0.5rem;
+  font-size: 0.45rem;
   font-weight: 700;
-  color: #6b4c2a;
-  letter-spacing: 0.08em;
+  color: #8b7355;
+  letter-spacing: 0.06em;
+}
+
+.modern .scoreInput {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.85rem;
+  width: 28px;
+  border-bottom-color: rgba(139, 115, 85, 0.3);
 }
 
 .modern .modifierBubble {
-  background: #6b4c2a;
-  border-color: #6b4c2a;
-  width: 24px;
-  height: 24px;
+  background: #8b7355;
+  border-color: #8b7355;
+  width: 20px;
+  height: 20px;
   bottom: 6px;
 }
 
 .modern .modifier {
-  color: #f5f0e8;
-  font-size: 0.6rem;
+  color: #faf6f0;
+  font-size: 0.5rem;
+}
+
+/* Show inline skills in modern */
+.modern .skillGroup {
+  display: flex;
+  margin-top: 6px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(139, 115, 85, 0.15);
+}
+
+.modern .saveRow {
+  padding-bottom: 2px;
+  margin-bottom: 2px;
+  border-bottom: 1px solid rgba(139, 115, 85, 0.1);
+}
+
+.modern .saveCheck,
+.modern .skillCheck {
+  color: #8b7355;
+  font-size: 0.55rem;
+}
+
+.modern .saveModifier,
+.modern .skillModifier {
+  width: 18px;
+  font-size: 0.5rem;
+  border-bottom-color: rgba(139, 115, 85, 0.2);
+}
+
+.modern .saveName {
+  font-size: 0.45rem;
+  color: #8b7355;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.modern .skillName {
+  font-size: 0.45rem;
+  color: #3a2a1a;
 }

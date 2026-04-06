@@ -1,3 +1,16 @@
+/**
+ * Template registry.
+ *
+ * Each template defines:
+ *   id, name, description   — metadata
+ *   settings                — CSS variable overrides
+ *   layout                  — data-template value for CSS selectors
+ *   columns                 — number of grid columns
+ *   defaultLayout           — { [moduleKey]: { row, col, rowSpan, colSpan } }
+ *
+ * The defaultLayout uses 1-based integer grid coordinates so that modules
+ * can freely span multiple columns without the restrictions of named areas.
+ */
 export const TEMPLATES = [
   {
     id: 'two-column',
@@ -9,6 +22,27 @@ export const TEMPLATES = [
       fontFamily: 'Georgia, serif',
     },
     layout: 'two-column',
+    columns: 2,
+    defaultLayout: {
+      header:          { row: 1,  col: 1, rowSpan: 1, colSpan: 1 },
+      portrait:        { row: 1,  col: 2, rowSpan: 1, colSpan: 1 },
+      raceclass:       { row: 2,  col: 1, rowSpan: 1, colSpan: 2 },
+      background:      { row: 3,  col: 1, rowSpan: 1, colSpan: 2 },
+      ability:         { row: 4,  col: 1, rowSpan: 1, colSpan: 1 },
+      saving:          { row: 4,  col: 2, rowSpan: 3, colSpan: 1 },
+      passive:         { row: 5,  col: 1, rowSpan: 1, colSpan: 1 },
+      insp:            { row: 6,  col: 1, rowSpan: 1, colSpan: 1 },
+      combat:          { row: 7,  col: 1, rowSpan: 1, colSpan: 2 },
+      hp:              { row: 8,  col: 1, rowSpan: 1, colSpan: 1 },
+      featurePrimary:  { row: 8,  col: 2, rowSpan: 1, colSpan: 1 },
+      traits:          { row: 9,  col: 1, rowSpan: 1, colSpan: 1 },
+      featureSecondary:{ row: 9,  col: 2, rowSpan: 1, colSpan: 1 },
+      abilities:       { row: 10, col: 1, rowSpan: 1, colSpan: 1 },
+      subclassFeats:   { row: 10, col: 2, rowSpan: 4, colSpan: 1 },
+      attacks:         { row: 11, col: 1, rowSpan: 1, colSpan: 1 },
+      equipment:       { row: 12, col: 1, rowSpan: 1, colSpan: 1 },
+      proficiency:     { row: 13, col: 1, rowSpan: 1, colSpan: 1 },
+    },
   },
   {
     id: 'three-column',
@@ -18,6 +52,27 @@ export const TEMPLATES = [
       backgroundColor: '#f0f4f8',
     },
     layout: 'three-column',
+    columns: 3,
+    defaultLayout: {
+      header:          { row: 1, col: 1, rowSpan: 1, colSpan: 2 },
+      portrait:        { row: 1, col: 3, rowSpan: 1, colSpan: 1 },
+      raceclass:       { row: 2, col: 1, rowSpan: 1, colSpan: 3 },
+      ability:         { row: 3, col: 1, rowSpan: 1, colSpan: 1 },
+      saving:          { row: 3, col: 2, rowSpan: 1, colSpan: 1 },
+      featurePrimary:  { row: 3, col: 3, rowSpan: 2, colSpan: 1 },
+      passive:         { row: 4, col: 1, rowSpan: 1, colSpan: 1 },
+      combat:          { row: 4, col: 2, rowSpan: 2, colSpan: 1 },
+      insp:            { row: 5, col: 1, rowSpan: 1, colSpan: 1 },
+      featureSecondary:{ row: 5, col: 3, rowSpan: 2, colSpan: 1 },
+      background:      { row: 6, col: 1, rowSpan: 1, colSpan: 1 },
+      hp:              { row: 6, col: 2, rowSpan: 1, colSpan: 1 },
+      traits:          { row: 7, col: 1, rowSpan: 1, colSpan: 1 },
+      attacks:         { row: 7, col: 2, rowSpan: 1, colSpan: 1 },
+      subclassFeats:   { row: 7, col: 3, rowSpan: 3, colSpan: 1 },
+      abilities:       { row: 8, col: 1, rowSpan: 1, colSpan: 1 },
+      equipment:       { row: 8, col: 2, rowSpan: 1, colSpan: 1 },
+      proficiency:     { row: 9, col: 1, rowSpan: 1, colSpan: 2 },
+    },
   },
   {
     id: 'modern',
@@ -29,6 +84,27 @@ export const TEMPLATES = [
       fontFamily: "'Segoe UI', system-ui, sans-serif",
     },
     layout: 'modern',
+    columns: 3,
+    defaultLayout: {
+      header:          { row: 1,  col: 1, rowSpan: 1, colSpan: 2 },
+      portrait:        { row: 1,  col: 3, rowSpan: 1, colSpan: 1 },
+      raceclass:       { row: 2,  col: 1, rowSpan: 1, colSpan: 3 },
+      ability:         { row: 3,  col: 1, rowSpan: 1, colSpan: 3 },
+      passive:         { row: 4,  col: 1, rowSpan: 1, colSpan: 1 },
+      saving:          { row: 4,  col: 2, rowSpan: 2, colSpan: 1 },
+      featurePrimary:  { row: 4,  col: 3, rowSpan: 2, colSpan: 1 },
+      insp:            { row: 5,  col: 1, rowSpan: 1, colSpan: 1 },
+      combat:          { row: 6,  col: 1, rowSpan: 1, colSpan: 1 },
+      hp:              { row: 6,  col: 2, rowSpan: 2, colSpan: 1 },
+      featureSecondary:{ row: 6,  col: 3, rowSpan: 2, colSpan: 1 },
+      background:      { row: 7,  col: 1, rowSpan: 1, colSpan: 1 },
+      traits:          { row: 8,  col: 1, rowSpan: 1, colSpan: 1 },
+      attacks:         { row: 8,  col: 2, rowSpan: 2, colSpan: 1 },
+      subclassFeats:   { row: 8,  col: 3, rowSpan: 3, colSpan: 1 },
+      abilities:       { row: 9,  col: 1, rowSpan: 1, colSpan: 1 },
+      equipment:       { row: 10, col: 1, rowSpan: 1, colSpan: 1 },
+      proficiency:     { row: 10, col: 2, rowSpan: 1, colSpan: 1 },
+    },
   },
 ]
 
