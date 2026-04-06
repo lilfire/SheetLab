@@ -17,7 +17,7 @@ import styles from './SheetPreview.module.css'
  */
 export default function DraggableModule({
   id, areaClass, row, col, rowSpan, colSpan,
-  maxColumns, isEditMode, onRemove, onColSpan, styleOverrides = {}, children,
+  maxColumns, isEditMode, onRemove, onColSpan, onRowSpan, styleOverrides = {}, children,
 }) {
   const { attributes, listeners, setNodeRef: setDragRef, transform, isDragging } = useDraggable({ id })
   const { setNodeRef: setDropRef, isOver } = useDroppable({ id })
@@ -40,6 +40,7 @@ export default function DraggableModule({
 
   const canShrink = colSpan > 1
   const canGrow = colSpan < maxColumns
+  const canShrinkRow = rowSpan > 1
 
   return (
     <div
@@ -76,6 +77,28 @@ export default function DraggableModule({
             onClick={() => onColSpan(id, 1)}
             disabled={!canGrow}
             aria-label="Increase column span"
+          >
+            +
+          </button>
+        </div>
+      )}
+      {isEditMode && (
+        <div className={`no-print ${styles.rowSpanControls}`}>
+          <button
+            type="button"
+            className={styles.spanBtn}
+            onClick={() => onRowSpan(id, -1)}
+            disabled={!canShrinkRow}
+            aria-label="Decrease row span"
+          >
+            −
+          </button>
+          <span className={styles.spanLabel}>R{rowSpan}</span>
+          <button
+            type="button"
+            className={styles.spanBtn}
+            onClick={() => onRowSpan(id, 1)}
+            aria-label="Increase row span"
           >
             +
           </button>

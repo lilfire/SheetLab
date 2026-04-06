@@ -167,7 +167,8 @@
 .savingArea,
 .featurePrimaryArea,
 .featureSecondaryArea,
-.subclassFeatsArea {
+.subclassFeatsArea,
+.portraitArea {
   align-self: stretch;
 }
 
@@ -267,4 +268,15 @@
   font-size: 0.6rem;
   line-height: 1;
   white-space: nowrap;
+}
+
+/* ── Row span controls ────────────────────────────────────── */
+
+.rowSpanControls {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  z-index: 10;
+  display: flex;
+  gap: 2px;
 }
