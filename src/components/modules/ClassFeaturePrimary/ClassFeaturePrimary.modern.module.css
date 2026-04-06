@@ -1,0 +1,43 @@
+.feature {
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(139, 115, 85, 0.25);
+  background: #fefcf8;
+  padding: 8px 10px;
+}
+
+.title {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #8b7355;
+}
+
+.description {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.65rem;
+  color: #5a4a3a;
+  line-height: 1.5;
+}
+
+/* Show usage tracker in modern */
+.usageTracker {
+  display: block;
+  border-top: 1px solid rgba(139, 115, 85, 0.15);
+  padding-top: 6px;
+  margin-top: 4px;
+}
+
+.usageHeader {
+  border-bottom-color: rgba(139, 115, 85, 0.3);
+}
+
+.usageCol {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #8b7355;
+  font-size: 0.45rem;
+}
+
+.notes {
+  border-top-color: rgba(139, 115, 85, 0.15);
+}

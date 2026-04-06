@@ -1,4 +1,8 @@
-import styles from './AbilityScores.module.css'
+import defaultStyles from './AbilityScores.module.css'
+import modernStyles from './AbilityScores.modern.module.css'
+import { mergeStyles } from '../../../utils/mergeStyles'
+
+const TEMPLATE_MAP = { modern: modernStyles }
 
 const ABILITIES = [
   { key: 'str', label: 'STR', full: 'Strength', save: 'Strength', skills: ['Athletics'] },
@@ -10,10 +14,11 @@ const ABILITIES = [
 ]
 
 export default function AbilityScores({ preset, templateId }) {
+  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
   const proficiencies = preset?.defaultSkillProficiencies ?? []
 
   return (
-    <section className={`module-box ${styles.abilities} ${templateId ? (styles[templateId] || '') : ''}`}>
+    <section className={`module-box ${styles.abilities}`}>
       <h3 className="section-header">Ability Scores</h3>
       <div className={styles.grid}>
         {ABILITIES.map(({ key, label, full, save, skills }) => (

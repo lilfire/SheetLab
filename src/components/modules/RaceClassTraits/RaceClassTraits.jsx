@@ -1,10 +1,15 @@
-import styles from './RaceClassTraits.module.css'
+import defaultStyles from './RaceClassTraits.module.css'
+import modernStyles from './RaceClassTraits.modern.module.css'
+import { mergeStyles } from '../../../utils/mergeStyles'
+
+const TEMPLATE_MAP = { modern: modernStyles }
 
 export default function RaceClassTraits({ preset, templateId }) {
+  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
   const traits = preset?.raceTraits ?? []
 
   return (
-    <section className={`module-box ${styles.traits} ${templateId ? (styles[templateId] || '') : ''}`}>
+    <section className={`module-box ${styles.traits}`}>
       <h3 className="section-header">Race &amp; Class Traits</h3>
       <ul className={styles.list}>
         {traits.length > 0

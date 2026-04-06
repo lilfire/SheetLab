@@ -1,8 +1,13 @@
-import styles from './RaceClassInfo.module.css'
+import defaultStyles from './RaceClassInfo.module.css'
+import modernStyles from './RaceClassInfo.modern.module.css'
+import { mergeStyles } from '../../../utils/mergeStyles'
+
+const TEMPLATE_MAP = { modern: modernStyles }
 
 export default function RaceClassInfo({ preset, templateId }) {
+  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
   return (
-    <section className={`module-box ${styles.raceClass} ${templateId ? (styles[templateId] || '') : ''}`}>
+    <section className={`module-box ${styles.raceClass}`}>
       <h3 className="section-header">Race, Class &amp; Experience</h3>
       <div className={styles.fields}>
         <fieldset className={styles.field}>

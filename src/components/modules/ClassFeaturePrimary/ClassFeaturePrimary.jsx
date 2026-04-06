@@ -1,10 +1,15 @@
-import styles from './ClassFeaturePrimary.module.css'
+import defaultStyles from './ClassFeaturePrimary.module.css'
+import modernStyles from './ClassFeaturePrimary.modern.module.css'
+import { mergeStyles } from '../../../utils/mergeStyles'
+
+const TEMPLATE_MAP = { modern: modernStyles }
 
 export default function ClassFeaturePrimary({ preset, templateId }) {
+  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
   const feature = preset?.modules?.classFeaturePrimary
 
   return (
-    <section className={`module-box ${styles.feature} ${templateId ? (styles[templateId] || '') : ''}`}>
+    <section className={`module-box ${styles.feature}`}>
       <h3 className="section-header">Class Feature (Primary)</h3>
       <div className={styles.content}>
         <p className={styles.title}>{feature?.title ?? 'Primary Feature'}</p>
