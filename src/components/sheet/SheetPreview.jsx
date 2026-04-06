@@ -58,7 +58,7 @@ function useRenderMap(character, preset, templateId) {
  */
 const SheetGrid = memo(function SheetGrid({
   character, preset, templateId, tpl, userOverrides,
-  layoutConfig, isEditMode, onRemove, onSwapAreas, onColSpan,
+  layoutConfig, isEditMode, onRemove, onSwapAreas, onColSpan, onRowSpan,
 }) {
   const renderMap = useRenderMap(character, preset, templateId)
 
@@ -92,6 +92,7 @@ const SheetGrid = memo(function SheetGrid({
                 isEditMode={isEditMode}
                 onRemove={() => onRemove(mod.key)}
                 onColSpan={onColSpan}
+                onRowSpan={onRowSpan}
                 styleOverrides={lc.style || {}}
               >
                 {renderMap[mod.key]}
@@ -150,6 +151,15 @@ export default function SheetPreview({ character, preset, template, templateSett
     })
   }, [tpl.columns])
 
+  const handleRowSpan = useCallback((key, delta) => {
+    setLayoutConfig((prev) => {
+      const lc = prev[key]
+      const newSpan = Math.max(1, lc.rowSpan + delta)
+      const updated = { ...prev, [key]: { ...lc, rowSpan: newSpan } }
+      return reflowLayout(updated, key, tpl.columns)
+    })
+  }, [tpl.columns])
+
   function handlePrint() {
     window.print()
   }
@@ -184,6 +194,7 @@ export default function SheetPreview({ character, preset, template, templateSett
         onRemove={handleRemove}
         onSwapAreas={handleSwapAreas}
         onColSpan={handleColSpan}
+        onRowSpan={handleRowSpan}
       />
 
       {/* ComponentPicker — shown only in edit mode, hidden on print */}
