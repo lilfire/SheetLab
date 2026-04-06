@@ -147,11 +147,37 @@
 
 /* A4 sheet */
 .sheet {
+  position: relative;
   width: 210mm;
   min-height: 297mm;
   background: var(--color-parchment);
   padding: 8mm;
   box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+/* ── Page break overlay lines ───────────────────────────────── */
+
+.pageBreakLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  border-top: 2px dashed rgba(200, 50, 50, 0.45);
+  pointer-events: none;
+  z-index: 50;
+}
+
+.pageLabel {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  font-size: 10px;
+  color: rgba(200, 50, 50, 0.7);
+  font-family: var(--font-serif);
+  font-variant: small-caps;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 1px 6px;
+  border-radius: 2px;
 }
 
 /* Shared grid base */
