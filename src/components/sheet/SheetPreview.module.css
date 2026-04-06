@@ -194,6 +194,7 @@
   gap: 4px;
   grid-auto-rows: min-content;
   align-items: start;
+  isolation: isolate;
 }
 
 
@@ -264,9 +265,11 @@
 /* ── Row-level zebra overlay ─────────────────────────────── */
 
 .editRowOverlay {
+  position: relative;
   pointer-events: none;
   border-radius: 4px;
-  z-index: 0;
+  z-index: 10;
+  align-self: stretch;
 }
 
 /* ── Column shift controls ───────────────────────────────── */
