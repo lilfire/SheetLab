@@ -253,7 +253,7 @@
   outline-offset: -1px;
 }
 
-/* ── Edit mode: grid lines (gap becomes visible) ───────────── */
+/* ── Edit mode: grid visual ──────────────────────────────── */
 
 .editMode .grid {
   gap: 6px;
@@ -261,23 +261,24 @@
   padding: 3px;
 }
 
-/* ── Edit mode: zebra rows & column lines ────────────────────
-   Padding on area divs exposes the area background around
-   the module-box child, making row tint visible.            */
+/* ── Zebra striping ──────────────────────────────────────── */
 
-.editMode .grid > * {
+.editMode .grid > *:nth-child(odd) {
+  background-color: rgba(139, 105, 20, 0.15);
   padding: 3px;
-  background: rgba(139, 105, 20, 0.06);
   border-radius: 4px;
 }
 
-.editMode [data-grid-row-odd] {
-  background: rgba(139, 105, 20, 0.18);
+.editMode .grid > *:nth-child(even) {
+  background-color: rgba(139, 105, 20, 0.05);
+  padding: 3px;
+  border-radius: 4px;
 }
 
-/* Column separators — box-shadow is not clipped by overflow:hidden */
-.editMode .grid > [data-grid-col]:not([data-grid-col="1"]) {
-  box-shadow: -3px 0 0 0 rgba(139, 105, 20, 0.4);
+/* ── Column separator lines ──────────────────────────────── */
+
+.editMode .grid > *:not(:first-child) {
+  border-left: 2px solid rgba(139, 105, 20, 0.3);
 }
 
 /* ── Column shift controls ───────────────────────────────── */
