@@ -43,19 +43,19 @@
 /* ── Modern template ─────────────────────────────────────────── */
 
 .modern {
-  border-radius: var(--modern-radius);
-  box-shadow: var(--modern-shadow);
-  border: 1px solid rgba(107, 76, 42, 0.18);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(139, 115, 85, 0.25);
+  background: #fefcf8;
   padding: 8px 10px;
 }
 
 .modern .trait {
   font-family: 'Segoe UI', system-ui, sans-serif;
-  border-bottom-color: rgba(107, 76, 42, 0.1);
-  padding: 3px 0 3px 14px;
+  font-size: 0.68rem;
+  border-bottom-color: rgba(139, 115, 85, 0.1);
 }
 
 .modern .trait::before {
-  color: #6b4c2a;
-  font-size: 0.4rem;
+  color: #8b7355;
 }

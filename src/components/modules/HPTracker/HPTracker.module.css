@@ -9,7 +9,32 @@
   gap: 8px;
 }
 
-/* Large ornate circular HP display */
+/* ── Ring layout container ───────────────────────────────────── */
+
+.ringLayout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Satellite rings — hidden by default */
+.maxHpRing,
+.tempHpRing {
+  display: none;
+}
+
+/* Connectors — hidden by default */
+.connector {
+  display: none;
+}
+
+/* Hit Dice row — hidden by default */
+.hitDiceRow {
+  display: none;
+}
+
+/* ── Main HP orb ─────────────────────────────────────────────── */
+
 .orb {
   width: 100px;
   height: 100px;
@@ -50,6 +75,10 @@
   min-height: 1.2em;
 }
 
+.inlineMax {
+  display: inline;
+}
+
 .divider {
   font-size: 0.65rem;
   color: var(--color-text-light);
@@ -67,6 +96,8 @@
   min-height: 1.1em;
 }
 
+/* ── Inline temp HP (default layout) ─────────────────────────── */
+
 .tempHp {
   display: flex;
   align-items: center;
@@ -80,6 +111,42 @@
   color: var(--color-gold);
   white-space: nowrap;
 }
+
+/* ── Satellite labels/inputs (shared) ────────────────────────── */
+
+.satelliteLabel {
+  font-size: 0.5rem;
+  font-variant: small-caps;
+  color: var(--color-gold);
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.satelliteInput {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-align: center;
+  width: 32px;
+  background: transparent;
+  border-bottom: 1px solid var(--color-text-light);
+  color: var(--color-text);
+  padding: 0;
+  min-height: 1em;
+}
+
+/* ── Hit Dice label/input ────────────────────────────────────── */
+
+.hitDiceLabel {
+  font-size: 0.6rem;
+  font-variant: small-caps;
+  color: var(--color-gold);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* ── Death saves ─────────────────────────────────────────────── */
 
 .deathSaves {
   width: 100%;
@@ -129,68 +196,137 @@
 /* ── Modern template ─────────────────────────────────────────── */
 
 .modern {
-  border-radius: var(--modern-radius);
-  box-shadow: var(--modern-shadow);
-  border: 1px solid rgba(107, 76, 42, 0.18);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(139, 115, 85, 0.25);
+  background: #fefcf8;
   padding: 8px 10px;
-  align-items: center;
 }
 
+/* Ring layout — horizontal row with 3 circles */
+.modern .ringLayout {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  padding: 8px 0;
+}
+
+/* Show satellite rings */
+.modern .maxHpRing,
+.modern .tempHpRing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 2px solid #8b7355;
+  background: #f5efe6;
+  flex-shrink: 0;
+}
+
+.modern .satelliteLabel {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-variant: normal;
+  text-transform: uppercase;
+  font-size: 0.4rem;
+  font-weight: 700;
+  color: #8b7355;
+  letter-spacing: 0.04em;
+}
+
+.modern .satelliteInput {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.75rem;
+  width: 28px;
+  border-bottom-color: rgba(139, 115, 85, 0.3);
+}
+
+/* Show connectors */
+.modern .connector {
+  display: block;
+  width: 12px;
+  height: 2px;
+  background: #8b7355;
+  flex-shrink: 0;
+}
+
+/* Main orb — larger, modern style */
 .modern .orb {
-  width: 120px;
-  height: 120px;
-  border: 5px solid #6b4c2a;
-  box-shadow: 0 0 0 3px #e8dfd0, 0 0 0 5px rgba(107, 76, 42, 0.3), 0 4px 12px rgba(0, 0, 0, 0.12);
-  background: linear-gradient(180deg, #f5f0e8 0%, #e8dfd0 100%);
-  position: relative;
+  width: 90px;
+  height: 90px;
+  border: 3px solid #8b7355;
+  box-shadow: 0 0 0 2px #f5efe6, 0 0 0 4px rgba(139, 115, 85, 0.3);
+  background: linear-gradient(180deg, #faf6f0 0%, #f0e8d8 100%);
+  flex-shrink: 0;
 }
 
 .modern .orbLabel {
   font-family: 'Segoe UI', system-ui, sans-serif;
   font-variant: normal;
   text-transform: uppercase;
-  font-size: 0.5rem;
+  font-size: 0.4rem;
   font-weight: 700;
-  color: #6b4c2a;
-  letter-spacing: 0.06em;
+  color: #8b7355;
+  letter-spacing: 0.04em;
 }
 
 .modern .hpInput {
   font-family: 'Segoe UI', system-ui, sans-serif;
-  font-size: 1.6rem;
+  font-size: 1.3rem;
+  width: 42px;
+  border-bottom-color: rgba(139, 115, 85, 0.3);
 }
 
+/* Hide inline max HP in modern (it's shown in the satellite ring instead) */
+.modern .inlineMax {
+  display: none;
+}
+
+/* Hide inline temp HP in modern (shown as satellite ring) */
 .modern .tempHp {
-  background: rgba(107, 76, 42, 0.06);
-  border-radius: 6px;
-  padding: 4px 8px;
+  display: none;
 }
 
-.modern .tempLabel {
+/* Show hit dice row */
+.modern .hitDiceRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 4px 0;
+}
+
+.modern .hitDiceLabel {
   font-family: 'Segoe UI', system-ui, sans-serif;
   font-variant: normal;
   text-transform: uppercase;
-  font-size: 0.55rem;
+  font-size: 0.5rem;
   font-weight: 600;
-  color: #6b4c2a;
+  color: #8b7355;
 }
 
+/* Death saves */
 .modern .deathSaves {
-  border-top: 1px solid rgba(107, 76, 42, 0.2);
+  border-top-color: rgba(139, 115, 85, 0.2);
 }
 
 .modern .saveLabel {
   font-family: 'Segoe UI', system-ui, sans-serif;
   font-variant: normal;
   text-transform: uppercase;
-  font-size: 0.55rem;
+  font-size: 0.5rem;
   font-weight: 600;
-  color: #6b4c2a;
+  color: #8b7355;
 }
 
 .modern .bubble {
+  color: #8b7355;
+  font-size: 0.8rem;
   width: 16px;
   height: 16px;
-  font-size: 0.8rem;
-  color: #6b4c2a;
 }

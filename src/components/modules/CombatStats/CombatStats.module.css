@@ -56,31 +56,33 @@
 /* ── Modern template ─────────────────────────────────────────── */
 
 .modern {
-  border-radius: var(--modern-radius);
-  box-shadow: var(--modern-shadow);
-  border: 1px solid rgba(107, 76, 42, 0.18);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(139, 115, 85, 0.25);
+  background: #fefcf8;
   padding: 8px 10px;
 }
 
 .modern .circle {
-  width: 58px;
-  height: 58px;
-  border: 3px solid #6b4c2a;
-  background: linear-gradient(180deg, #f5f0e8 0%, #e8dfd0 100%);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 48px;
+  height: 48px;
+  border: 2px solid #8b7355;
+  background: #f5efe6;
 }
 
 .modern .value {
   font-family: 'Segoe UI', system-ui, sans-serif;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
+  width: 34px;
+  border-bottom-color: rgba(139, 115, 85, 0.3);
 }
 
 .modern .label {
   font-family: 'Segoe UI', system-ui, sans-serif;
   font-variant: normal;
   text-transform: uppercase;
-  font-size: 0.5rem;
+  font-size: 0.45rem;
   font-weight: 600;
-  color: #6b4c2a;
-  letter-spacing: 0.06em;
+  color: #8b7355;
+  letter-spacing: 0.04em;
 }

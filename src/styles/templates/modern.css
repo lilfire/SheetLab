@@ -1,75 +1,71 @@
-/* Modern template: card-based design with shadows, rounded corners, and warm earth tones. */
+/* Modern template: card-based design with rounded corners, thin borders, warm earth tones.
+   NO gradient section headers — clean, minimal section titles with underlines. */
 
 [data-template="modern"] {
-  --color-parchment: #f5f0e8;
-  --color-parchment-dark: #e8dfd0;
-  --color-gold: #6b4c2a;
-  --color-gold-light: #8b6914;
-  --color-text: #2c1a0e;
-  --color-text-light: #5a3a1e;
-  --border-ornate: 1px solid rgba(107, 76, 42, 0.25);
+  --color-parchment: #faf6f0;
+  --color-parchment-dark: #f0e8d8;
+  --color-text: #3a2a1a;
+  --color-text-light: #6b5540;
+  --color-gold: #8b7355;
+  --color-gold-light: #a08860;
+  --color-border: #8b7355;
   --font-serif: 'Segoe UI', system-ui, sans-serif;
-  --modern-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  --modern-radius: 8px;
+  --font-sans: 'Segoe UI', system-ui, sans-serif;
+  --border-ornate: 1px solid rgba(139, 115, 85, 0.25);
 }
 
 [data-template="modern"] .sheet-grid {
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 6px;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 5px;
   grid-template-areas:
-    "header      header       portrait"
-    "raceclass   raceclass    raceclass"
-    "ability     ability      ability"
-    "passive     saving       combat"
-    "insp        saving       hp"
-    "background  saving       featurePrimary"
-    "traits      attacks      featurePrimary"
-    "abilities   attacks      featureSecondary"
-    "equipment   proficiency  subclassFeats";
+    "header       header        portrait"
+    "raceclass    raceclass     raceclass"
+    "ability      ability       ability"
+    "passive      saving        featurePrimary"
+    "insp         saving        featurePrimary"
+    "combat       hp            featureSecondary"
+    "background   hp            featureSecondary"
+    "traits       attacks       subclassFeats"
+    "abilities    attacks       subclassFeats"
+    "equipment    proficiency   subclassFeats";
 }
 
 /* ── Global module box overrides ─────────────────────────────── */
 
 [data-template="modern"] .module-box {
-  border-radius: var(--modern-radius);
-  box-shadow: var(--modern-shadow);
-  border: 1px solid rgba(107, 76, 42, 0.18);
-  background: var(--color-parchment);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(139, 115, 85, 0.25);
+  background: #fefcf8;
   overflow: hidden;
 }
 
-/* ── Section headers: filled background bar ──────────────────── */
+/* ── Section headers: clean underline, NO gradient background ── */
 
 [data-template="modern"] .section-header {
-  background: linear-gradient(135deg, #6b4c2a 0%, #8b6914 100%);
-  color: #f5f0e8;
-  border-bottom: none;
-  padding: 4px 10px;
-  margin: -6px -8px 8px -8px;
+  background: none;
+  color: #8b7355;
+  border-bottom: 1px solid rgba(139, 115, 85, 0.3);
+  padding: 0 0 3px 0;
+  margin: 0 0 6px 0;
   border-radius: 0;
   font-family: 'Segoe UI', system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   font-variant: normal;
-}
-
-/* First module-box child gets rounded top on its header */
-[data-template="modern"] .module-box .section-header:first-child {
-  margin-top: -6px;
-  border-radius: calc(var(--modern-radius) - 1px) calc(var(--modern-radius) - 1px) 0 0;
 }
 
 /* ── Write-in lines: subtler ─────────────────────────────────── */
 
 [data-template="modern"] .write-line {
-  border-bottom-color: rgba(107, 76, 42, 0.2);
+  border-bottom-color: rgba(139, 115, 85, 0.2);
+  font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
-/* ── Pen checkboxes: modern style ────────────────────────────── */
+/* ── Pen checkboxes ──────────────────────────────────────────── */
 
 [data-template="modern"] .pen-checkbox {
-  font-size: 0.8rem;
-  color: var(--color-gold);
+  color: #8b7355;
 }

@@ -34,7 +34,7 @@ function useRenderMap(character, preset, templateId) {
     portrait:        <CharacterPortrait character={character} templateId={templateId} />,
     raceclass:       <RaceClassInfo character={character} preset={preset} templateId={templateId} />,
     background:      <BackgroundInfo character={character} templateId={templateId} />,
-    ability:         <AbilityScores character={character} templateId={templateId} />,
+    ability:         <AbilityScores character={character} preset={preset} templateId={templateId} />,
     passive:         <PassiveStats character={character} templateId={templateId} />,
     insp:            <Inspiration character={character} templateId={templateId} />,
     saving:          <SavingThrowsSkills character={character} preset={preset} templateId={templateId} />,
@@ -57,7 +57,7 @@ function useRenderMap(character, preset, templateId) {
  */
 const SheetGrid = memo(function SheetGrid({
   character, preset, templateId, tpl, userOverrides,
-  layoutConfig, isEditMode, onRemove, onSwapAreas,
+  layoutConfig, isEditMode, onRemove, onSwapAreas, onColSpan,
 }) {
   const renderMap = useRenderMap(character, preset, templateId)
 
@@ -84,8 +84,10 @@ const SheetGrid = memo(function SheetGrid({
                 id={mod.key}
                 areaClass={mod.areaClass}
                 gridArea={lc.gridArea}
+                colSpan={lc.colSpan || 1}
                 isEditMode={isEditMode}
                 onRemove={() => onRemove(mod.key)}
+                onColSpan={(delta) => onColSpan(mod.key, delta)}
               >
                 {renderMap[mod.key]}
               </DraggableModule>
@@ -116,6 +118,14 @@ export default function SheetPreview({ character, preset, template, templateSett
 
   const handleToggle = useCallback((key) => {
     setLayoutConfig((prev) => ({ ...prev, [key]: { ...prev[key], visible: !prev[key].visible } }))
+  }, [])
+
+  const handleColSpan = useCallback((key, delta) => {
+    setLayoutConfig((prev) => {
+      const current = prev[key].colSpan || 1
+      const next = Math.max(1, Math.min(3, current + delta))
+      return { ...prev, [key]: { ...prev[key], colSpan: next } }
+    })
   }, [])
 
   const handleSwapAreas = useCallback((keyA, keyB) => {
@@ -163,6 +173,7 @@ export default function SheetPreview({ character, preset, template, templateSett
         isEditMode={isEditMode}
         onRemove={handleRemove}
         onSwapAreas={handleSwapAreas}
+        onColSpan={handleColSpan}
       />
 
       {/* ComponentPicker — shown only in edit mode, hidden on print */}
