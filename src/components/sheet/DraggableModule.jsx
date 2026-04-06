@@ -17,7 +17,7 @@ import styles from './SheetPreview.module.css'
  */
 export default function DraggableModule({
   id, areaClass, row, col, rowSpan, colSpan,
-  maxColumns, isEditMode, onRemove, onColSpan, onRowSpan, styleOverrides = {}, children,
+  maxColumns, isEditMode, onRemove, onColSpan, onColShift, onRowSpan, styleOverrides = {}, children,
 }) {
   const { attributes, listeners, setNodeRef: setDragRef, transform, isDragging } = useDraggable({ id })
   const { setNodeRef: setDropRef, isOver } = useDroppable({ id })
@@ -40,6 +40,8 @@ export default function DraggableModule({
 
   const canShrink = colSpan > 1
   const canGrow = colSpan < maxColumns
+  const canShiftLeft = col > 1
+  const canShiftRight = col + colSpan - 1 < maxColumns
   const canShrinkRow = rowSpan > 1
 
   return (
@@ -59,6 +61,29 @@ export default function DraggableModule({
         >
           ⠿
         </button>
+      )}
+      {isEditMode && (
+        <div className={`no-print ${styles.colShiftControls}`}>
+          <button
+            type="button"
+            className={styles.spanBtn}
+            onClick={() => onColShift(id, -1)}
+            disabled={!canShiftLeft}
+            aria-label="Shift module left"
+          >
+            ◀
+          </button>
+          <span className={styles.spanLabel}>C{col}</span>
+          <button
+            type="button"
+            className={styles.spanBtn}
+            onClick={() => onColShift(id, 1)}
+            disabled={!canShiftRight}
+            aria-label="Shift module right"
+          >
+            ▶
+          </button>
+        </div>
       )}
       {isEditMode && (
         <div className={`no-print ${styles.spanControls}`}>

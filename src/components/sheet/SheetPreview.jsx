@@ -59,7 +59,7 @@ function useRenderMap(character, preset, templateId) {
  */
 const SheetGrid = memo(function SheetGrid({
   character, preset, templateId, tpl, userOverrides,
-  layoutConfig, isEditMode, onRemove, onSwapAreas, onColSpan, onRowSpan,
+  layoutConfig, isEditMode, onRemove, onSwapAreas, onColSpan, onColShift, onRowSpan,
 }) {
   const sheetRef = useRef(null)
   const gridRef = useRef(null)
@@ -97,6 +97,7 @@ const SheetGrid = memo(function SheetGrid({
                 isEditMode={isEditMode}
                 onRemove={() => onRemove(mod.key)}
                 onColSpan={onColSpan}
+                onColShift={onColShift}
                 onRowSpan={onRowSpan}
                 styleOverrides={lc.style || {}}
               >
@@ -165,6 +166,18 @@ export default function SheetPreview({ character, preset, template, templateSett
     })
   }, [tpl.columns])
 
+  const handleColShift = useCallback((key, delta) => {
+    setLayoutConfig((prev) => {
+      const lc = prev[key]
+      const minCol = 1
+      const maxCol = tpl.columns - lc.colSpan + 1
+      const newCol = Math.min(Math.max(minCol, lc.col + delta), maxCol)
+      if (newCol === lc.col) return prev
+      const updated = { ...prev, [key]: { ...lc, col: newCol } }
+      return reflowLayout(updated, key, tpl.columns)
+    })
+  }, [tpl.columns])
+
   const handleRowSpan = useCallback((key, delta) => {
     setLayoutConfig((prev) => {
       const lc = prev[key]
@@ -208,6 +221,7 @@ export default function SheetPreview({ character, preset, template, templateSett
         onRemove={handleRemove}
         onSwapAreas={handleSwapAreas}
         onColSpan={handleColSpan}
+        onColShift={handleColShift}
         onRowSpan={handleRowSpan}
       />
 

@@ -253,6 +253,17 @@
   outline-offset: -1px;
 }
 
+/* ── Column shift controls ───────────────────────────────── */
+
+.colShiftControls {
+  position: absolute;
+  top: 2px;
+  left: 26px;
+  z-index: 10;
+  display: flex;
+  gap: 2px;
+}
+
 /* ── Column span controls ──────────────────────────────────── */
 
 .spanControls {
