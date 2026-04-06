@@ -140,8 +140,12 @@ export default function SheetPreview({ character, preset, template, templateSett
   const handleColSpan = useCallback((key, delta) => {
     setLayoutConfig((prev) => {
       const lc = prev[key]
-      const newSpan = Math.min(Math.max(1, lc.colSpan + delta), tpl.columns - lc.col + 1)
-      const updated = { ...prev, [key]: { ...lc, colSpan: newSpan } }
+      const newSpan = Math.min(Math.max(1, lc.colSpan + delta), tpl.columns)
+      let newCol = lc.col
+      if (newCol + newSpan - 1 > tpl.columns) {
+        newCol = tpl.columns - newSpan + 1
+      }
+      const updated = { ...prev, [key]: { ...lc, col: newCol, colSpan: newSpan } }
       return reflowLayout(updated, key, tpl.columns)
     })
   }, [tpl.columns])
