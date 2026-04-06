@@ -15,4 +15,13 @@ describe('Scenario 5 – Print CSS static verification', () => {
     expect(printCss).toContain('.no-print')
     expect(printCss).toContain('display: none')
   })
+
+  it('@page margin is 0 to avoid double-margin with sheet padding', () => {
+    const printCss = readFileSync(
+      resolve(__dirname, '../../styles/print.css'),
+      'utf-8'
+    )
+    expect(printCss).toMatch(/@page\s*\{[^}]*margin:\s*0;/)
+    expect(printCss).not.toMatch(/@page\s*\{[^}]*margin:\s*8mm/)
+  })
 })
