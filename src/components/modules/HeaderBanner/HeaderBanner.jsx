@@ -7,7 +7,7 @@ const TEMPLATE_MAP = { modern: modernStyles }
 export default function HeaderBanner({ character, templateId }) {
   const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
   return (
-    <section className={`${styles.banner}`}>
+    <section className={`module-box ${styles.banner}`}>
       <div className={styles.scrollShape}>
         <div className={styles.scrollLeft} />
         <div className={styles.content}>

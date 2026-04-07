@@ -1,8 +1,8 @@
 .abilities {
   border-radius: 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(139, 115, 85, 0.25);
-  background: #fefcf8;
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
+  background: var(--mod-bg, #fefcf8);
   padding: 8px 6px;
 }
 
@@ -13,7 +13,7 @@
 
 .shield {
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  background: linear-gradient(180deg, #f0e8d8 0%, #e4dac8 100%);
+  background: linear-gradient(180deg, var(--mod-accent, #f0e8d8) 0%, #e4dac8 100%);
   border: none;
   padding: 8px 4px 14px;
   width: 100%;
@@ -26,7 +26,7 @@
   text-transform: uppercase;
   font-size: 0.45rem;
   font-weight: 700;
-  color: #8b7355;
+  color: var(--mod-heading, #8b7355);
   letter-spacing: 0.06em;
 }
 
@@ -34,19 +34,20 @@
   font-family: 'Segoe UI', system-ui, sans-serif;
   font-size: 0.85rem;
   width: 28px;
-  border-bottom-color: rgba(139, 115, 85, 0.3);
+  border-bottom-color: var(--mod-muted, rgba(139, 115, 85, 0.3));
+  color: var(--mod-text, #3a2a1a);
 }
 
 .modifierBubble {
-  background: #8b7355;
-  border-color: #8b7355;
+  background: var(--mod-accent, #8b7355);
+  border-color: var(--mod-accent, #8b7355);
   width: 20px;
   height: 20px;
   bottom: 6px;
 }
 
 .modifier {
-  color: #faf6f0;
+  color: var(--mod-bg, #faf6f0);
   font-size: 0.5rem;
 }
 
@@ -55,18 +56,18 @@
   display: flex;
   margin-top: 6px;
   padding-top: 4px;
-  border-top: 1px solid rgba(139, 115, 85, 0.15);
+  border-top: 1px solid var(--mod-muted, rgba(139, 115, 85, 0.15));
 }
 
 .saveRow {
   padding-bottom: 2px;
   margin-bottom: 2px;
-  border-bottom: 1px solid rgba(139, 115, 85, 0.1);
+  border-bottom: 1px solid var(--mod-muted, rgba(139, 115, 85, 0.1));
 }
 
 .saveCheck,
 .skillCheck {
-  color: #8b7355;
+  color: var(--mod-heading, #8b7355);
   font-size: 0.55rem;
 }
 
@@ -74,12 +75,13 @@
 .skillModifier {
   width: 18px;
   font-size: 0.5rem;
-  border-bottom-color: rgba(139, 115, 85, 0.2);
+  border-bottom-color: var(--mod-muted, rgba(139, 115, 85, 0.2));
+  color: var(--mod-text, #3a2a1a);
 }
 
 .saveName {
   font-size: 0.45rem;
-  color: #8b7355;
+  color: var(--mod-heading, #8b7355);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -87,5 +89,5 @@
 
 .skillName {
   font-size: 0.45rem;
-  color: #3a2a1a;
+  color: var(--mod-text, #3a2a1a);
 }

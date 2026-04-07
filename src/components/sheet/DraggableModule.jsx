@@ -15,9 +15,22 @@ import styles from './SheetPreview.module.css'
  *   styleOverrides — optional CSS style object (background, border, etc.)
  *   children    — the module component to render inside
  */
+// Map style override keys to CSS custom properties that .module-box can read
+const STYLE_TO_CSS_VAR = {
+  backgroundColor: '--mod-bg',
+  borderColor: '--mod-border-color',
+  textColor: '--mod-text',
+  headingColor: '--mod-heading',
+  accentColor: '--mod-accent',
+  mutedColor: '--mod-muted',
+  borderStyle: '--mod-border-style',
+  borderWidth: '--mod-border-width',
+}
+
 export default function DraggableModule({
   id, areaClass, row, col, rowSpan, colSpan,
-  maxColumns, isEditMode, onRemove, onColSpan, onColShift, onRowSpan, styleOverrides = {}, children,
+  maxColumns, isEditMode, onRemove, onColSpan, onColShift, onRowSpan,
+  onOpenSettings, styleOverrides = {}, children,
 }) {
   const { attributes, listeners, setNodeRef: setDragRef, transform, isDragging } = useDraggable({ id })
   const { setNodeRef: setDropRef, isOver } = useDroppable({ id })
@@ -26,13 +39,25 @@ export default function DraggableModule({
     ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
     : undefined
 
+  // Convert known style keys to CSS custom properties so they cascade to .module-box
+  const cssVars = {}
+  const remainingOverrides = {}
+  for (const [k, v] of Object.entries(styleOverrides)) {
+    if (STYLE_TO_CSS_VAR[k]) {
+      cssVars[STYLE_TO_CSS_VAR[k]] = v
+    } else {
+      remainingOverrides[k] = v
+    }
+  }
+
   const style = {
     gridRowStart: row,
     gridRowEnd: row + rowSpan,
     gridColumnStart: col,
     gridColumnEnd: col + colSpan,
     overflow: 'hidden',
-    ...styleOverrides,
+    ...cssVars,
+    ...remainingOverrides,
     ...(transformStyle && { transform: transformStyle, zIndex: 20 }),
     ...(isDragging && { opacity: 0.45 }),
     ...(isOver && isEditMode && { boxShadow: '0 0 0 2px #8b6914' }),
@@ -130,6 +155,14 @@ export default function DraggableModule({
           </button>
         </div>
       )}
+      <button
+        className={`no-print ${styles.settingsBtn}`}
+        onClick={onOpenSettings}
+        type="button"
+        aria-label="Module settings"
+      >
+        ⚙
+      </button>
       <button
         className={`no-print ${styles.removeBtn}`}
         onClick={onRemove}

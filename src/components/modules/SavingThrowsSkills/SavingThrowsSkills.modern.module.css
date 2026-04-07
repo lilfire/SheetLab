@@ -1,9 +1,10 @@
 .savingSkills {
   border-radius: 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(139, 115, 85, 0.25);
-  background: #fefcf8;
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
+  background: var(--mod-bg, #fefcf8);
   padding: 8px 10px;
+  color: var(--mod-text, #3a2a1a);
 }
 
 .row {
@@ -12,24 +13,26 @@
 }
 
 .row:nth-child(even) {
-  background: rgba(139, 115, 85, 0.04);
+  background: var(--mod-accent, rgba(139, 115, 85, 0.04));
 }
 
 .check {
-  color: #8b7355;
+  color: var(--mod-heading, #8b7355);
 }
 
 .modifier {
-  border-bottom-color: rgba(139, 115, 85, 0.2);
+  border-bottom-color: var(--mod-muted, rgba(139, 115, 85, 0.2));
+  color: var(--mod-text, #3a2a1a);
 }
 
 .name {
   font-family: 'Segoe UI', system-ui, sans-serif;
   font-size: 0.65rem;
+  color: var(--mod-text, #3a2a1a);
 }
 
 .ability {
   font-family: 'Segoe UI', system-ui, sans-serif;
   font-size: 0.55rem;
-  color: rgba(139, 115, 85, 0.6);
+  color: var(--mod-muted, rgba(139, 115, 85, 0.6));
 }

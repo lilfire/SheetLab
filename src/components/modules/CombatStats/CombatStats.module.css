@@ -1,8 +1,8 @@
 .combat {
-  border: var(--border-ornate);
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
   border-radius: 4px;
   padding: 6px 8px;
-  background: var(--color-parchment);
+  background: var(--mod-bg, var(--color-parchment));
 }
 
 .stats {
@@ -24,8 +24,8 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  border: 2px solid var(--color-gold);
-  background: var(--color-parchment-dark);
+  border: 2px solid var(--mod-accent, var(--color-gold));
+  background: var(--mod-accent, var(--color-parchment-dark));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,9 +38,9 @@
   font-family: var(--font-serif);
   font-size: 1rem;
   font-weight: bold;
-  color: var(--color-text);
+  color: var(--mod-text, var(--color-text));
   background: transparent;
-  border-bottom: 1px solid var(--color-text-light);
+  border-bottom: 1px solid var(--mod-muted, var(--color-text-light));
   padding: 0;
   min-height: 1.2em;
 }
@@ -48,7 +48,7 @@
 .label {
   font-size: 0.6rem;
   font-variant: small-caps;
-  color: var(--color-gold);
+  color: var(--mod-heading, var(--color-gold));
   text-align: center;
   letter-spacing: 0.04em;
 }

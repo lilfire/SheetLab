@@ -1,9 +1,10 @@
 .raceClass {
   border-radius: 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(139, 115, 85, 0.25);
-  background: #fefcf8;
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
+  background: var(--mod-bg, #fefcf8);
   padding: 8px 10px;
+  color: var(--mod-text, #3a2a1a);
 }
 
 .label {
@@ -12,7 +13,7 @@
   text-transform: uppercase;
   font-size: 0.5rem;
   font-weight: 600;
-  color: #8b7355;
+  color: var(--mod-heading, #8b7355);
   letter-spacing: 0.06em;
 }
 
@@ -23,5 +24,5 @@
   gap: 4px 8px;
   margin-top: 4px;
   padding-top: 4px;
-  border-top: 1px solid rgba(139, 115, 85, 0.15);
+  border-top: 1px solid var(--mod-muted, rgba(139, 115, 85, 0.15));
 }

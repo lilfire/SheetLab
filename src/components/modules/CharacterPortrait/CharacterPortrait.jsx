@@ -6,7 +6,7 @@ import { cx } from '../../../utils/cx'
 
 const TEMPLATE_MAP = { modern: modernStyles }
 
-export default function CharacterPortrait({ templateId }) {
+export default function CharacterPortrait({ templateId, settings = {} }) {
   const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
   const [imageSrc, setImageSrc] = useState(null)
   const inputRef = useRef(null)
@@ -22,7 +22,11 @@ export default function CharacterPortrait({ templateId }) {
   return (
     <section className={cx('module-box', styles.moduleBox, styles.portrait)}>
       <h3 className={cx('section-header', styles.sectionHeader)}>Portrait</h3>
-      <div className={styles.frame} onClick={() => inputRef.current?.click()}>
+      <div
+        className={styles.frame}
+        onClick={() => inputRef.current?.click()}
+        style={settings.aspectRatio ? { aspectRatio: settings.aspectRatio } : undefined}
+      >
         {imageSrc ? (
           <img src={imageSrc} alt="Character portrait" className={styles.image} />
         ) : (

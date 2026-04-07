@@ -1,8 +1,8 @@
 .traits {
-  border: var(--border-ornate);
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
   border-radius: 4px;
   padding: 6px 8px;
-  background: var(--color-parchment);
+  background: var(--mod-bg, var(--color-parchment));
 }
 
 .list {
@@ -14,9 +14,9 @@
 
 .trait {
   font-size: 0.72rem;
-  color: var(--color-text);
+  color: var(--mod-text, var(--color-text));
   padding: 2px 0;
-  border-bottom: 1px dotted var(--color-parchment-dark);
+  border-bottom: 1px dotted var(--mod-muted, var(--color-parchment-dark));
   padding-left: 12px;
   position: relative;
 }
@@ -26,7 +26,7 @@
   position: absolute;
   left: 0;
   font-size: 0.45rem;
-  color: var(--color-gold);
+  color: var(--mod-heading, var(--color-gold));
   top: 4px;
 }
 
@@ -36,6 +36,6 @@
 
 .placeholder {
   font-size: 0.7rem;
-  color: var(--color-text-light);
+  color: var(--mod-muted, var(--color-text-light));
   font-style: italic;
 }

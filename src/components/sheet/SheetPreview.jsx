@@ -20,6 +20,8 @@ import ClassFeatureSecondary from '../modules/ClassFeatureSecondary/ClassFeature
 import SubclassFeats from '../modules/SubclassFeats/SubclassFeats.jsx'
 import { getTemplate } from '../../templates/index.js'
 import { MODULE_REGISTRY, buildInitialLayoutConfig } from '../../data/moduleRegistry.js'
+import { STYLE_SETTING_KEYS } from '../../data/moduleSettings.js'
+import ModuleSettingsModal from './ModuleSettingsModal.jsx'
 import { reflowLayout } from '../../data/layoutReflow.js'
 import DraggableModule from './DraggableModule.jsx'
 import ComponentPicker from './ComponentPicker.jsx'
@@ -30,18 +32,18 @@ import styles from './SheetPreview.module.css'
  * Build a map of module key → rendered React element.
  * Memoized on character, preset, templateId so modules don't remount unnecessarily.
  */
-function useRenderMap(character, preset, templateId) {
+function useRenderMap(character, preset, templateId, moduleSettings) {
   return useMemo(() => ({
     header:          <HeaderBanner character={character} templateId={templateId} />,
-    portrait:        <CharacterPortrait character={character} templateId={templateId} />,
-    raceclass:       <RaceClassInfo character={character} preset={preset} templateId={templateId} />,
+    portrait:        <CharacterPortrait character={character} templateId={templateId} settings={moduleSettings.portrait} />,
+    raceclass:       <RaceClassInfo character={character} preset={preset} templateId={templateId} settings={moduleSettings.raceclass} />,
     background:      <BackgroundInfo character={character} templateId={templateId} />,
-    ability:         <AbilityScores character={character} preset={preset} templateId={templateId} />,
+    ability:         <AbilityScores character={character} preset={preset} templateId={templateId} settings={moduleSettings.ability} />,
     passive:         <PassiveStats character={character} templateId={templateId} />,
     insp:            <Inspiration character={character} templateId={templateId} />,
     saving:          <SavingThrowsSkills character={character} preset={preset} templateId={templateId} />,
     combat:          <CombatStats character={character} templateId={templateId} />,
-    hp:              <HPTracker character={character} templateId={templateId} />,
+    hp:              <HPTracker character={character} templateId={templateId} settings={moduleSettings.hp} />,
     featurePrimary:  <ClassFeaturePrimary character={character} preset={preset} templateId={templateId} />,
     traits:          <RaceClassTraits character={character} preset={preset} templateId={templateId} />,
     featureSecondary:<ClassFeatureSecondary character={character} preset={preset} templateId={templateId} />,
@@ -50,7 +52,7 @@ function useRenderMap(character, preset, templateId) {
     attacks:         <AttacksCantrips character={character} templateId={templateId} />,
     equipment:       <Equipment character={character} templateId={templateId} />,
     proficiency:     <Proficiency character={character} templateId={templateId} />,
-  }), [character, preset, templateId])
+  }), [character, preset, templateId, moduleSettings])
 }
 
 /**
@@ -59,11 +61,12 @@ function useRenderMap(character, preset, templateId) {
  */
 const SheetGrid = memo(function SheetGrid({
   character, preset, templateId, tpl, userOverrides,
-  layoutConfig, isEditMode, onRemove, onSwapAreas, onColSpan, onColShift, onRowSpan,
+  layoutConfig, moduleSettings, isEditMode, onRemove, onSwapAreas, onColSpan, onColShift, onRowSpan,
+  onOpenSettings,
 }) {
   const sheetRef = useRef(null)
   const gridRef = useRef(null)
-  const renderMap = useRenderMap(character, preset, templateId)
+  const renderMap = useRenderMap(character, preset, templateId, moduleSettings)
   const { pageBreakLines } = usePageBreaks(gridRef, sheetRef, [layoutConfig])
 
   function handleDragEnd({ active, over }) {
@@ -119,6 +122,7 @@ const SheetGrid = memo(function SheetGrid({
                 onColSpan={onColSpan}
                 onColShift={onColShift}
                 onRowSpan={onRowSpan}
+                onOpenSettings={() => onOpenSettings(mod.key)}
                 styleOverrides={lc.style || {}}
               >
                 {renderMap[mod.key]}
@@ -140,10 +144,19 @@ const SheetGrid = memo(function SheetGrid({
   )
 })
 
-export default function SheetPreview({ character, preset, template, templateSettings, initialModuleStyles = {}, onReset }) {
+export default function SheetPreview({ character, preset, template, templateSettings, onReset }) {
   const tpl = useMemo(() => getTemplate(template), [template])
   const [isEditMode, setIsEditMode] = useState(false)
-  const [layoutConfig, setLayoutConfig] = useState(() => buildInitialLayoutConfig(template, initialModuleStyles))
+  const [layoutConfig, setLayoutConfig] = useState(() => buildInitialLayoutConfig(template))
+  const [settingsModalKey, setSettingsModalKey] = useState(null)
+
+  const moduleSettings = useMemo(() => {
+    const s = {}
+    for (const key in layoutConfig) {
+      s[key] = layoutConfig[key].settings
+    }
+    return s
+  }, [layoutConfig])
 
   const userOverrides = useMemo(() => {
     const o = {}
@@ -207,6 +220,38 @@ export default function SheetPreview({ character, preset, template, templateSett
     })
   }, [tpl.columns])
 
+  const handleSettingsChange = useCallback((key, newSettings) => {
+    setLayoutConfig((prev) => {
+      const styleUpdates = {}
+      const settingsUpdates = {}
+      for (const [k, v] of Object.entries(newSettings)) {
+        if (STYLE_SETTING_KEYS.has(k)) {
+          styleUpdates[k] = v
+        } else {
+          settingsUpdates[k] = v
+        }
+      }
+
+      const currentStyle = { ...prev[key].style }
+      for (const [k, v] of Object.entries(styleUpdates)) {
+        if (v == null) {
+          delete currentStyle[k]
+        } else {
+          currentStyle[k] = v
+        }
+      }
+
+      return {
+        ...prev,
+        [key]: {
+          ...prev[key],
+          settings: { ...prev[key].settings, ...settingsUpdates },
+          style: currentStyle,
+        },
+      }
+    })
+  }, [])
+
   function handlePrint() {
     window.print()
   }
@@ -237,17 +282,30 @@ export default function SheetPreview({ character, preset, template, templateSett
         tpl={tpl}
         userOverrides={userOverrides}
         layoutConfig={layoutConfig}
+        moduleSettings={moduleSettings}
         isEditMode={isEditMode}
         onRemove={handleRemove}
         onSwapAreas={handleSwapAreas}
         onColSpan={handleColSpan}
         onColShift={handleColShift}
         onRowSpan={handleRowSpan}
+        onOpenSettings={setSettingsModalKey}
       />
 
       {/* ComponentPicker — shown only in edit mode, hidden on print */}
       {isEditMode && (
         <ComponentPicker layoutConfig={layoutConfig} onToggle={handleToggle} />
+      )}
+
+      {/* Module settings modal */}
+      {settingsModalKey && (
+        <ModuleSettingsModal
+          moduleKey={settingsModalKey}
+          moduleName={MODULE_REGISTRY.find((m) => m.key === settingsModalKey)?.name}
+          settings={{ ...layoutConfig[settingsModalKey].settings, ...layoutConfig[settingsModalKey].style }}
+          onSettingsChange={handleSettingsChange}
+          onClose={() => setSettingsModalKey(null)}
+        />
       )}
     </div>
   )

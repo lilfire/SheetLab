@@ -1,8 +1,8 @@
 .hpTracker {
   border-radius: 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(139, 115, 85, 0.25);
-  background: #fefcf8;
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
+  background: var(--mod-bg, #fefcf8);
   padding: 8px 10px;
 }
 
@@ -27,8 +27,8 @@
   width: 55px;
   height: 55px;
   border-radius: 50%;
-  border: 2px solid #8b7355;
-  background: #f5efe6;
+  border: 2px solid var(--mod-accent, #8b7355);
+  background: var(--mod-accent, #f5efe6);
   flex-shrink: 0;
 }
 
@@ -38,7 +38,7 @@
   text-transform: uppercase;
   font-size: 0.4rem;
   font-weight: 700;
-  color: #8b7355;
+  color: var(--mod-heading, #8b7355);
   letter-spacing: 0.04em;
 }
 
@@ -46,7 +46,8 @@
   font-family: 'Segoe UI', system-ui, sans-serif;
   font-size: 0.75rem;
   width: 28px;
-  border-bottom-color: rgba(139, 115, 85, 0.3);
+  border-bottom-color: var(--mod-muted, rgba(139, 115, 85, 0.3));
+  color: var(--mod-text, #3a2a1a);
 }
 
 /* Show connectors */
@@ -54,7 +55,7 @@
   display: block;
   width: 12px;
   height: 2px;
-  background: #8b7355;
+  background: var(--mod-accent, #8b7355);
   flex-shrink: 0;
 }
 
@@ -62,9 +63,9 @@
 .orb {
   width: 90px;
   height: 90px;
-  border: 3px solid #8b7355;
-  box-shadow: 0 0 0 2px #f5efe6, 0 0 0 4px rgba(139, 115, 85, 0.3);
-  background: linear-gradient(180deg, #faf6f0 0%, #f0e8d8 100%);
+  border: 3px solid var(--mod-accent, #8b7355);
+  box-shadow: 0 0 0 2px var(--mod-bg, #f5efe6), 0 0 0 4px var(--mod-muted, rgba(139, 115, 85, 0.3));
+  background: linear-gradient(180deg, var(--mod-bg, #faf6f0) 0%, var(--mod-accent, #f0e8d8) 100%);
   flex-shrink: 0;
 }
 
@@ -74,7 +75,7 @@
   text-transform: uppercase;
   font-size: 0.4rem;
   font-weight: 700;
-  color: #8b7355;
+  color: var(--mod-heading, #8b7355);
   letter-spacing: 0.04em;
 }
 
@@ -82,7 +83,8 @@
   font-family: 'Segoe UI', system-ui, sans-serif;
   font-size: 1.3rem;
   width: 42px;
-  border-bottom-color: rgba(139, 115, 85, 0.3);
+  border-bottom-color: var(--mod-muted, rgba(139, 115, 85, 0.3));
+  color: var(--mod-text, #3a2a1a);
 }
 
 /* Hide inline max HP in modern (it's shown in the satellite ring instead) */
@@ -110,12 +112,12 @@
   text-transform: uppercase;
   font-size: 0.5rem;
   font-weight: 600;
-  color: #8b7355;
+  color: var(--mod-heading, #8b7355);
 }
 
 /* Death saves */
 .deathSaves {
-  border-top-color: rgba(139, 115, 85, 0.2);
+  border-top-color: var(--mod-muted, rgba(139, 115, 85, 0.2));
 }
 
 .saveLabel {
@@ -124,11 +126,11 @@
   text-transform: uppercase;
   font-size: 0.5rem;
   font-weight: 600;
-  color: #8b7355;
+  color: var(--mod-heading, #8b7355);
 }
 
 .bubble {
-  color: #8b7355;
+  color: var(--mod-heading, #8b7355);
   font-size: 0.8rem;
   width: 16px;
   height: 16px;

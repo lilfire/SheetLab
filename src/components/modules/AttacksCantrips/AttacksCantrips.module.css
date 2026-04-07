@@ -1,23 +1,24 @@
 .attacks {
-  border: var(--border-ornate);
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
   border-radius: 4px;
   padding: 6px 8px;
-  background: var(--color-parchment);
+  background: var(--mod-bg, var(--color-parchment));
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.65rem;
+  color: var(--mod-text, var(--color-text));
 }
 
 .th {
   font-family: var(--font-serif);
   font-variant: small-caps;
-  color: var(--color-gold);
+  color: var(--mod-heading, var(--color-gold));
   text-align: left;
   padding: 2px 3px;
-  border-bottom: 1px solid var(--color-gold);
+  border-bottom: 1px solid var(--mod-accent, var(--color-gold));
   font-size: 0.6rem;
   letter-spacing: 0.04em;
   white-space: nowrap;
@@ -25,7 +26,8 @@
 
 .row td {
   padding: 1px 3px;
-  border-bottom: 1px dotted var(--color-parchment-dark);
+  border-bottom: 1px dotted var(--mod-muted, var(--color-parchment-dark));
+  color: var(--mod-text, var(--color-text));
 }
 
 .row td input {

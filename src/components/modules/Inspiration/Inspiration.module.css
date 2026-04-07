@@ -1,8 +1,8 @@
 .inspiration {
-  border: var(--border-ornate);
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
   border-radius: 4px;
   padding: 6px 8px;
-  background: var(--color-parchment);
+  background: var(--mod-bg, var(--color-parchment));
 }
 
 .tracker {
@@ -28,12 +28,13 @@
   font-size: 1.1rem;
   line-height: 1;
   user-select: none;
+  color: var(--mod-accent, var(--color-gold));
 }
 
 .inspired {
   font-family: var(--font-serif);
   font-variant: small-caps;
   font-size: 0.85rem;
-  color: var(--color-text);
+  color: var(--mod-text, var(--color-text));
   letter-spacing: 0.05em;
 }

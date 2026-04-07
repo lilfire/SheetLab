@@ -117,6 +117,38 @@
   display: flex;
 }
 
+/* ── Settings gear button ────────────────────────────────────── */
+
+.settingsBtn {
+  display: none;
+  position: absolute;
+  top: 2px;
+  right: 26px;
+  z-index: 10;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  background: rgba(44, 26, 14, 0.85);
+  border: 1px solid #8b6914;
+  border-radius: 50%;
+  color: #c4991f;
+  font-size: 0.65rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.settingsBtn:hover {
+  background: rgba(139, 105, 20, 0.6);
+  border-color: #c4991f;
+}
+
+.editMode .settingsBtn {
+  display: flex;
+}
+
 /* ── Drag handle ─────────────────────────────────────────────── */
 
 /*

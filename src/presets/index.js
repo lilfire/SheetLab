@@ -1,11 +1,7 @@
-import barbarian from './barbarian.json'
-import wizardClass from './wizard-class.json'
+// import barbarian from './barbarian.json'
 
 // Map of class name (lowercase) to preset JSON
-const PRESET_MAP = {
-  barbarian,
-  wizard: wizardClass,
-}
+const PRESET_MAP = {}
 
 /**
  * resolvePreset(race, className) — merges race modifiers into the class preset.

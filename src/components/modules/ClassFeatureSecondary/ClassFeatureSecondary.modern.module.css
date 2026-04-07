@@ -1,8 +1,8 @@
 .feature {
   border-radius: 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(139, 115, 85, 0.25);
-  background: #fefcf8;
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
+  background: var(--mod-bg, #fefcf8);
   padding: 8px 10px;
 }
 
@@ -10,34 +10,34 @@
   font-family: 'Segoe UI', system-ui, sans-serif;
   font-size: 0.8rem;
   font-weight: 700;
-  color: #8b7355;
+  color: var(--mod-heading, #8b7355);
 }
 
 .description {
   font-family: 'Segoe UI', system-ui, sans-serif;
   font-size: 0.65rem;
-  color: #5a4a3a;
+  color: var(--mod-text, #5a4a3a);
   line-height: 1.5;
 }
 
 /* Show usage tracker in modern */
 .usageTracker {
   display: block;
-  border-top: 1px solid rgba(139, 115, 85, 0.15);
+  border-top: 1px solid var(--mod-muted, rgba(139, 115, 85, 0.15));
   padding-top: 6px;
   margin-top: 4px;
 }
 
 .usageHeader {
-  border-bottom-color: rgba(139, 115, 85, 0.3);
+  border-bottom-color: var(--mod-muted, rgba(139, 115, 85, 0.3));
 }
 
 .usageCol {
   font-family: 'Segoe UI', system-ui, sans-serif;
-  color: #8b7355;
+  color: var(--mod-heading, #8b7355);
   font-size: 0.45rem;
 }
 
 .notes {
-  border-top-color: rgba(139, 115, 85, 0.15);
+  border-top-color: var(--mod-muted, rgba(139, 115, 85, 0.15));
 }

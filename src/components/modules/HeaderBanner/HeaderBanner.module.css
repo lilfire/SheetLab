@@ -8,8 +8,8 @@
   display: flex;
   align-items: center;
   width: 100%;
-  background: var(--color-parchment-dark);
-  border: var(--border-ornate);
+  background: var(--mod-bg, var(--color-parchment-dark));
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
   border-radius: 4px;
   overflow: hidden;
 }
@@ -19,7 +19,7 @@
   flex-shrink: 0;
   width: 16px;
   height: 100%;
-  background: var(--color-gold);
+  background: var(--mod-accent, var(--color-gold));
   opacity: 0.4;
   align-self: stretch;
 }
@@ -34,7 +34,7 @@
   font-family: var(--font-serif);
   font-variant: small-caps;
   font-size: 0.65rem;
-  color: var(--color-gold);
+  color: var(--mod-heading, var(--color-gold));
   letter-spacing: 0.1em;
   margin-bottom: 2px;
 }
@@ -45,8 +45,8 @@
   font-size: 1.2rem;
   font-weight: bold;
   text-align: center;
-  color: var(--color-text);
-  border-bottom: 1px solid var(--color-gold);
+  color: var(--mod-text, var(--color-text));
+  border-bottom: 1px solid var(--mod-accent, var(--color-gold));
   background: transparent;
   width: 100%;
   padding: 2px 0;
@@ -72,7 +72,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--color-gold);
+  color: var(--mod-heading, var(--color-gold));
 }
 
 .lvlInput {
@@ -81,10 +81,10 @@
   text-align: center;
   font-weight: bold;
   font-size: 0.9rem;
-  border-bottom: 1px solid var(--color-gold);
+  border-bottom: 1px solid var(--mod-accent, var(--color-gold));
   background: transparent;
   min-height: 1.1em;
-  color: var(--color-text);
+  color: var(--mod-text, var(--color-text));
 }
 
 .expField {
@@ -98,16 +98,16 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--color-gold);
+  color: var(--mod-heading, var(--color-gold));
   white-space: nowrap;
 }
 
 .expInput {
   display: inline-block;
   flex: 1;
-  border-bottom: 1px solid var(--color-gold);
+  border-bottom: 1px solid var(--mod-accent, var(--color-gold));
   background: transparent;
   min-height: 1em;
   font-size: 0.75rem;
-  color: var(--color-text);
+  color: var(--mod-text, var(--color-text));
 }

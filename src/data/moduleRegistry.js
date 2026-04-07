@@ -1,4 +1,5 @@
 import { getTemplate } from '../templates/index.js'
+import { getDefaultSettings } from './moduleSettings.js'
 
 /**
  * MODULE_REGISTRY — canonical list of all 18 sheet modules.
@@ -32,16 +33,15 @@ export const MODULE_REGISTRY = [
 /**
  * Build the initial layoutConfig from a template's defaultLayout.
  * @param {string} templateId — template identifier
- * @param {Object} initialStyles — optional map of { [moduleKey]: { backgroundColor?, borderColor?, ... } }
- * Returns { [key]: { visible, row, col, rowSpan, colSpan, style } }
+ * Returns { [key]: { visible, row, col, rowSpan, colSpan, style, settings } }
  */
-export function buildInitialLayoutConfig(templateId, initialStyles = {}) {
+export function buildInitialLayoutConfig(templateId) {
   const tpl = getTemplate(templateId)
   const layout = tpl.defaultLayout
   return Object.fromEntries(
     MODULE_REGISTRY.map((m) => {
       const pos = layout[m.key] || { row: 1, col: 1, rowSpan: 1, colSpan: 1 }
-      return [m.key, { visible: true, ...pos, style: initialStyles[m.key] || {} }]
+      return [m.key, { visible: true, ...pos, style: {}, settings: getDefaultSettings(m.key) }]
     })
   )
 }

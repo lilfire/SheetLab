@@ -2,39 +2,18 @@ import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { buildInitialLayoutConfig, MODULE_REGISTRY } from '../../data/moduleRegistry.js'
+import { hasModuleSettings, STYLE_SETTING_KEYS } from '../../data/moduleSettings.js'
 import DraggableModule from './DraggableModule.jsx'
 
 /* ── buildInitialLayoutConfig ───────────────────────────────── */
 
 describe('buildInitialLayoutConfig – style field', () => {
-  it('includes style:{} for every module when no initialStyles provided', () => {
+  it('includes style:{} for every module', () => {
     const config = buildInitialLayoutConfig('two-column')
     for (const mod of MODULE_REGISTRY) {
       expect(config[mod.key]).toHaveProperty('style')
       expect(config[mod.key].style).toEqual({})
     }
-  })
-
-  it('applies provided initialStyles to matching module keys', () => {
-    const initialStyles = {
-      header: { backgroundColor: '#ff0000', borderColor: '#000000', borderStyle: 'solid', borderWidth: '2px' },
-      ability: { backgroundColor: '#00ff00' },
-    }
-    const config = buildInitialLayoutConfig('two-column', initialStyles)
-
-    expect(config.header.style).toEqual({
-      backgroundColor: '#ff0000',
-      borderColor: '#000000',
-      borderStyle: 'solid',
-      borderWidth: '2px',
-    })
-    expect(config.ability.style).toEqual({ backgroundColor: '#00ff00' })
-  })
-
-  it('leaves style:{} for modules not present in initialStyles', () => {
-    const config = buildInitialLayoutConfig('two-column', { header: { backgroundColor: '#ff0000' } })
-    expect(config.portrait.style).toEqual({})
-    expect(config.combat.style).toEqual({})
   })
 
   it('preserves visible and coordinate fields alongside style', () => {
@@ -45,6 +24,28 @@ describe('buildInitialLayoutConfig – style field', () => {
       expect(config[mod.key].col).toBeDefined()
       expect(config[mod.key].style).toBeDefined()
     }
+  })
+})
+
+/* ── hasModuleSettings returns true for all modules ────────── */
+
+describe('hasModuleSettings – all modules', () => {
+  it('returns true for every module in MODULE_REGISTRY', () => {
+    for (const mod of MODULE_REGISTRY) {
+      expect(hasModuleSettings(mod.key)).toBe(true)
+    }
+  })
+})
+
+/* ── STYLE_SETTING_KEYS ───────────────────────────────────── */
+
+describe('STYLE_SETTING_KEYS', () => {
+  it('contains the universal style properties', () => {
+    expect(STYLE_SETTING_KEYS).toEqual(new Set([
+      'backgroundColor', 'borderColor',
+      'textColor', 'headingColor', 'accentColor', 'mutedColor',
+      'borderStyle', 'borderWidth',
+    ]))
   })
 })
 
@@ -61,17 +62,18 @@ describe('DraggableModule – styleOverrides prop', () => {
     onColSpan: vi.fn(),
   }
 
-  it('applies backgroundColor from styleOverrides to wrapper div', () => {
+  it('sets backgroundColor as CSS custom property on wrapper div', () => {
     const { container } = render(
       <DraggableModule {...baseProps} styleOverrides={{ backgroundColor: '#ff0000' }}>
         <span>content</span>
       </DraggableModule>
     )
     const wrapper = container.firstChild
-    expect(wrapper.style.backgroundColor).toBe('rgb(255, 0, 0)')
+    expect(wrapper.style.getPropertyValue('--mod-bg')).toBe('#ff0000')
+    expect(wrapper.style.backgroundColor).toBe('')
   })
 
-  it('applies border properties from styleOverrides', () => {
+  it('sets border properties as CSS custom properties', () => {
     const { container } = render(
       <DraggableModule
         {...baseProps}
@@ -81,9 +83,30 @@ describe('DraggableModule – styleOverrides prop', () => {
       </DraggableModule>
     )
     const wrapper = container.firstChild
-    expect(wrapper.style.borderColor).toBe('rgb(0, 0, 255)')
-    expect(wrapper.style.borderStyle).toBe('dashed')
-    expect(wrapper.style.borderWidth).toBe('2px')
+    expect(wrapper.style.getPropertyValue('--mod-border-color')).toBe('#0000ff')
+    expect(wrapper.style.getPropertyValue('--mod-border-style')).toBe('dashed')
+    expect(wrapper.style.getPropertyValue('--mod-border-width')).toBe('2px')
+  })
+
+  it('sets text/heading/accent/muted colors as CSS custom properties', () => {
+    const { container } = render(
+      <DraggableModule
+        {...baseProps}
+        styleOverrides={{
+          textColor: '#111111',
+          headingColor: '#222222',
+          accentColor: '#333333',
+          mutedColor: '#444444',
+        }}
+      >
+        <span>content</span>
+      </DraggableModule>
+    )
+    const wrapper = container.firstChild
+    expect(wrapper.style.getPropertyValue('--mod-text')).toBe('#111111')
+    expect(wrapper.style.getPropertyValue('--mod-heading')).toBe('#222222')
+    expect(wrapper.style.getPropertyValue('--mod-accent')).toBe('#333333')
+    expect(wrapper.style.getPropertyValue('--mod-muted')).toBe('#444444')
   })
 
   it('applies no extra styles when styleOverrides is empty', () => {
@@ -93,8 +116,8 @@ describe('DraggableModule – styleOverrides prop', () => {
       </DraggableModule>
     )
     const wrapper = container.firstChild
-    expect(wrapper.style.backgroundColor).toBe('')
-    expect(wrapper.style.borderStyle).toBe('')
+    expect(wrapper.style.getPropertyValue('--mod-bg')).toBe('')
+    expect(wrapper.style.getPropertyValue('--mod-border-style')).toBe('')
   })
 
   it('applies no extra styles when styleOverrides is omitted', () => {
@@ -104,11 +127,11 @@ describe('DraggableModule – styleOverrides prop', () => {
       </DraggableModule>
     )
     const wrapper = container.firstChild
-    expect(wrapper.style.backgroundColor).toBe('')
+    expect(wrapper.style.getPropertyValue('--mod-bg')).toBe('')
   })
 })
 
-/* ── SheetPreview initialModuleStyles integration ───────────── */
+/* ── SheetPreview – style via settings modal ───────────────── */
 
 import SheetPreview from './SheetPreview.jsx'
 
@@ -123,41 +146,21 @@ const CHAR = {
 }
 const PRESET = { race: 'Human', class: 'Fighter' }
 
-describe('SheetPreview – initialModuleStyles', () => {
-  it('applies backgroundColor override to the header module wrapper', () => {
+describe('SheetPreview – module styles via settings modal', () => {
+  it('modules start with no backgroundColor inline style', () => {
     const { container } = render(
       <SheetPreview
         character={CHAR}
         preset={PRESET}
         template="two-column"
         templateSettings={{}}
-        initialModuleStyles={{ header: { backgroundColor: '#aabbcc' } }}
         onReset={vi.fn()}
       />
     )
     const grid = container.querySelector('.sheet-grid')
-    // Header is at row 1, col 1 in the two-column template
     const headerSlot = Array.from(grid.children).find((el) => el.style.gridRowStart === '1' && el.style.gridColumnStart === '1')
     expect(headerSlot).toBeTruthy()
-    expect(headerSlot.style.backgroundColor).toBe('rgb(170, 187, 204)')
-  })
-
-  it('modules without overrides have no backgroundColor inline style', () => {
-    const { container } = render(
-      <SheetPreview
-        character={CHAR}
-        preset={PRESET}
-        template="two-column"
-        templateSettings={{}}
-        initialModuleStyles={{ header: { backgroundColor: '#ff0000' } }}
-        onReset={vi.fn()}
-      />
-    )
-    const grid = container.querySelector('.sheet-grid')
-    // Portrait is at row 1, col 2 in the two-column template
-    const portraitSlot = Array.from(grid.children).find((el) => el.style.gridRowStart === '1' && el.style.gridColumnStart === '2')
-    expect(portraitSlot).toBeTruthy()
-    expect(portraitSlot.style.backgroundColor).toBe('')
+    expect(headerSlot.style.backgroundColor).toBe('')
   })
 
   it('style is preserved when module is toggled off and back on', async () => {
@@ -168,7 +171,6 @@ describe('SheetPreview – initialModuleStyles', () => {
         preset={PRESET}
         template="two-column"
         templateSettings={{}}
-        initialModuleStyles={{ header: { backgroundColor: '#ff0000' } }}
         onReset={vi.fn()}
       />
     )
@@ -184,10 +186,10 @@ describe('SheetPreview – initialModuleStyles', () => {
     const toggleBtn = screen.getByTitle(new RegExp(`show ${MODULE_REGISTRY[0].name}`, 'i'))
     await user.click(toggleBtn)
 
-    // Check that the style is preserved
+    // Check the module is back with no extra styles
     const grid = container.querySelector('.sheet-grid')
     const headerSlot = Array.from(grid.children).find((el) => el.style.gridRowStart === '1' && el.style.gridColumnStart === '1')
     expect(headerSlot).toBeTruthy()
-    expect(headerSlot.style.backgroundColor).toBe('rgb(255, 0, 0)')
+    expect(headerSlot.style.backgroundColor).toBe('')
   })
 })
