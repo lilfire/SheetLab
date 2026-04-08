@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs wc:*)",
+      "Bash(xargs grep:*)",
+      "Bash(npm:*)",
+      "Bash(grep -n \"\\\\.banner\\\\|\\\\.module-box\\\\|--mod-bg\" /c/git/SheetLab/src/components/modules/HeaderBanner/*.css)",
+      "Bash(npx vitest:*)",
+      "Bash(npx vite:*)",
+      "Read(//c/git//**)",
+      "Read(//c/git/**)",
+      "Read(//c/Users/lilfire/**)",
+      "Bash(git stash:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
+    ]
+  }
+}
