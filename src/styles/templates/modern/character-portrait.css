@@ -28,7 +28,7 @@
   letter-spacing: 0.08em;
 }
 
-[data-template="modern"] .character-portrait__image {
+[data-template="modern"] .character-portrait--masked .character-portrait__image {
   mask-image: url('/mask.png');
   mask-size: 100%;
   mask-repeat: no-repeat;

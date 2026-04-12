@@ -70,6 +70,7 @@ export const MODULE_SETTINGS_SCHEMA = {
       ],
       default: '4/2',
     },
+    { key: 'showMask', type: 'toggle', label: 'Show Mask', default: false },
     ...STYLE_SETTINGS,
   ],
   raceclass: [

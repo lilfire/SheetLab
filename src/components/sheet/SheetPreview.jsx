@@ -37,10 +37,10 @@ import styles from './SheetPreview.module.css'
  * Modules are template-agnostic — template styling is applied via the
  * [data-template="..."] selector on the wrapper, scoped from src/styles/templates/.
  */
-function useRenderMap(character, preset, moduleSettings) {
+function useRenderMap(character, preset, moduleSettings, portraitImage, onPortraitImage) {
   return useMemo(() => ({
     header:          <HeaderBanner character={character} />,
-    portrait:        <CharacterPortrait character={character} settings={moduleSettings.portrait} />,
+    portrait:        <CharacterPortrait character={character} settings={moduleSettings.portrait} imageSrc={portraitImage} onImageChange={onPortraitImage} />,
     raceclass:       <RaceClassInfo character={character} preset={preset} settings={moduleSettings.raceclass} />,
     background:      <BackgroundInfo character={character} />,
     ability:         <AbilityScores character={character} preset={preset} settings={moduleSettings.ability} />,
@@ -58,7 +58,7 @@ function useRenderMap(character, preset, moduleSettings) {
     attacks:         <AttacksCantrips character={character} />,
     equipment:       <Equipment character={character} />,
     proficiency:     <Proficiency character={character} />,
-  }), [character, preset, moduleSettings])
+  }), [character, preset, moduleSettings, portraitImage, onPortraitImage])
 }
 
 /**
@@ -83,11 +83,11 @@ function CellDroppable({ absRow, displayRow, col }) {
 const SheetGrid = memo(function SheetGrid({
   character, preset, tpl, userOverrides,
   layoutConfig, rowConfig, moduleSettings, isEditMode, onMoveToCell,
-  onOpenSettings, onOpenRowSettings,
+  onOpenSettings, onOpenRowSettings, portraitImage, onPortraitImage,
 }) {
   const sheetRef = useRef(null)
   const gridRef = useRef(null)
-  const renderMap = useRenderMap(character, preset, moduleSettings)
+  const renderMap = useRenderMap(character, preset, moduleSettings, portraitImage, onPortraitImage)
   const { pages, trackSizes } = usePageBreaks(gridRef, sheetRef, [layoutConfig, rowConfig])
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } })
@@ -299,6 +299,8 @@ export default function SheetPreview({ character, preset, template, templateSett
   const [rowConfig, setRowConfig] = useState({})
   const [settingsModalKey, setSettingsModalKey] = useState(null)
   const [rowSettingsModal, setRowSettingsModal] = useState(null)
+  const [portraitImage, setPortraitImage] = useState(null)
+  const handlePortraitImage = useCallback((src) => setPortraitImage(src), [])
 
   const moduleSettings = useMemo(() => {
     const s = {}
@@ -446,6 +448,8 @@ export default function SheetPreview({ character, preset, template, templateSett
           onMoveToCell={handleMoveToCell}
           onOpenSettings={handleOpenModuleSettings}
           onOpenRowSettings={handleOpenRowSettings}
+          portraitImage={portraitImage}
+          onPortraitImage={handlePortraitImage}
         />
       </TemplateExtensionsContext.Provider>
 
