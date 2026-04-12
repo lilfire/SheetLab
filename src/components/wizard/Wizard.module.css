@@ -62,6 +62,13 @@
   opacity: 0.7;
 }
 
+.stepDot.skipped {
+  color: var(--color-text-light);
+  border-color: var(--color-parchment-dark);
+  opacity: 0.4;
+  text-decoration: line-through;
+}
+
 .content {
   width: 100%;
   max-width: 640px;

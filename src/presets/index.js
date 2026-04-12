@@ -17,6 +17,30 @@ const PRESET_MAP = {}
  * sheet still renders — this is intentional for v1 scope.
  */
 export function resolvePreset(race, className) {
+  if (!className) {
+    // Generic preset when race/class are skipped
+    return {
+      class: null,
+      race: race || null,
+      defaultSkillProficiencies: [],
+      raceTraits: [],
+      modules: {
+        classFeaturePrimary: {
+          title: 'Primary Feature',
+          description: '',
+        },
+        classFeatureSecondary: {
+          title: 'Secondary Feature',
+          description: '',
+        },
+        subclassFeats: {
+          title: 'Subclass Feats',
+          slots: 8,
+        },
+      },
+    }
+  }
+
   const key = className.toLowerCase()
   const classPreset = PRESET_MAP[key]
 
@@ -24,7 +48,7 @@ export function resolvePreset(race, className) {
     // Default preset for classes not yet implemented
     return {
       class: className,
-      race,
+      race: race || null,
       defaultSkillProficiencies: [],
       raceTraits: [],
       modules: {

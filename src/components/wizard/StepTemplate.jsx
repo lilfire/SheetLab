@@ -83,7 +83,9 @@ export default function StepTemplate({ characterClass, race, onSelect, onBack })
       <div className={styles.step}>
         <h2 className={styles.heading}>Choose a Template</h2>
         <p className={styles.hint}>
-          <strong>{race}</strong> — <strong>{characterClass}</strong>. Customize your layout.
+          {race || characterClass
+            ? <><strong>{race || 'Any Race'}</strong> — <strong>{characterClass || 'Any Class'}</strong>. Customize your layout.</>
+            : 'Generic sheet. Customize your layout.'}
         </p>
         <TemplateSettingsPanel
           template={getTemplate(selectedId)}
@@ -100,7 +102,9 @@ export default function StepTemplate({ characterClass, race, onSelect, onBack })
     <div className={styles.step}>
       <h2 className={styles.heading}>Choose a Template</h2>
       <p className={styles.hint}>
-        <strong>{race}</strong> — <strong>{characterClass}</strong>. Pick a sheet layout.
+        {race || characterClass
+          ? <><strong>{race || 'Any Race'}</strong> — <strong>{characterClass || 'Any Class'}</strong>. Pick a sheet layout.</>
+          : 'Generic sheet. Pick a sheet layout.'}
       </p>
       <div className={styles.grid}>
         {TEMPLATES.map((tpl) => (

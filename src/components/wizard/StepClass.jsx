@@ -1,12 +1,14 @@
 import classes from '../../data/classes.js'
 import styles from './StepClass.module.css'
 
-export default function StepClass({ race, onSelect, onBack }) {
+export default function StepClass({ race, onSelect, onSkip, onBack }) {
   return (
     <div className={styles.step}>
       <h2 className={styles.heading}>Choose Your Class</h2>
       <p className={styles.hint}>
-        Playing as <strong>{race}</strong>. Select a class for your character.
+        {race
+          ? <>Playing as <strong>{race}</strong>. Select a class for your character.</>
+          : 'Select a class for your character.'}
       </p>
       <div className={styles.grid}>
         {classes.map((cls) => (
@@ -20,9 +22,14 @@ export default function StepClass({ race, onSelect, onBack }) {
           </button>
         ))}
       </div>
-      <button className={styles.backBtn} onClick={onBack} type="button">
-        ← Back
-      </button>
+      <div className={styles.navRow}>
+        <button className={styles.backBtn} onClick={onBack} type="button">
+          ← Back
+        </button>
+        <button className={styles.skipBtn} onClick={onSkip} type="button">
+          Skip Class →
+        </button>
+      </div>
     </div>
   )
 }

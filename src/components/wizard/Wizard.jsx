@@ -14,14 +14,30 @@ export default function Wizard({ onComplete }) {
   const [characterClass, setCharacterClass] = useState(null)
   const [template, setTemplate] = useState(null)
   const [templateSettings, setTemplateSettings] = useState(null)
+  const [skippedRaceClass, setSkippedRaceClass] = useState(false)
 
   function handleRaceSelect(selectedRace) {
     setRace(selectedRace)
+    setSkippedRaceClass(false)
     setStep(1)
   }
 
   function handleClassSelect(selectedClass) {
     setCharacterClass(selectedClass)
+    setSkippedRaceClass(false)
+    setStep(2)
+  }
+
+  function handleSkipRaceClass() {
+    setRace(null)
+    setCharacterClass(null)
+    setSkippedRaceClass(true)
+    setStep(2)
+  }
+
+  function handleSkipClass() {
+    setCharacterClass(null)
+    setSkippedRaceClass(true)
     setStep(2)
   }
 
@@ -37,7 +53,10 @@ export default function Wizard({ onComplete }) {
   }
 
   function handleBack() {
-    setStep((s) => Math.max(0, s - 1))
+    setStep((s) => {
+      if (s === 2 && skippedRaceClass) return 0
+      return Math.max(0, s - 1)
+    })
   }
 
   return (
@@ -46,20 +65,23 @@ export default function Wizard({ onComplete }) {
         <h1 className={styles.title}>SheetLab</h1>
         <p className={styles.subtitle}>RPG Character Sheet Generator</p>
         <nav className={styles.steps} aria-label="Wizard steps">
-          {STEPS.map((label, i) => (
-            <span
-              key={label}
-              className={`${styles.stepDot} ${i === step ? styles.active : ''} ${i < step ? styles.done : ''}`}
-            >
-              {label}
-            </span>
-          ))}
+          {STEPS.map((label, i) => {
+            const isSkipped = skippedRaceClass && i < 2
+            return (
+              <span
+                key={label}
+                className={`${styles.stepDot} ${i === step ? styles.active : ''} ${i < step ? styles.done : ''} ${isSkipped ? styles.skipped : ''}`}
+              >
+                {label}
+              </span>
+            )
+          })}
         </nav>
       </header>
 
       <main className={styles.content}>
-        {step === 0 && <StepRace onSelect={handleRaceSelect} />}
-        {step === 1 && <StepClass onSelect={handleClassSelect} onBack={handleBack} race={race} />}
+        {step === 0 && <StepRace onSelect={handleRaceSelect} onSkip={handleSkipRaceClass} />}
+        {step === 1 && <StepClass onSelect={handleClassSelect} onSkip={handleSkipClass} onBack={handleBack} race={race} />}
         {step === 2 && (
           <StepTemplate
             characterClass={characterClass}

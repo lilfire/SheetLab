@@ -1,7 +1,7 @@
 import races from '../../data/races.js'
 import styles from './StepRace.module.css'
 
-export default function StepRace({ onSelect }) {
+export default function StepRace({ onSelect, onSkip }) {
   return (
     <div className={styles.step}>
       <h2 className={styles.heading}>Choose Your Race</h2>
@@ -18,6 +18,9 @@ export default function StepRace({ onSelect }) {
           </button>
         ))}
       </div>
+      <button className={styles.skipBtn} onClick={onSkip} type="button">
+        Skip Race &amp; Class →
+      </button>
     </div>
   )
 }

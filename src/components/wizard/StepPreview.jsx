@@ -13,11 +13,11 @@ export default function StepPreview({ race, characterClass, template, onGenerate
       <div className={styles.summary}>
         <div className={styles.summaryRow}>
           <span className={styles.summaryLabel}>Race</span>
-          <span className={styles.summaryValue}>{race}</span>
+          <span className={styles.summaryValue}>{race || 'None (generic)'}</span>
         </div>
         <div className={styles.summaryRow}>
           <span className={styles.summaryLabel}>Class</span>
-          <span className={styles.summaryValue}>{characterClass}</span>
+          <span className={styles.summaryValue}>{characterClass || 'None (generic)'}</span>
         </div>
         <div className={styles.summaryRow}>
           <span className={styles.summaryLabel}>Template</span>
