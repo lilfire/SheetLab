@@ -1,0 +1,52 @@
+.header-banner {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 0;
+}
+
+.header-banner__scroll {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.header-banner__scroll-left,
+.header-banner__scroll-right {
+  flex-shrink: 0;
+  width: 16px;
+  height: 100%;
+  background: var(--mod-accent, var(--color-gold));
+  opacity: 0.4;
+  align-self: stretch;
+}
+
+.header-banner__content {
+  flex: 1;
+  padding: 6px 12px;
+  text-align: center;
+}
+
+.header-banner__label {
+  font-family: var(--font-serif);
+  font-variant: small-caps;
+  font-size: 0.65rem;
+  color: var(--mod-heading, var(--color-gold));
+  letter-spacing: 0.1em;
+  margin-bottom: 2px;
+}
+
+.header-banner__name {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  color: var(--mod-text, var(--color-text));
+  border-bottom: 1px solid var(--mod-accent, var(--color-gold));
+  background: transparent;
+  width: 100%;
+  padding: 2px 0;
+  min-height: 1.4em;
+}

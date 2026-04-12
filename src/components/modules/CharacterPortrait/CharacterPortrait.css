@@ -1,0 +1,53 @@
+.character-portrait {
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
+  border-radius: 4px;
+  padding: 6px;
+  background: var(--mod-bg, var(--color-parchment));
+}
+
+.character-portrait__frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 2;
+  border: 1px dashed var(--mod-accent, var(--color-gold));
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.character-portrait__placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 4px;
+  pointer-events: none;
+}
+
+.character-portrait__icon {
+  font-size: 2rem;
+  color: var(--mod-heading, var(--color-gold));
+  opacity: 0.5;
+}
+
+.character-portrait__hint {
+  font-size: 0.65rem;
+  color: var(--mod-muted, var(--color-text-light));
+  font-style: italic;
+}
+
+.character-portrait__file-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.character-portrait__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

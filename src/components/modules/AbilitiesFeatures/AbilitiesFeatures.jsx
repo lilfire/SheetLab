@@ -1,33 +1,32 @@
-import defaultStyles from './AbilitiesFeatures.module.css'
-import modernStyles from './AbilitiesFeatures.modern.module.css'
-import { mergeStyles } from '../../../utils/mergeStyles'
-import { cx } from '../../../utils/cx'
+import TemplateSlot from '../../template/TemplateSlot.jsx'
+import './AbilitiesFeatures.css'
 
-const TEMPLATE_MAP = { modern: modernStyles }
-
-export default function AbilitiesFeatures({ templateId }) {
-  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
+export default function AbilitiesFeatures({ character }) {
   return (
-    <section className={cx('module-box', styles.moduleBox, styles.abilities)}>
-      <h3 className={cx('section-header', styles.sectionHeader)}>Abilities &amp; Features</h3>
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th className={styles.th}>Name</th>
-            <th className={styles.th}>Source</th>
-            <th className={styles.th}>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {[...Array(6)].map((_, i) => (
-            <tr key={i} className={styles.row}>
-              <td><span className={cx('write-line', styles.writeLine)} /></td>
-              <td><span className={cx('write-line', styles.writeLine)} /></td>
-              <td><span className={cx('write-line', styles.writeLine)} /></td>
+    <section className="module-box abilities-features">
+      <TemplateSlot name="abilities-features:header" character={character}>
+        <h3 className="section-header">Abilities &amp; Features</h3>
+      </TemplateSlot>
+      <TemplateSlot name="abilities-features:list" character={character}>
+        <table className="abilities-features__table">
+          <thead>
+            <tr>
+              <th className="abilities-features__th">Name</th>
+              <th className="abilities-features__th">Source</th>
+              <th className="abilities-features__th">Description</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {[...Array(6)].map((_, i) => (
+              <tr key={i} className="abilities-features__row">
+                <td><span className="write-line" /></td>
+                <td><span className="write-line" /></td>
+                <td><span className="write-line" /></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </TemplateSlot>
     </section>
   )
 }

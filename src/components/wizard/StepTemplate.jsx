@@ -15,16 +15,6 @@ function TemplateSettingsPanel({ template, settings, onChange, onConfirm, onBack
       <h3 className={styles.settingsHeading}>Customize {template.name}</h3>
       <div className={styles.settingsFields}>
         <label className={styles.fieldLabel}>
-          Background Color
-          <input
-            type="color"
-            className={styles.colorInput}
-            value={settings.backgroundColor}
-            onChange={(e) => onChange({ ...settings, backgroundColor: e.target.value })}
-            aria-label="Background color"
-          />
-        </label>
-        <label className={styles.fieldLabel}>
           Accent Color
           <input
             type="color"
@@ -64,9 +54,8 @@ function TemplateSettingsPanel({ template, settings, onChange, onConfirm, onBack
 
 function getDefaultSettings(template) {
   return {
-    backgroundColor: template.settings.backgroundColor || '#f5f0e8',
-    accentColor: template.settings.accentColor || '#8b6914',
-    fontFamily: template.settings.fontFamily || 'Georgia, serif',
+    accentColor: template.settings.accentColor || '#2563eb',
+    fontFamily: template.settings.fontFamily || "'Inter', system-ui, sans-serif",
   }
 }
 
@@ -125,7 +114,7 @@ export default function StepTemplate({ characterClass, race, onSelect, onBack })
             <div
               className={styles.thumbnail}
               aria-hidden="true"
-              style={{ backgroundColor: tpl.settings.backgroundColor }}
+              style={{ backgroundColor: '#ffffff' }}
             >
               {tpl.layout === 'two-column' ? (
                 <div className={styles.thumbTwoCol}>

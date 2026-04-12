@@ -1,41 +1,33 @@
-import defaultStyles from './CombatStats.module.css'
-import modernStyles from './CombatStats.modern.module.css'
-import { mergeStyles } from '../../../utils/mergeStyles'
-import { cx } from '../../../utils/cx'
+import TemplateSlot from '../../template/TemplateSlot.jsx'
+import './CombatStats.css'
 
-const TEMPLATE_MAP = { modern: modernStyles }
+const STATS = [
+  { key: 'ac', label: 'Armor Class' },
+  { key: 'speed', label: 'Speed' },
+  { key: 'init', label: 'Initiative' },
+  { key: 'prof', label: 'Prof. Bonus' },
+]
 
-export default function CombatStats({ templateId }) {
-  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
+export default function CombatStats({ character }) {
   return (
-    <section className={cx('module-box', styles.moduleBox, styles.combat)}>
-      <h3 className={cx('section-header', styles.sectionHeader)}>Combat Stats</h3>
-      <div className={styles.stats}>
-        <div className={styles.stat}>
-          <div className={styles.circle}>
-            <span className={styles.value} aria-label="Armor Class" />
-          </div>
-          <span className={styles.label}>Armor Class</span>
+    <section className="module-box combat-stats">
+      <TemplateSlot name="combat-stats:header" character={character}>
+        <h3 className="section-header">Combat Stats</h3>
+      </TemplateSlot>
+      <TemplateSlot name="combat-stats:row" character={character}>
+        <div className="combat-stats__row">
+          {STATS.map(({ key, label }) => (
+            <TemplateSlot key={key} name="combat-stats:stat" stat={key} label={label} character={character}>
+              <div className="combat-stats__stat">
+                <div className="combat-stats__circle">
+                  <span className="combat-stats__value" aria-label={label} />
+                </div>
+                <span className="combat-stats__label">{label}</span>
+              </div>
+            </TemplateSlot>
+          ))}
         </div>
-        <div className={styles.stat}>
-          <div className={styles.circle}>
-            <span className={styles.value} aria-label="Speed" />
-          </div>
-          <span className={styles.label}>Speed</span>
-        </div>
-        <div className={styles.stat}>
-          <div className={styles.circle}>
-            <span className={styles.value} aria-label="Initiative" />
-          </div>
-          <span className={styles.label}>Initiative</span>
-        </div>
-        <div className={styles.stat}>
-          <div className={styles.circle}>
-            <span className={styles.value} aria-label="Proficiency Bonus" />
-          </div>
-          <span className={styles.label}>Prof. Bonus</span>
-        </div>
-      </div>
+      </TemplateSlot>
     </section>
   )
 }

@@ -1,9 +1,5 @@
-import defaultStyles from './AbilityScores.module.css'
-import modernStyles from './AbilityScores.modern.module.css'
-import { mergeStyles } from '../../../utils/mergeStyles'
-import { cx } from '../../../utils/cx'
-
-const TEMPLATE_MAP = { modern: modernStyles }
+import TemplateSlot from '../../template/TemplateSlot.jsx'
+import './AbilityScores.css'
 
 const ABILITIES = [
   { key: 'str', label: 'STR', full: 'Strength', save: 'Strength', skills: ['Athletics'] },
@@ -14,8 +10,7 @@ const ABILITIES = [
   { key: 'cha', label: 'CHA', full: 'Charisma', save: 'Charisma', skills: ['Deception', 'Intimidation', 'Performance', 'Persuasion'] },
 ]
 
-export default function AbilityScores({ preset, templateId, settings = {} }) {
-  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
+export default function AbilityScores({ character, preset, settings = {} }) {
   const proficiencies = preset?.defaultSkillProficiencies ?? []
 
   // Tri-state: null = defer to template CSS, true = force show, false = force hide
@@ -28,37 +23,61 @@ export default function AbilityScores({ preset, templateId, settings = {} }) {
       : undefined
 
   return (
-    <section className={cx('module-box', styles.moduleBox, styles.abilities)}>
-      <h3 className={cx('section-header', styles.sectionHeader)}>Ability Scores</h3>
-      <div className={styles.grid}>
-        {ABILITIES.map(({ key, label, full, save, skills }) => (
-          <div key={key} className={styles.abilityColumn}>
-            <div className={styles.shield} title={full} style={settings.shieldColor ? { background: settings.shieldColor } : undefined}>
-              <span className={styles.abilityLabel}>{label}</span>
-              <span className={styles.scoreInput} aria-label={full} />
-              <div className={styles.modifierBubble}>
-                <span className={styles.modifier}>+0</span>
+    <section className="module-box ability-scores">
+      <TemplateSlot name="ability-scores:header" character={character} preset={preset} settings={settings}>
+        <h3 className="section-header">Ability Scores</h3>
+      </TemplateSlot>
+      <TemplateSlot name="ability-scores:grid" character={character} preset={preset} settings={settings}>
+        <div className="ability-scores__grid">
+          {ABILITIES.map(({ key, label, full, save, skills }) => (
+            <TemplateSlot
+              key={key}
+              name="ability-scores:column"
+              ability={key}
+              label={label}
+              full={full}
+              skills={skills}
+              character={character}
+              settings={settings}
+            >
+              <div className="ability-scores__column">
+                <div className="ability-scores__shield" title={full} style={settings.shieldColor ? { background: settings.shieldColor } : undefined}>
+                  <span className="ability-scores__label">{label}</span>
+                  <span className="ability-scores__score-label">Score</span>
+                  <span className="ability-scores__score" aria-label={full} />
+                </div>
+                <span className="ability-scores__mod-label">MOD</span>
+                <span className="ability-scores__mod-bubble" aria-label={`${full} modifier`} />
+                <TemplateSlot
+                  name="ability-scores:skills"
+                  ability={key}
+                  skills={skills}
+                  proficiencies={proficiencies}
+                  character={character}
+                  settings={settings}
+                >
+                  <div className="ability-scores__skills" style={skillGroupStyle}>
+                    {settings.showSavingThrows !== false && (
+                      <div className="ability-scores__save-row">
+                        <span className="ability-scores__save-check">○</span>
+                        <span className="ability-scores__save-mod" />
+                        <span className="ability-scores__save-name">Saving Throw</span>
+                      </div>
+                    )}
+                    {settings.showSkills !== false && skills.map((skill) => (
+                      <div key={skill} className="ability-scores__skill-row">
+                        <span className="ability-scores__skill-check">{proficiencies.includes(skill) ? '●' : '○'}</span>
+                        <span className="ability-scores__skill-mod" />
+                        <span className="ability-scores__skill-name">{skill}</span>
+                      </div>
+                    ))}
+                  </div>
+                </TemplateSlot>
               </div>
-            </div>
-            <div className={styles.skillGroup} style={skillGroupStyle}>
-              {settings.showSavingThrows !== false && (
-                <div className={styles.saveRow}>
-                  <span className={styles.saveCheck}>○</span>
-                  <span className={styles.saveModifier} />
-                  <span className={styles.saveName}>Saving Throw</span>
-                </div>
-              )}
-              {settings.showSkills !== false && skills.map((skill) => (
-                <div key={skill} className={styles.skillRow}>
-                  <span className={styles.skillCheck}>{proficiencies.includes(skill) ? '●' : '○'}</span>
-                  <span className={styles.skillModifier} />
-                  <span className={styles.skillName}>{skill}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+            </TemplateSlot>
+          ))}
+        </div>
+      </TemplateSlot>
     </section>
   )
 }

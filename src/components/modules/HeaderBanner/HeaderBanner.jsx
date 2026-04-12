@@ -1,31 +1,22 @@
-import defaultStyles from './HeaderBanner.module.css'
-import modernStyles from './HeaderBanner.modern.module.css'
-import { mergeStyles } from '../../../utils/mergeStyles'
+import TemplateSlot from '../../template/TemplateSlot.jsx'
+import './HeaderBanner.css'
 
-const TEMPLATE_MAP = { modern: modernStyles }
-
-export default function HeaderBanner({ character, templateId }) {
-  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
+export default function HeaderBanner({ character }) {
   return (
-    <section className={`module-box ${styles.banner}`}>
-      <div className={styles.scrollShape}>
-        <div className={styles.scrollLeft} />
-        <div className={styles.content}>
-          <p className={styles.label}>Character Name</p>
-          <span className={styles.nameInput}>{character?.name ?? ''}</span>
-        </div>
-        <div className={styles.scrollRight} />
-      </div>
-      {/* Extra fields — hidden by default, shown in modern */}
-      <div className={styles.bannerExtra}>
-        <div className={styles.lvlBadge}>
-          <span className={styles.lvlLabel}>LVL</span>
-          <span className={styles.lvlInput} aria-label="Level" />
-        </div>
-        <div className={styles.expField}>
-          <span className={styles.expLabel}>Experience</span>
-          <span className={styles.expInput} aria-label="Experience" />
-        </div>
+    <section className="module-box header-banner">
+      <div className="header-banner__scroll">
+        <TemplateSlot name="header:scroll-left" character={character}>
+          <div className="header-banner__scroll-left" />
+        </TemplateSlot>
+        <TemplateSlot name="header:title" character={character}>
+          <div className="header-banner__content">
+            <p className="header-banner__label">Character Name</p>
+            <span className="header-banner__name">{character?.name ?? ''}</span>
+          </div>
+        </TemplateSlot>
+        <TemplateSlot name="header:scroll-right" character={character}>
+          <div className="header-banner__scroll-right" />
+        </TemplateSlot>
       </div>
     </section>
   )

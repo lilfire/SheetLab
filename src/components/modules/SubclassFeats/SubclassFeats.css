@@ -1,0 +1,34 @@
+.subclass-feats {
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--mod-bg, var(--color-parchment));
+  color: var(--mod-text, var(--color-text));
+  height: 100%;
+}
+
+.subclass-feats__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.subclass-feats__slot {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-bottom: 1px dotted var(--mod-muted, var(--color-parchment-dark));
+  padding-bottom: 1px;
+}
+
+.subclass-feats__index {
+  font-size: 0.6rem;
+  color: var(--mod-heading, var(--color-gold));
+  flex-shrink: 0;
+  width: 14px;
+}
+
+.subclass-feats__slot input {
+  font-size: 0.7rem;
+}

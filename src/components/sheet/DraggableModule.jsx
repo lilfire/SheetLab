@@ -8,10 +8,8 @@ import styles from './SheetPreview.module.css'
  *   id          — module key (unique, used as dnd id)
  *   areaClass   — CSS module class name for position/outline styles
  *   row, col, rowSpan, colSpan — integer grid coordinates
- *   maxColumns  — max columns in the grid (for clamping colSpan)
- *   isEditMode  — whether edit mode is active; shows drag handle when true
- *   onRemove    — called when the remove button is clicked
- *   onColSpan   — called with (key, delta) to adjust column span
+ *   isEditMode  — whether edit mode is active; the entire module body is draggable when true
+ *   onOpenSettings — called when the gear icon is clicked
  *   styleOverrides — optional CSS style object (background, border, etc.)
  *   children    — the module component to render inside
  */
@@ -27,12 +25,36 @@ const STYLE_TO_CSS_VAR = {
   borderWidth: '--mod-border-width',
 }
 
+function Icon({ children, size = 14 }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {children}
+    </svg>
+  )
+}
+
+const GearIcon = () => (
+  <Icon>
+    <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+    <circle cx="12" cy="12" r="3" />
+  </Icon>
+)
+
 export default function DraggableModule({
   id, areaClass, row, col, rowSpan, colSpan,
-  maxColumns, isEditMode, onRemove, onColSpan, onColShift, onRowSpan,
-  onOpenSettings, styleOverrides = {}, children,
+  isEditMode, onOpenSettings, styleOverrides = {}, hideHeader, children,
 }) {
-  const { attributes, listeners, setNodeRef: setDragRef, transform, isDragging } = useDraggable({ id })
+  const { listeners, setNodeRef: setDragRef, transform, isDragging } = useDraggable({ id })
   const { setNodeRef: setDropRef, isOver } = useDroppable({ id })
 
   const transformStyle = transform
@@ -55,19 +77,13 @@ export default function DraggableModule({
     gridRowEnd: row + rowSpan,
     gridColumnStart: col,
     gridColumnEnd: col + colSpan,
-    overflow: 'hidden',
     ...cssVars,
     ...remainingOverrides,
+    ...(isEditMode && { cursor: isDragging ? 'grabbing' : 'grab' }),
     ...(transformStyle && { transform: transformStyle, zIndex: 20 }),
     ...(isDragging && { opacity: 0.45 }),
-    ...(isOver && isEditMode && { boxShadow: '0 0 0 2px #8b6914' }),
+    ...(isOver && isEditMode && { boxShadow: '0 0 0 2px #2563eb' }),
   }
-
-  const canShrink = colSpan > 1
-  const canGrow = colSpan < maxColumns
-  const canShiftLeft = col > 1
-  const canShiftRight = col + colSpan - 1 < maxColumns
-  const canShrinkRow = rowSpan > 1
 
   return (
     <div
@@ -75,101 +91,17 @@ export default function DraggableModule({
       style={style}
       className={styles[areaClass]}
       data-module-key={id}
+      {...(hideHeader ? { 'data-hide-header': '' } : {})}
+      {...(isEditMode ? listeners : {})}
     >
-      {isEditMode && (
-        <button
-          type="button"
-          className={`no-print ${styles.dragHandle}`}
-          {...attributes}
-          {...listeners}
-          aria-label="Drag to rearrange module"
-        >
-          ⠿
-        </button>
-      )}
-      {isEditMode && (
-        <div className={`no-print ${styles.colShiftControls}`}>
-          <button
-            type="button"
-            className={styles.spanBtn}
-            onClick={() => onColShift(id, -1)}
-            disabled={!canShiftLeft}
-            aria-label="Shift module left"
-          >
-            ◀
-          </button>
-          <span className={styles.spanLabel}>C{col}</span>
-          <button
-            type="button"
-            className={styles.spanBtn}
-            onClick={() => onColShift(id, 1)}
-            disabled={!canShiftRight}
-            aria-label="Shift module right"
-          >
-            ▶
-          </button>
-        </div>
-      )}
-      {isEditMode && (
-        <div className={`no-print ${styles.spanControls}`}>
-          <button
-            type="button"
-            className={styles.spanBtn}
-            onClick={() => onColSpan(id, -1)}
-            disabled={!canShrink}
-            aria-label="Decrease column span"
-          >
-            −
-          </button>
-          <span className={styles.spanLabel}>{colSpan}/{maxColumns}</span>
-          <button
-            type="button"
-            className={styles.spanBtn}
-            onClick={() => onColSpan(id, 1)}
-            disabled={!canGrow}
-            aria-label="Increase column span"
-          >
-            +
-          </button>
-        </div>
-      )}
-      {isEditMode && (
-        <div className={`no-print ${styles.rowSpanControls}`}>
-          <button
-            type="button"
-            className={styles.spanBtn}
-            onClick={() => onRowSpan(id, -1)}
-            disabled={!canShrinkRow}
-            aria-label="Decrease row span"
-          >
-            −
-          </button>
-          <span className={styles.spanLabel}>R{rowSpan}</span>
-          <button
-            type="button"
-            className={styles.spanBtn}
-            onClick={() => onRowSpan(id, 1)}
-            aria-label="Increase row span"
-          >
-            +
-          </button>
-        </div>
-      )}
       <button
         className={`no-print ${styles.settingsBtn}`}
         onClick={onOpenSettings}
         type="button"
         aria-label="Module settings"
+        title="Module settings"
       >
-        ⚙
-      </button>
-      <button
-        className={`no-print ${styles.removeBtn}`}
-        onClick={onRemove}
-        type="button"
-        aria-label={`Remove module`}
-      >
-        ✕
+        <GearIcon />
       </button>
       {children}
     </div>

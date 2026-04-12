@@ -1,0 +1,10 @@
+[data-template="modern"] .race-class-traits__trait {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.68rem;
+  border-bottom-color: var(--mod-muted, rgba(100, 116, 139, 0.1));
+  color: var(--mod-text, #0f172a);
+}
+
+[data-template="modern"] .race-class-traits__trait::before {
+  color: var(--mod-heading, #000000);
+}

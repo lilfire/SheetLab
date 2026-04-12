@@ -1,0 +1,9 @@
+[data-template="modern"] .background-info__label {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-variant: normal;
+  text-transform: uppercase;
+  font-size: 0.5rem;
+  font-weight: 600;
+  color: var(--mod-heading, #000000);
+  letter-spacing: 0.06em;
+}

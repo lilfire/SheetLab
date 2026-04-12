@@ -1,0 +1,19 @@
+[data-template="modern"] .race-class-info__label {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-variant: normal;
+  text-transform: uppercase;
+  font-size: 0.5rem;
+  font-weight: 600;
+  color: var(--mod-heading, #000000);
+  letter-spacing: 0.06em;
+}
+
+/* Show extra fields in modern */
+[data-template="modern"] .race-class-info__extra-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4px 8px;
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 0px;
+}

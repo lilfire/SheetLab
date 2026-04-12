@@ -1,39 +1,40 @@
-import defaultStyles from './BackgroundInfo.module.css'
-import modernStyles from './BackgroundInfo.modern.module.css'
-import { mergeStyles } from '../../../utils/mergeStyles'
-import { cx } from '../../../utils/cx'
+import TemplateSlot from '../../template/TemplateSlot.jsx'
+import './BackgroundInfo.css'
 
-const TEMPLATE_MAP = { modern: modernStyles }
-
-export default function BackgroundInfo({ templateId }) {
-  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
+export default function BackgroundInfo({ character }) {
   return (
-    <section className={cx('module-box', styles.moduleBox, styles.background)}>
-      <h3 className={cx('section-header', styles.sectionHeader)}>Background &amp; Personality</h3>
-      <div className={styles.grid}>
-        <fieldset className={styles.field}>
-          <label className={styles.label}>Background</label>
-          <span className={cx('write-line', styles.writeLine)} />
+    <section className="module-box background-info">
+      <TemplateSlot name="background-info:header" character={character}>
+        <h3 className="section-header">Background &amp; Personality</h3>
+      </TemplateSlot>
+      <div className="background-info__grid">
+        <TemplateSlot name="background-info:background" character={character}>
+          <fieldset className="background-info__field">
+            <label className="background-info__label">Background</label>
+            <span className="write-line" />
+          </fieldset>
+        </TemplateSlot>
+        <TemplateSlot name="background-info:alignment" character={character}>
+          <fieldset className="background-info__field">
+            <label className="background-info__label">Alignment</label>
+            <span className="write-line" />
+          </fieldset>
+        </TemplateSlot>
+        <fieldset className="background-info__field background-info__field--wide">
+          <label className="background-info__label">Personality Traits</label>
+          <span className="write-line" />
         </fieldset>
-        <fieldset className={styles.field}>
-          <label className={styles.label}>Alignment</label>
-          <span className={cx('write-line', styles.writeLine)} />
+        <fieldset className="background-info__field">
+          <label className="background-info__label">Ideals</label>
+          <span className="write-line" />
         </fieldset>
-        <fieldset className={`${styles.field} ${styles.wide}`}>
-          <label className={styles.label}>Personality Traits</label>
-          <span className={cx('write-line', styles.writeLine)} />
+        <fieldset className="background-info__field">
+          <label className="background-info__label">Bonds</label>
+          <span className="write-line" />
         </fieldset>
-        <fieldset className={styles.field}>
-          <label className={styles.label}>Ideals</label>
-          <span className={cx('write-line', styles.writeLine)} />
-        </fieldset>
-        <fieldset className={styles.field}>
-          <label className={styles.label}>Bonds</label>
-          <span className={cx('write-line', styles.writeLine)} />
-        </fieldset>
-        <fieldset className={`${styles.field} ${styles.wide}`}>
-          <label className={styles.label}>Flaws</label>
-          <span className={cx('write-line', styles.writeLine)} />
+        <fieldset className="background-info__field background-info__field--wide">
+          <label className="background-info__label">Flaws</label>
+          <span className="write-line" />
         </fieldset>
       </div>
     </section>

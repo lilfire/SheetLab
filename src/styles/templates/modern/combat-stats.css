@@ -1,0 +1,24 @@
+[data-template="modern"] .combat-stats__circle {
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--mod-accent, #000000);
+  background: var(--mod-accent, #f1f5f9);
+}
+
+[data-template="modern"] .combat-stats__value {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.9rem;
+  width: 34px;
+  border-bottom-color: var(--mod-muted, rgba(100, 116, 139, 0.25));
+  color: var(--mod-text, #0f172a);
+}
+
+[data-template="modern"] .combat-stats__label {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-variant: normal;
+  text-transform: uppercase;
+  font-size: 0.45rem;
+  font-weight: 600;
+  color: var(--mod-heading, #000000);
+  letter-spacing: 0.04em;
+}

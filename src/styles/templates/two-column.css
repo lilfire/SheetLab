@@ -1,10 +1,4 @@
-/* Two-column template: owns all grid layout and CSS variable overrides. */
-
-[data-template="two-column"] {
-  --color-parchment: #f5f0e8;
-  --color-gold: #8b6914;
-  --font-serif: Georgia, serif;
-}
+/* Two-column template: owns all grid layout. Color tokens come from :root. */
 
 [data-template="two-column"] .sheet-grid {
   grid-template-columns: 1fr 1fr;

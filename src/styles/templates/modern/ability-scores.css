@@ -1,0 +1,144 @@
+[data-template="modern"] .module-box.ability-scores {
+  overflow: visible;
+  padding: 10px 10px 14px;
+}
+
+[data-template="modern"] .ability-scores__grid {
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+[data-template="modern"] .ability-scores__column {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
+  position: relative;
+}
+
+[data-template="modern"] .ability-scores__shield {
+  clip-path: polygon(
+    0% 0%, 100% 0%,
+    100% 65%,
+    99% 69%, 97% 73%, 94% 77%,
+    90% 81%, 85% 85%, 79% 89%,
+    72% 92%, 64% 95%, 56% 98%,
+    50% 100%,
+    44% 98%, 36% 95%, 28% 92%,
+    21% 89%, 15% 85%, 10% 81%,
+    6% 77%, 3% 73%, 1% 69%,
+    0% 65%
+  );
+  background: linear-gradient(
+    170deg,
+    var(--mod-bg, #ffffff) 0%,
+    var(--mod-accent, #e2e8f0) 40%,
+    var(--mod-muted, #cbd5e1) 100%
+  );
+  border: none;
+  border-radius: 0;
+  padding: 10px 8px 24px;
+  width: 100%;
+  min-height: 94px;
+}
+
+[data-template="modern"] .ability-scores__label {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-variant: normal;
+  text-transform: uppercase;
+  font-size: 0.45rem;
+  font-weight: 700;
+  color: var(--mod-heading, #000000);
+  letter-spacing: 0.06em;
+}
+
+[data-template="modern"] .ability-scores__score {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  width: 36px;
+  min-height: 1.3em;
+  border-bottom-color: var(--mod-muted, rgba(100, 116, 139, 0.25));
+  color: var(--mod-text, #0f172a);
+}
+
+[data-template="modern"] .ability-scores__score-label,
+[data-template="modern"] .ability-scores__mod-label {
+  display: block;
+}
+
+[data-template="modern"] .ability-scores__score-label {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.35rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--mod-muted, rgba(100, 116, 139, 0.5));
+  margin-top: 2px;
+}
+
+[data-template="modern"] .ability-scores__mod-label {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.35rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--mod-muted, rgba(100, 116, 139, 0.5));
+  margin-top: -10px;
+  z-index: 2;
+}
+
+[data-template="modern"] .ability-scores__mod-bubble {
+  position: relative;
+  left: auto;
+  transform: none;
+  background: var(--mod-bg, #ffffff);
+  border: 2px solid var(--mod-accent, #94a3b8);
+  width: 34px;
+  height: 34px;
+  margin-top: -4px;
+  z-index: 1;
+  line-height: 30px;
+  color: var(--mod-text, #0f172a);
+  font-size: 0.8rem;
+  font-weight: 700;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Show inline skills in modern */
+[data-template="modern"] .ability-scores__skills {
+  display: flex;
+  margin-top: 12px;
+  padding-top: 4px;
+  border-top: 1px solid var(--mod-muted, rgba(100, 116, 139, 0.15));
+}
+
+[data-template="modern"] .ability-scores__save-row {
+  padding-bottom: 2px;
+  margin-bottom: 2px;
+  border-bottom: 1px solid var(--mod-muted, rgba(100, 116, 139, 0.1));
+}
+
+[data-template="modern"] .ability-scores__save-check,
+[data-template="modern"] .ability-scores__skill-check {
+  color: var(--mod-heading, #000000);
+  font-size: 0.55rem;
+}
+
+[data-template="modern"] .ability-scores__save-mod,
+[data-template="modern"] .ability-scores__skill-mod {
+  width: 18px;
+  font-size: 0.5rem;
+  border-bottom-color: var(--mod-muted, rgba(100, 116, 139, 0.2));
+  color: var(--mod-text, #0f172a);
+}
+
+[data-template="modern"] .ability-scores__save-name {
+  font-size: 0.45rem;
+  color: var(--mod-heading, #000000);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+[data-template="modern"] .ability-scores__skill-name {
+  font-size: 0.45rem;
+  color: var(--mod-text, #0f172a);
+}

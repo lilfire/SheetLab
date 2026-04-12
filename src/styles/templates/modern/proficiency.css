@@ -1,0 +1,16 @@
+[data-template="modern"] .proficiency__group {
+  border: 1px solid var(--mod-muted, rgba(100, 116, 139, 0.2));
+  border-radius: 6px;
+  background: var(--mod-accent, rgba(100, 116, 139, 0.03));
+  padding: 5px 8px;
+}
+
+[data-template="modern"] .proficiency__group-label {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-variant: normal;
+  text-transform: uppercase;
+  font-size: 0.5rem;
+  font-weight: 700;
+  color: var(--mod-heading, #000000);
+  letter-spacing: 0.06em;
+}

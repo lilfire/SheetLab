@@ -1,39 +1,39 @@
-import defaultStyles from './ClassFeaturePrimary.module.css'
-import modernStyles from './ClassFeaturePrimary.modern.module.css'
-import { mergeStyles } from '../../../utils/mergeStyles'
-import { cx } from '../../../utils/cx'
+import TemplateSlot from '../../template/TemplateSlot.jsx'
+import './ClassFeaturePrimary.css'
 
-const TEMPLATE_MAP = { modern: modernStyles }
-
-export default function ClassFeaturePrimary({ preset, templateId }) {
-  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
+export default function ClassFeaturePrimary({ character, preset }) {
   const feature = preset?.modules?.classFeaturePrimary
 
   return (
-    <section className={cx('module-box', styles.moduleBox, styles.feature)}>
-      <h3 className={cx('section-header', styles.sectionHeader)}>Class Feature (Primary)</h3>
-      <div className={styles.content}>
-        <p className={styles.title}>{feature?.title ?? 'Primary Feature'}</p>
-        <p className={styles.description}>{feature?.description ?? 'Select a class to populate this feature.'}</p>
-      </div>
-      {/* Usage tracking — hidden by default, shown in modern */}
-      <div className={styles.usageTracker}>
-        <div className={styles.usageHeader}>
-          <span className={styles.usageCol}>Used</span>
-          <span className={styles.usageCol}>DMG</span>
-          <span className={styles.usageCol}>Total</span>
-        </div>
-        {[1, 2, 3, 4, 5, 6].map((i) => (
-          <div key={i} className={styles.usageRow}>
-            <span className={cx('pen-checkbox', styles.penCheckbox)}>○</span>
-            <span className={cx('write-line', styles.writeLine)} />
-            <span className={cx('write-line', styles.writeLine)} />
+    <section className="module-box class-feature-primary">
+      <TemplateSlot name="class-feature-primary:header" character={character} preset={preset}>
+        <h3 className="section-header">Class Feature (Primary)</h3>
+      </TemplateSlot>
+      <TemplateSlot name="class-feature-primary:list" character={character} preset={preset} feature={feature}>
+        <>
+          <div className="class-feature-primary__content">
+            <p className="class-feature-primary__title">{feature?.title ?? 'Primary Feature'}</p>
+            <p className="class-feature-primary__description">{feature?.description ?? 'Select a class to populate this feature.'}</p>
           </div>
-        ))}
-      </div>
-      <div className={styles.notes}>
-        <span className={cx('write-line', styles.writeLine)} />
-      </div>
+          <div className="class-feature-primary__usage">
+            <div className="class-feature-primary__usage-header">
+              <span className="class-feature-primary__usage-col">Used</span>
+              <span className="class-feature-primary__usage-col">DMG</span>
+              <span className="class-feature-primary__usage-col">Total</span>
+            </div>
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="class-feature-primary__usage-row">
+                <span className="pen-checkbox">○</span>
+                <span className="write-line" />
+                <span className="write-line" />
+              </div>
+            ))}
+          </div>
+          <div className="class-feature-primary__notes">
+            <span className="write-line" />
+          </div>
+        </>
+      </TemplateSlot>
     </section>
   )
 }

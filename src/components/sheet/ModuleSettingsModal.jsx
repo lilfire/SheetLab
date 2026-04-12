@@ -1,6 +1,37 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MODULE_SETTINGS_SCHEMA, STYLE_SETTING_KEYS } from '../../data/moduleSettings.js'
 import styles from './ModuleSettingsModal.module.css'
+
+function StepperIcon({ children }) {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {children}
+    </svg>
+  )
+}
+
+const MinusIcon = () => (
+  <StepperIcon>
+    <path d="M5 12h14" />
+  </StepperIcon>
+)
+
+const PlusIcon = () => (
+  <StepperIcon>
+    <path d="M5 12h14" />
+    <path d="M12 5v14" />
+  </StepperIcon>
+)
 
 // Convert "rgb(r, g, b)" or "rgba(r, g, b, a)" → "#rrggbb" or "#rrggbbaa".
 // Returns null if the input doesn't look like an rgb/rgba string.
@@ -66,17 +97,13 @@ function readEffectiveStyleValues(moduleKey) {
 }
 
 /**
- * ModuleSettingsModal — native <dialog> modal for editing per-module settings.
- *
- * Props:
- *   moduleKey        — which module is being configured
- *   moduleName       — display name for the heading
- *   settings         — current settings values { [settingKey]: value }
- *   onSettingsChange — (moduleKey, newSettings) => void
- *   onClose          — called to close the modal
+ * ModuleSettingsModal — slide-in sidebar for editing per-module settings.
  */
-export default function ModuleSettingsModal({ moduleKey, moduleName, settings, onSettingsChange, onClose }) {
-  const dialogRef = useRef(null)
+export default function ModuleSettingsModal({
+  moduleKey, moduleName, settings,
+  colSpan, rowSpan, maxColumns,
+  onSettingsChange, onColSpan, onRowSpan, onRemove, onClose,
+}) {
   const schema = MODULE_SETTINGS_SCHEMA[moduleKey] ?? []
   const firstStyleKey = schema.find((d) => STYLE_SETTING_KEYS.has(d.key))?.key
   // Snapshot the module's currently-rendered style values once on mount so
@@ -84,29 +111,24 @@ export default function ModuleSettingsModal({ moduleKey, moduleName, settings, o
   const [effectiveValues] = useState(() => readEffectiveStyleValues(moduleKey))
 
   useEffect(() => {
-    const dialog = dialogRef.current
-    if (dialog && !dialog.open) {
-      dialog.showModal()
-    }
-    return () => { if (dialog?.open) dialog.close() }
-  }, [])
-
-  function handleBackdropClick(e) {
-    if (e.target === dialogRef.current) onClose()
-  }
+    function onKey(e) { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [onClose])
 
   function handleSelectChange(settingKey, value) {
     onSettingsChange(moduleKey, { [settingKey]: value })
   }
 
-  function handleToggle(settingKey, currentValue) {
-    // Cycle: null → true → false → null
-    let next
-    if (currentValue === null) next = true
-    else if (currentValue === true) next = false
-    else next = null
-    onSettingsChange(moduleKey, { [settingKey]: next })
+  function setToggle(settingKey, value) {
+    onSettingsChange(moduleKey, { [settingKey]: value })
   }
+
+  const TOGGLE_OPTIONS = [
+    { label: 'Auto', value: null },
+    { label: 'Off', value: false },
+    { label: 'On', value: true },
+  ]
 
   function handleColorChange(settingKey, value) {
     onSettingsChange(moduleKey, { [settingKey]: value })
@@ -131,17 +153,59 @@ export default function ModuleSettingsModal({ moduleKey, moduleName, settings, o
   }
 
   return (
-    <dialog
-      ref={dialogRef}
-      className={`no-print ${styles.dialog}`}
-      onClose={onClose}
-      onClick={handleBackdropClick}
-    >
+    <aside className={`no-print ${styles.sidebar}`} aria-label={`${moduleName} settings`}>
       <div className={styles.header}>
         <h3 className={styles.title}>{moduleName} Settings</h3>
         <button type="button" className={styles.closeBtn} onClick={onClose}>✕</button>
       </div>
       <div className={styles.fieldList}>
+        <div className={styles.field}>
+          <span className={styles.fieldLabel}>Width</span>
+          <div className={styles.stepper}>
+            <button
+              type="button"
+              className={styles.stepperBtn}
+              onClick={() => onColSpan(moduleKey, -1)}
+              disabled={colSpan <= 1}
+              aria-label="Decrease width"
+            >
+              <MinusIcon />
+            </button>
+            <span className={styles.stepperLabel}>{colSpan}/{maxColumns}</span>
+            <button
+              type="button"
+              className={styles.stepperBtn}
+              onClick={() => onColSpan(moduleKey, 1)}
+              disabled={colSpan >= maxColumns}
+              aria-label="Increase width"
+            >
+              <PlusIcon />
+            </button>
+          </div>
+        </div>
+        <div className={styles.field}>
+          <span className={styles.fieldLabel}>Height</span>
+          <div className={styles.stepper}>
+            <button
+              type="button"
+              className={styles.stepperBtn}
+              onClick={() => onRowSpan(moduleKey, -1)}
+              disabled={rowSpan <= 1}
+              aria-label="Decrease height"
+            >
+              <MinusIcon />
+            </button>
+            <span className={styles.stepperLabel}>R{rowSpan}</span>
+            <button
+              type="button"
+              className={styles.stepperBtn}
+              onClick={() => onRowSpan(moduleKey, 1)}
+              aria-label="Increase height"
+            >
+              <PlusIcon />
+            </button>
+          </div>
+        </div>
         {schema.map((def) => (
           <div key={def.key}>
             {def.key === firstStyleKey && (
@@ -173,19 +237,22 @@ export default function ModuleSettingsModal({ moduleKey, moduleName, settings, o
                 )
               })()}
               {def.type === 'toggle' && (
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <button
-                    type="button"
-                    role="switch"
-                    className={styles.toggle}
-                    aria-checked={settings[def.key] === true ? 'true' : 'false'}
-                    onClick={() => handleToggle(def.key, settings[def.key])}
-                  >
-                    <span className={styles.toggleKnob} />
-                  </button>
-                  {settings[def.key] === null && (
-                    <span className={styles.toggleNull}>auto</span>
-                  )}
+                <div role="radiogroup" aria-label={def.label} className={styles.segmented}>
+                  {TOGGLE_OPTIONS.map((opt) => {
+                    const active = settings[def.key] === opt.value
+                    return (
+                      <button
+                        key={String(opt.value)}
+                        type="button"
+                        role="radio"
+                        aria-checked={active}
+                        className={`${styles.segment} ${active ? styles.segmentActive : ''}`}
+                        onClick={() => setToggle(def.key, opt.value)}
+                      >
+                        {opt.label}
+                      </button>
+                    )
+                  })}
                 </div>
               )}
               {def.type === 'color' && (() => {
@@ -211,15 +278,14 @@ export default function ModuleSettingsModal({ moduleKey, moduleName, settings, o
                       aria-label={`${def.label} opacity`}
                       title={`Opacity: ${Math.round(alpha * 100)}%`}
                     />
-                    {settings[def.key] != null && (
-                      <button
-                        type="button"
-                        className={styles.resetBtn}
-                        onClick={() => handleColorChange(def.key, null)}
-                      >
-                        Reset
-                      </button>
-                    )}
+                    <button
+                      type="button"
+                      className={styles.resetBtn}
+                      onClick={() => handleColorChange(def.key, null)}
+                      style={settings[def.key] == null ? { visibility: 'hidden', pointerEvents: 'none' } : undefined}
+                    >
+                      Reset
+                    </button>
                   </div>
                 )
               })()}
@@ -227,6 +293,15 @@ export default function ModuleSettingsModal({ moduleKey, moduleName, settings, o
           </div>
         ))}
       </div>
-    </dialog>
+      <div className={styles.footer}>
+        <button
+          type="button"
+          className={styles.dangerBtn}
+          onClick={() => { onRemove(moduleKey); onClose() }}
+        >
+          Remove module
+        </button>
+      </div>
+    </aside>
   )
 }

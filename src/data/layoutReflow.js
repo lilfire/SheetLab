@@ -1,11 +1,13 @@
 /**
- * Reflow module positions after a colSpan change to eliminate overlaps.
+ * Reflow module positions after a layout change to eliminate overlaps.
  *
  * Algorithm:
  * 1. Collect visible modules, sorted by (row, col)
  * 2. Place the changed module first (it keeps its position)
  * 3. Place remaining modules one-by-one; push down on collision
- * 4. Compact upward to fill gaps
+ *
+ * Modules are not compacted upward — empty rows are preserved so users can
+ * lay out the sheet with deliberate gaps.
  */
 
 function collides(a, b) {
@@ -60,19 +62,6 @@ export function reflowLayout(layoutConfig, changedKey, maxColumns) {
       candidate.row += 1
     }
     placed.push(candidate)
-  }
-
-  // Compaction pass — try moving each module upward
-  placed.sort((a, b) => a.row - b.row || a.col - b.col)
-  for (const mod of placed) {
-    while (mod.row > 1) {
-      mod.row -= 1
-      const others = placed.filter((p) => p.key !== mod.key)
-      if (collidesWithAny(mod, others)) {
-        mod.row += 1 // revert
-        break
-      }
-    }
   }
 
   // Build new layoutConfig preserving non-position properties

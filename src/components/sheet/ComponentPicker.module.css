@@ -1,20 +1,21 @@
 .panel {
   width: 210mm;
-  background: #2c1a0e;
-  border: 1px solid #8b6914;
-  border-radius: 4px;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
   padding: 12px 16px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
 }
 
 .heading {
-  color: #c4991f;
-  font-family: Georgia, serif;
-  font-variant: small-caps;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-weight: 600;
   font-size: 0.85rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
   margin-bottom: 8px;
-  border-bottom: 1px solid #8b6914;
-  padding-bottom: 4px;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 6px;
 }
 
 .list {
@@ -33,38 +34,39 @@
   align-items: center;
   gap: 6px;
   width: 100%;
-  padding: 5px 8px;
-  border-radius: 3px;
+  padding: 6px 10px;
+  border-radius: 4px;
   border: 1px solid transparent;
   cursor: pointer;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   text-align: left;
-  transition: background 0.1s, border-color 0.1s;
+  transition: background 0.1s, border-color 0.1s, color 0.1s;
 }
 
 .toggle.on {
-  background: rgba(139, 105, 20, 0.25);
-  border-color: #8b6914;
-  color: #f5f0e8;
+  background: #eff6ff;
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+  font-weight: 500;
 }
 
 .toggle.off {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.1);
-  color: #8a7a6a;
+  background: #f8fafc;
+  border-color: var(--color-border);
+  color: #94a3b8;
 }
 
 .toggle:hover {
-  background: rgba(139, 105, 20, 0.4);
-  border-color: #c4991f;
-  color: #f5f0e8;
+  background: #e0edff;
+  border-color: var(--color-gold);
+  color: var(--color-gold);
 }
 
 .indicator {
   flex-shrink: 0;
   width: 14px;
   text-align: center;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
 }
 
 .label {

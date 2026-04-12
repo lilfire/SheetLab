@@ -1,39 +1,39 @@
-import defaultStyles from './ClassFeatureSecondary.module.css'
-import modernStyles from './ClassFeatureSecondary.modern.module.css'
-import { mergeStyles } from '../../../utils/mergeStyles'
-import { cx } from '../../../utils/cx'
+import TemplateSlot from '../../template/TemplateSlot.jsx'
+import './ClassFeatureSecondary.css'
 
-const TEMPLATE_MAP = { modern: modernStyles }
-
-export default function ClassFeatureSecondary({ preset, templateId }) {
-  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
+export default function ClassFeatureSecondary({ character, preset }) {
   const feature = preset?.modules?.classFeatureSecondary
 
   return (
-    <section className={cx('module-box', styles.moduleBox, styles.feature)}>
-      <h3 className={cx('section-header', styles.sectionHeader)}>Class Feature (Secondary)</h3>
-      <div className={styles.content}>
-        <p className={styles.title}>{feature?.title ?? 'Secondary Feature'}</p>
-        <p className={styles.description}>{feature?.description ?? 'Select a class to populate this feature.'}</p>
-      </div>
-      {/* Usage tracking — hidden by default, shown in modern */}
-      <div className={styles.usageTracker}>
-        <div className={styles.usageHeader}>
-          <span className={styles.usageCol}>Used</span>
-          <span className={styles.usageCol}>DMG</span>
-          <span className={styles.usageCol}>Total</span>
-        </div>
-        {[1, 2, 3, 4, 5, 6].map((i) => (
-          <div key={i} className={styles.usageRow}>
-            <span className={cx('pen-checkbox', styles.penCheckbox)}>○</span>
-            <span className={cx('write-line', styles.writeLine)} />
-            <span className={cx('write-line', styles.writeLine)} />
+    <section className="module-box class-feature-secondary">
+      <TemplateSlot name="class-feature-secondary:header" character={character} preset={preset}>
+        <h3 className="section-header">Class Feature (Secondary)</h3>
+      </TemplateSlot>
+      <TemplateSlot name="class-feature-secondary:list" character={character} preset={preset} feature={feature}>
+        <>
+          <div className="class-feature-secondary__content">
+            <p className="class-feature-secondary__title">{feature?.title ?? 'Secondary Feature'}</p>
+            <p className="class-feature-secondary__description">{feature?.description ?? 'Select a class to populate this feature.'}</p>
           </div>
-        ))}
-      </div>
-      <div className={styles.notes}>
-        <span className={cx('write-line', styles.writeLine)} />
-      </div>
+          <div className="class-feature-secondary__usage">
+            <div className="class-feature-secondary__usage-header">
+              <span className="class-feature-secondary__usage-col">Used</span>
+              <span className="class-feature-secondary__usage-col">DMG</span>
+              <span className="class-feature-secondary__usage-col">Total</span>
+            </div>
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="class-feature-secondary__usage-row">
+                <span className="pen-checkbox">○</span>
+                <span className="write-line" />
+                <span className="write-line" />
+              </div>
+            ))}
+          </div>
+          <div className="class-feature-secondary__notes">
+            <span className="write-line" />
+          </div>
+        </>
+      </TemplateSlot>
     </section>
   )
 }

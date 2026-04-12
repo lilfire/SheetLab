@@ -1,0 +1,16 @@
+[data-template="modern"] .passive-stats__stat {
+  border-bottom-color: var(--mod-muted, rgba(100, 116, 139, 0.15));
+  padding: 3px 0;
+}
+
+[data-template="modern"] .passive-stats__label {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.65rem;
+  color: var(--mod-text, #0f172a);
+}
+
+[data-template="modern"] .passive-stats__value {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  border-bottom-color: var(--mod-muted, rgba(100, 116, 139, 0.2));
+  color: var(--mod-text, #0f172a);
+}

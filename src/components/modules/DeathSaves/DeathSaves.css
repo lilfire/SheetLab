@@ -1,0 +1,48 @@
+.death-saves {
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--mod-bg, var(--color-parchment));
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.death-saves__label {
+  display: block;
+  font-size: 0.6rem;
+  font-variant: small-caps;
+  color: var(--mod-heading, var(--color-gold));
+  margin-bottom: 3px;
+  letter-spacing: 0.05em;
+}
+
+.death-saves__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.death-saves__type {
+  font-size: 0.65rem;
+  color: var(--mod-muted, var(--color-text-light));
+  width: 60px;
+  flex-shrink: 0;
+}
+
+.death-saves__bubbles {
+  display: flex;
+  gap: 4px;
+}
+
+.death-saves__bubble {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  font-size: 0.75rem;
+  line-height: 1;
+  user-select: none;
+}

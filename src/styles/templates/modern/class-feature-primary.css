@@ -1,0 +1,35 @@
+[data-template="modern"] .class-feature-primary__title {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--mod-heading, #000000);
+}
+
+[data-template="modern"] .class-feature-primary__description {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.65rem;
+  color: var(--mod-text, #334155);
+  line-height: 1.5;
+}
+
+/* Show usage tracker in modern */
+[data-template="modern"] .class-feature-primary__usage {
+  display: block;
+  border-top: 1px solid var(--mod-muted, rgba(100, 116, 139, 0.15));
+  padding-top: 6px;
+  margin-top: 4px;
+}
+
+[data-template="modern"] .class-feature-primary__usage-header {
+  border-bottom-color: var(--mod-muted, rgba(100, 116, 139, 0.25));
+}
+
+[data-template="modern"] .class-feature-primary__usage-col {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: var(--mod-heading, #000000);
+  font-size: 0.45rem;
+}
+
+[data-template="modern"] .class-feature-primary__notes {
+  border-top-color: var(--mod-muted, rgba(100, 116, 139, 0.15));
+}

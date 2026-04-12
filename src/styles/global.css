@@ -1,15 +1,17 @@
-/* Custom properties */
+/* Custom properties.
+   NOTE: token names are legacy (--color-parchment, --color-gold). Values have
+   been repurposed to a neutral-modern palette. Rename when the palette stabilizes. */
 :root {
-  --color-parchment: #f5f0e8;
-  --color-parchment-dark: #e8e0cc;
-  --color-text: #2c1a0e;
-  --color-text-light: #5a3a1e;
-  --color-gold: #8b6914;
-  --color-gold-light: #c4991f;
-  --color-border: #8b6914;
-  --font-serif: Georgia, 'Times New Roman', serif;
-  --font-sans: system-ui, -apple-system, sans-serif;
-  --border-ornate: 2px solid var(--color-gold);
+  --color-parchment: #ffffff;           /* surface */
+  --color-parchment-dark: #f1f5f9;      /* slate-100 — subtle accent bg */
+  --color-text: #0f172a;                /* slate-900 */
+  --color-text-light: #64748b;          /* slate-500 */
+  --color-gold: #2563eb;                /* blue-600 — the accent */
+  --color-gold-light: #3b82f6;          /* blue-500 */
+  --color-border: #cbd5e1;              /* slate-300 */
+  --font-serif: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --border-ornate: 1px solid var(--color-border);
 }
 
 /* Reset */
@@ -45,6 +47,9 @@ body {
   padding-bottom: 2px;
   margin-bottom: 6px;
   letter-spacing: 0.05em;
+}
+[data-hide-header] .section-header {
+  display: none;
 }
 
 /* Static write-in line (replaces input[type=text] for pen-filling) */

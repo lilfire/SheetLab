@@ -1,0 +1,35 @@
+[data-template="modern"] .character-portrait {
+  border-radius: 0px !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0;
+  background: transparent !important;
+  overflow: hidden;
+}
+
+[data-template="modern"] .character-portrait__frame {
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+}
+
+[data-template="modern"] .character-portrait__icon {
+  color: var(--mod-heading, rgba(241, 245, 249, 0.3));
+  font-size: 2.5rem;
+  opacity: 1;
+}
+
+[data-template="modern"] .character-portrait__hint {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: var(--mod-text, #0f172a);
+  font-style: normal;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+[data-template="modern"] .character-portrait__image {
+  mask-image: url('/mask.png');
+  mask-size: 100%;
+  mask-repeat: no-repeat;
+}

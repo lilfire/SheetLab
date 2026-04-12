@@ -1,12 +1,17 @@
-import defaultStyles from './RaceClassInfo.module.css'
-import modernStyles from './RaceClassInfo.modern.module.css'
-import { mergeStyles } from '../../../utils/mergeStyles'
-import { cx } from '../../../utils/cx'
+import TemplateSlot from '../../template/TemplateSlot.jsx'
+import './RaceClassInfo.css'
 
-const TEMPLATE_MAP = { modern: modernStyles }
-
-export default function RaceClassInfo({ preset, templateId, settings = {} }) {
-  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
+export default function RaceClassInfo({ character, preset, settings = {} }) {
+  const headerParts = [
+    ...(settings.showRace !== false ? ['Race'] : []),
+    ...(settings.showClass !== false || settings.showSubclass !== false ? ['Class'] : []),
+    ...(settings.showLevel !== false || settings.showExperience !== false || settings.showProficiencyBonus !== false ? ['Experience'] : []),
+  ]
+  const headerText = headerParts.length === 0
+    ? 'Character Info'
+    : headerParts.length === 1
+      ? headerParts[0]
+      : headerParts.slice(0, -1).join(', ') + ' & ' + headerParts[headerParts.length - 1]
 
   // Extra-fields container: force-show if any toggled true, force-hide if all false, else defer to CSS
   const anyExtraTrue = settings.showBackgroundAlignment === true || settings.showCharacterFeatures === true || settings.showCharacterTraits === true
@@ -18,67 +23,72 @@ export default function RaceClassInfo({ preset, templateId, settings = {} }) {
       : undefined
 
   return (
-    <section className={cx('module-box', styles.moduleBox, styles.raceClass)}>
-      <h3 className={cx('section-header', styles.sectionHeader)}>Race, Class &amp; Experience</h3>
-      <div className={styles.fields}>
-        {settings.showRace !== false && (
-          <fieldset className={styles.field}>
-            <label className={styles.label}>Race</label>
-            <span className={cx('write-line', styles.writeLine)}>{preset?.race ?? ''}</span>
-          </fieldset>
-        )}
-        {settings.showClass !== false && (
-          <fieldset className={styles.field}>
-            <label className={styles.label}>Class</label>
-            <span className={cx('write-line', styles.writeLine)}>{preset?.class ?? ''}</span>
-          </fieldset>
-        )}
-        {settings.showSubclass !== false && (
-          <fieldset className={styles.field}>
-            <label className={styles.label}>Subclass</label>
-            <span className={cx('write-line', styles.writeLine)} />
-          </fieldset>
-        )}
-        {settings.showLevel !== false && (
-          <fieldset className={styles.field}>
-            <label className={styles.label}>Level</label>
-            <span className={cx('write-line', styles.writeLine)} />
-          </fieldset>
-        )}
-        {settings.showExperience !== false && (
-          <fieldset className={styles.field}>
-            <label className={styles.label}>Experience</label>
-            <span className={cx('write-line', styles.writeLine)} />
-          </fieldset>
-        )}
-        {settings.showProficiencyBonus !== false && (
-          <fieldset className={styles.field}>
-            <label className={styles.label}>Proficiency Bonus</label>
-            <span className={cx('write-line', styles.writeLine)} />
-          </fieldset>
-        )}
-      </div>
-      {/* Extra fields — hidden by default, shown in modern */}
-      <div className={styles.extraFields} style={extraFieldsStyle}>
-        {settings.showBackgroundAlignment !== false && (
-          <fieldset className={styles.field}>
-            <label className={styles.label}>Background &amp; Alignment</label>
-            <span className={cx('write-line', styles.writeLine)} />
-          </fieldset>
-        )}
-        {settings.showCharacterFeatures !== false && (
-          <fieldset className={styles.field}>
-            <label className={styles.label}>Character Features</label>
-            <span className={cx('write-line', styles.writeLine)} />
-          </fieldset>
-        )}
-        {settings.showCharacterTraits !== false && (
-          <fieldset className={styles.field}>
-            <label className={styles.label}>Character Traits</label>
-            <span className={cx('write-line', styles.writeLine)} />
-          </fieldset>
-        )}
-      </div>
+    <section className="module-box race-class-info">
+      <TemplateSlot name="race-class-info:header" character={character} preset={preset} settings={settings}>
+        <h3 className="section-header">{headerText}</h3>
+      </TemplateSlot>
+      <TemplateSlot name="race-class-info:main-fields" character={character} preset={preset} settings={settings}>
+        <div className="race-class-info__fields">
+          {settings.showRace !== false && (
+            <fieldset className="race-class-info__field">
+              <label className="race-class-info__label">Race</label>
+              <span className="write-line">{preset?.race ?? ''}</span>
+            </fieldset>
+          )}
+          {settings.showClass !== false && (
+            <fieldset className="race-class-info__field">
+              <label className="race-class-info__label">Class</label>
+              <span className="write-line">{preset?.class ?? ''}</span>
+            </fieldset>
+          )}
+          {settings.showSubclass !== false && (
+            <fieldset className="race-class-info__field">
+              <label className="race-class-info__label">Subclass</label>
+              <span className="write-line" />
+            </fieldset>
+          )}
+          {settings.showLevel !== false && (
+            <fieldset className="race-class-info__field">
+              <label className="race-class-info__label">Level</label>
+              <span className="write-line" />
+            </fieldset>
+          )}
+          {settings.showExperience !== false && (
+            <fieldset className="race-class-info__field">
+              <label className="race-class-info__label">Experience</label>
+              <span className="write-line" />
+            </fieldset>
+          )}
+          {settings.showProficiencyBonus !== false && (
+            <fieldset className="race-class-info__field">
+              <label className="race-class-info__label">Proficiency Bonus</label>
+              <span className="write-line" />
+            </fieldset>
+          )}
+        </div>
+      </TemplateSlot>
+      <TemplateSlot name="race-class-info:extra-fields" character={character} preset={preset} settings={settings}>
+        <div className="race-class-info__extra-fields" style={extraFieldsStyle}>
+          {settings.showBackgroundAlignment !== false && (
+            <fieldset className="race-class-info__field">
+              <label className="race-class-info__label">Background &amp; Alignment</label>
+              <span className="write-line" />
+            </fieldset>
+          )}
+          {settings.showCharacterFeatures !== false && (
+            <fieldset className="race-class-info__field">
+              <label className="race-class-info__label">Character Features</label>
+              <span className="write-line" />
+            </fieldset>
+          )}
+          {settings.showCharacterTraits !== false && (
+            <fieldset className="race-class-info__field">
+              <label className="race-class-info__label">Character Traits</label>
+              <span className="write-line" />
+            </fieldset>
+          )}
+        </div>
+      </TemplateSlot>
     </section>
   )
 }

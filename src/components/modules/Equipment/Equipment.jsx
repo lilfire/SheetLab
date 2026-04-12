@@ -1,27 +1,28 @@
-import defaultStyles from './Equipment.module.css'
-import modernStyles from './Equipment.modern.module.css'
-import { mergeStyles } from '../../../utils/mergeStyles'
-import { cx } from '../../../utils/cx'
+import TemplateSlot from '../../template/TemplateSlot.jsx'
+import './Equipment.css'
 
-const TEMPLATE_MAP = { modern: modernStyles }
-
-export default function Equipment({ templateId }) {
-  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
+export default function Equipment({ character }) {
   return (
-    <section className={cx('module-box', styles.moduleBox, styles.equipment)}>
-      <h3 className={cx('section-header', styles.sectionHeader)}>Equipment</h3>
-      <div className={styles.capacity}>
-        <span className={styles.capacityLabel}>Carrying Capacity:</span>
-        <span className={styles.capacityValue} />
-        <span className={styles.unit}>lbs</span>
-      </div>
-      <div className={styles.list}>
-        {[...Array(8)].map((_, i) => (
-          <div key={i} className={styles.item}>
-            <span className={cx('write-line', styles.writeLine)} />
-          </div>
-        ))}
-      </div>
+    <section className="module-box equipment">
+      <TemplateSlot name="equipment:header" character={character}>
+        <h3 className="section-header">Equipment</h3>
+      </TemplateSlot>
+      <TemplateSlot name="equipment:capacity" character={character}>
+        <div className="equipment__capacity">
+          <span className="equipment__capacity-label">Carrying Capacity:</span>
+          <span className="equipment__capacity-value" />
+          <span className="equipment__unit">lbs</span>
+        </div>
+      </TemplateSlot>
+      <TemplateSlot name="equipment:items" character={character}>
+        <div className="equipment__list">
+          {[...Array(8)].map((_, i) => (
+            <div key={i} className="equipment__item">
+              <span className="write-line" />
+            </div>
+          ))}
+        </div>
+      </TemplateSlot>
     </section>
   )
 }

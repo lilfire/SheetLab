@@ -1,0 +1,41 @@
+.race-class-traits {
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--mod-bg, var(--color-parchment));
+}
+
+.race-class-traits__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.race-class-traits__trait {
+  font-size: 0.72rem;
+  color: var(--mod-text, var(--color-text));
+  padding: 2px 0;
+  border-bottom: 1px dotted var(--mod-muted, var(--color-parchment-dark));
+  padding-left: 12px;
+  position: relative;
+}
+
+.race-class-traits__trait::before {
+  content: '◆';
+  position: absolute;
+  left: 0;
+  font-size: 0.45rem;
+  color: var(--mod-heading, var(--color-gold));
+  top: 4px;
+}
+
+.race-class-traits__blank input {
+  font-size: 0.72rem;
+}
+
+.race-class-traits__placeholder {
+  font-size: 0.7rem;
+  color: var(--mod-muted, var(--color-text-light));
+  font-style: italic;
+}

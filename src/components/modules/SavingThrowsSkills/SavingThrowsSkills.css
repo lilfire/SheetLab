@@ -1,0 +1,59 @@
+.saving-throws-skills {
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--mod-bg, var(--color-parchment));
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.saving-throws-skills__saving-throws,
+.saving-throws-skills__skills {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.saving-throws-skills__row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 0;
+}
+
+.saving-throws-skills__check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  font-size: 0.7rem;
+  line-height: 1;
+  user-select: none;
+  color: var(--mod-heading, var(--color-gold));
+}
+
+.saving-throws-skills__modifier {
+  display: inline-block;
+  width: 28px;
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  text-align: center;
+  border-bottom: 1px solid var(--mod-muted, var(--color-text-light));
+  padding: 0 2px;
+  background: transparent;
+  color: var(--mod-text, var(--color-text));
+  min-height: 1em;
+}
+
+.saving-throws-skills__name {
+  font-size: 0.7rem;
+  color: var(--mod-text, var(--color-text));
+}
+
+.saving-throws-skills__ability {
+  font-size: 0.6rem;
+  color: var(--mod-muted, var(--color-text-light));
+}

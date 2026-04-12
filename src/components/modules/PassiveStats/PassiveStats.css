@@ -1,0 +1,39 @@
+.passive-stats {
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--mod-bg, var(--color-parchment));
+}
+
+.passive-stats__list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.passive-stats__stat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px dotted var(--mod-accent, var(--color-gold));
+  padding-bottom: 2px;
+}
+
+.passive-stats__label {
+  font-size: 0.7rem;
+  color: var(--mod-text, var(--color-text));
+}
+
+.passive-stats__value {
+  display: inline-block;
+  width: 36px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.8rem;
+  border-bottom: 1px solid var(--mod-muted, var(--color-text-light));
+  background: transparent;
+  color: var(--mod-text, var(--color-text));
+  padding: 0;
+  min-height: 1.1em;
+}

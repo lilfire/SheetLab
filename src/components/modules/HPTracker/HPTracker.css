@@ -1,0 +1,138 @@
+.hp-tracker {
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--mod-bg, var(--color-parchment));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.hp-tracker__ring-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Satellite rings — hidden by default */
+.hp-tracker__max-hp-ring,
+.hp-tracker__temp-hp-ring {
+  display: none;
+}
+
+/* Connectors — hidden by default */
+.hp-tracker__connector {
+  display: none;
+}
+
+/* Hit Dice row — hidden by default */
+.hp-tracker__hit-dice-row {
+  display: none;
+}
+
+.hp-tracker__orb {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 4px solid var(--mod-accent, var(--color-gold));
+  box-shadow: 0 0 0 2px var(--mod-bg, var(--color-parchment-dark)), 0 0 0 4px var(--mod-accent, var(--color-gold-light));
+  background: var(--mod-accent, var(--color-parchment-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hp-tracker__orb-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.hp-tracker__orb-label {
+  font-size: 0.55rem;
+  font-variant: small-caps;
+  color: var(--mod-heading, var(--color-gold));
+  letter-spacing: 0.05em;
+}
+
+.hp-tracker__hp-input {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+  width: 50px;
+  background: transparent;
+  border-bottom: 1px solid var(--mod-muted, var(--color-text-light));
+  color: var(--mod-text, var(--color-text));
+  padding: 0;
+  min-height: 1.2em;
+}
+
+.hp-tracker__inline-max {
+  display: inline;
+}
+
+.hp-tracker__divider {
+  font-size: 0.65rem;
+  color: var(--mod-muted, var(--color-text-light));
+}
+
+.hp-tracker__max-input {
+  display: inline-block;
+  font-size: 0.75rem;
+  text-align: center;
+  width: 40px;
+  background: transparent;
+  border-bottom: 1px solid var(--mod-muted, var(--color-text-light));
+  color: var(--mod-muted, var(--color-text-light));
+  padding: 0;
+  min-height: 1.1em;
+}
+
+.hp-tracker__temp-hp {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.hp-tracker__temp-label {
+  font-size: 0.65rem;
+  font-variant: small-caps;
+  color: var(--mod-heading, var(--color-gold));
+  white-space: nowrap;
+}
+
+.hp-tracker__satellite-label {
+  font-size: 0.5rem;
+  font-variant: small-caps;
+  color: var(--mod-heading, var(--color-gold));
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.hp-tracker__satellite-input {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-align: center;
+  width: 32px;
+  background: transparent;
+  border-bottom: 1px solid var(--mod-muted, var(--color-text-light));
+  color: var(--mod-text, var(--color-text));
+  padding: 0;
+  min-height: 1em;
+}
+
+.hp-tracker__hit-dice-label {
+  font-size: 0.6rem;
+  font-variant: small-caps;
+  color: var(--mod-heading, var(--color-gold));
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+

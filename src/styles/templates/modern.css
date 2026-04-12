@@ -1,17 +1,47 @@
 /* Modern template: card-based design with rounded corners, thin borders, warm earth tones.
-   NO gradient section headers — clean, minimal section titles with underlines. */
+   NO gradient section headers — clean, minimal section titles with underlines.
+
+   Per-module overrides live in ./modern/<module>.css and are imported below.
+   The base module JSX/CSS knows nothing about templates — all template
+   styling is scoped under [data-template="modern"] from this layer. */
+
+@import './modern/abilities-features.css';
+@import './modern/ability-scores.css';
+@import './modern/attacks-cantrips.css';
+@import './modern/background-info.css';
+@import './modern/character-portrait.css';
+@import './modern/class-feature-primary.css';
+@import './modern/class-feature-secondary.css';
+@import './modern/combat-stats.css';
+@import './modern/equipment.css';
+@import './modern/header-banner.css';
+@import './modern/death-saves.css';
+@import './modern/hp-tracker.css';
+@import './modern/inspiration.css';
+@import './modern/passive-stats.css';
+@import './modern/proficiency.css';
+@import './modern/race-class-info.css';
+@import './modern/race-class-traits.css';
+@import './modern/saving-throws-skills.css';
+@import './modern/subclass-feats.css';
 
 [data-template="modern"] {
-  --color-parchment: #faf6f0;
-  --color-parchment-dark: #f0e8d8;
-  --color-text: #3a2a1a;
-  --color-text-light: #6b5540;
-  --color-gold: #8b7355;
-  --color-gold-light: #a08860;
-  --color-border: #8b7355;
-  --font-serif: 'Segoe UI', system-ui, sans-serif;
-  --font-sans: 'Segoe UI', system-ui, sans-serif;
-  --border-ornate: 1px solid rgba(139, 115, 85, 0.25);
+  --color-text: #0f172a;
+  --color-text-light: #64748b;
+  --color-gold: #0f172a;
+  --color-gold-light: #334155;
+  --color-border: #0f172a;
+  --border-ornate: 0px solid transparent;
+
+  /* Module-level palette — consumed by var(--mod-*, fallback) in per-module CSS */
+  --mod-text: #0f172a;
+  --mod-heading: #0f172a;
+  --mod-muted: rgba(100, 116, 139, 0.25);
+  --mod-accent: #f1f5f9;
+  --mod-bg: #ffffff;
+  --mod-border-color: rgba(15, 23, 42, 0.12);
+  --mod-border-style: solid;
+  --mod-border-width: 1px;
 }
 
 [data-template="modern"] .sheet-grid {
@@ -24,17 +54,18 @@
 [data-template="modern"] .module-box {
   border-radius: 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
-  background: var(--mod-bg, #fefcf8);
-  overflow: hidden;
+  border: var(--mod-border-width) var(--mod-border-style) var(--mod-border-color);
+  background: var(--mod-bg, #ffffff);
+  padding: 8px 10px;
+  color: var(--mod-text, #0f172a);
 }
 
 /* ── Section headers: clean underline, NO gradient background ── */
 
 [data-template="modern"] .section-header {
   background: none;
-  color: #8b7355;
-  border-bottom: 1px solid rgba(139, 115, 85, 0.3);
+  color: #000000;
+  border-bottom: 1px solid var(--mod-muted, rgba(100, 116, 139, 0.25));
   padding: 0 0 3px 0;
   margin: 0 0 6px 0;
   border-radius: 0;
@@ -49,12 +80,12 @@
 /* ── Write-in lines: subtler ─────────────────────────────────── */
 
 [data-template="modern"] .write-line {
-  border-bottom-color: rgba(139, 115, 85, 0.2);
+  border-bottom-color: var(--mod-muted, rgba(100, 116, 139, 0.2));
   font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
 /* ── Pen checkboxes ──────────────────────────────────────────── */
 
 [data-template="modern"] .pen-checkbox {
-  color: #8b7355;
+  color: #000000;
 }

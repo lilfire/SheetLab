@@ -1,0 +1,131 @@
+.ability-scores {
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--mod-bg, var(--color-parchment));
+}
+
+.ability-scores__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.ability-scores__column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ability-scores__shield {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 4px 30px;
+  background: var(--mod-accent, var(--color-parchment-dark));
+  border: 1px solid var(--mod-heading, var(--color-gold));
+  border-radius: 3px;
+  gap: 2px;
+  position: relative;
+  width: 100%;
+}
+
+.ability-scores__label {
+  font-family: var(--font-serif);
+  font-variant: small-caps;
+  font-size: 0.6rem;
+  color: var(--mod-heading, var(--color-gold));
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+.ability-scores__score {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  color: var(--mod-text, var(--color-text));
+  background: transparent;
+  border-bottom: 1px solid var(--mod-muted, var(--color-text-light));
+  width: 36px;
+  padding: 0;
+  min-height: 1.2em;
+}
+
+.ability-scores__score-label,
+.ability-scores__mod-label {
+  display: none;
+}
+
+.ability-scores__mod-bubble {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 6px;
+  background: var(--mod-bg, var(--color-parchment));
+  border: 1px solid var(--mod-accent, var(--color-gold));
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-size: 0.6rem;
+  font-weight: bold;
+  color: var(--mod-text, var(--color-text));
+  text-align: center;
+  line-height: 20px;
+}
+
+/* Inline saving throws + skills (hidden by default) */
+.ability-scores__skills {
+  display: none;
+  flex-direction: column;
+  gap: 1px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.ability-scores__save-row,
+.ability-scores__skill-row {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 0;
+}
+
+.ability-scores__save-check,
+.ability-scores__skill-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  font-size: 0.6rem;
+  line-height: 1;
+  user-select: none;
+}
+
+.ability-scores__save-mod,
+.ability-scores__skill-mod {
+  display: inline-block;
+  width: 22px;
+  flex-shrink: 0;
+  font-size: 0.6rem;
+  text-align: center;
+  border-bottom: 1px solid var(--mod-muted, var(--color-text-light));
+  padding: 0 1px;
+  background: transparent;
+  color: var(--mod-text, var(--color-text));
+  min-height: 0.9em;
+}
+
+.ability-scores__save-name {
+  font-size: 0.55rem;
+  font-weight: bold;
+  color: var(--mod-text, var(--color-text));
+}
+
+.ability-scores__skill-name {
+  font-size: 0.55rem;
+  color: var(--mod-text, var(--color-text));
+}

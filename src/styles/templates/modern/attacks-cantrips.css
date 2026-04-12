@@ -1,0 +1,15 @@
+[data-template="modern"] .attacks-cantrips__th {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-variant: normal;
+  text-transform: uppercase;
+  font-size: 0.5rem;
+  font-weight: 700;
+  color: var(--mod-heading, #000000);
+  border-bottom-color: var(--mod-muted, rgba(100, 116, 139, 0.25));
+  letter-spacing: 0.06em;
+}
+
+[data-template="modern"] .attacks-cantrips__row td {
+  border-bottom-color: var(--mod-muted, rgba(100, 116, 139, 0.1));
+  color: var(--mod-text, #0f172a);
+}

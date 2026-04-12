@@ -1,9 +1,5 @@
-import defaultStyles from './SavingThrowsSkills.module.css'
-import modernStyles from './SavingThrowsSkills.modern.module.css'
-import { mergeStyles } from '../../../utils/mergeStyles'
-import { cx } from '../../../utils/cx'
-
-const TEMPLATE_MAP = { modern: modernStyles }
+import TemplateSlot from '../../template/TemplateSlot.jsx'
+import './SavingThrowsSkills.css'
 
 const SAVING_THROWS = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma']
 
@@ -28,36 +24,39 @@ const SKILLS = [
   { name: 'Survival', ability: 'Wis' },
 ]
 
-export default function SavingThrowsSkills({ preset, templateId }) {
-  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
+export default function SavingThrowsSkills({ character, preset }) {
   const proficiencies = preset?.defaultSkillProficiencies ?? []
 
   return (
-    <section className={cx('module-box', styles.moduleBox, styles.savingSkills)}>
-      <div className={styles.savingThrows}>
-        <h3 className={cx('section-header', styles.sectionHeader)}>Saving Throws</h3>
-        {SAVING_THROWS.map((ability) => (
-          <div key={ability} className={styles.row}>
-            <span className={styles.check} aria-label={`${ability} saving throw proficiency`}>○</span>
-            <span className={styles.modifier} />
-            <span className={styles.name}>{ability}</span>
-          </div>
-        ))}
-      </div>
+    <section className="module-box saving-throws-skills">
+      <TemplateSlot name="saving-throws-skills:saves" character={character} preset={preset}>
+        <div className="saving-throws-skills__saving-throws">
+          <h3 className="section-header">Saving Throws</h3>
+          {SAVING_THROWS.map((ability) => (
+            <div key={ability} className="saving-throws-skills__row">
+              <span className="saving-throws-skills__check" aria-label={`${ability} saving throw proficiency`}>○</span>
+              <span className="saving-throws-skills__modifier" />
+              <span className="saving-throws-skills__name">{ability}</span>
+            </div>
+          ))}
+        </div>
+      </TemplateSlot>
 
-      <div className={styles.skills}>
-        <h3 className={cx('section-header', styles.sectionHeader)}>Skills</h3>
-        {SKILLS.map(({ name, ability }) => (
-          <div key={name} className={styles.row}>
-            <span
-              className={styles.check}
-              aria-label={`${name} proficiency`}
-            >{proficiencies.includes(name) ? '●' : '○'}</span>
-            <span className={styles.modifier} />
-            <span className={styles.name}>{name} <span className={styles.ability}>({ability})</span></span>
-          </div>
-        ))}
-      </div>
+      <TemplateSlot name="saving-throws-skills:skills" character={character} preset={preset}>
+        <div className="saving-throws-skills__skills">
+          <h3 className="section-header">Skills</h3>
+          {SKILLS.map(({ name, ability }) => (
+            <div key={name} className="saving-throws-skills__row">
+              <span
+                className="saving-throws-skills__check"
+                aria-label={`${name} proficiency`}
+              >{proficiencies.includes(name) ? '●' : '○'}</span>
+              <span className="saving-throws-skills__modifier" />
+              <span className="saving-throws-skills__name">{name} <span className="saving-throws-skills__ability">({ability})</span></span>
+            </div>
+          ))}
+        </div>
+      </TemplateSlot>
     </section>
   )
 }

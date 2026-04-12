@@ -1,39 +1,38 @@
-import defaultStyles from './AttacksCantrips.module.css'
-import modernStyles from './AttacksCantrips.modern.module.css'
-import { mergeStyles } from '../../../utils/mergeStyles'
-import { cx } from '../../../utils/cx'
+import TemplateSlot from '../../template/TemplateSlot.jsx'
+import './AttacksCantrips.css'
 
-const TEMPLATE_MAP = { modern: modernStyles }
-
-export default function AttacksCantrips({ templateId }) {
-  const styles = mergeStyles(defaultStyles, templateId, TEMPLATE_MAP)
+export default function AttacksCantrips({ character }) {
   return (
-    <section className={cx('module-box', styles.moduleBox, styles.attacks)}>
-      <h3 className={cx('section-header', styles.sectionHeader)}>Attacks &amp; Cantrips</h3>
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th className={styles.th}>Name</th>
-            <th className={styles.th}>Range</th>
-            <th className={styles.th}>Hit/DC</th>
-            <th className={styles.th}>Action</th>
-            <th className={styles.th}>Damage</th>
-            <th className={styles.th}>Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          {[...Array(5)].map((_, i) => (
-            <tr key={i} className={styles.row}>
-              <td><span className={cx('write-line', styles.writeLine)} /></td>
-              <td><span className={cx('write-line', styles.writeLine)} /></td>
-              <td><span className={cx('write-line', styles.writeLine)} /></td>
-              <td><span className={cx('write-line', styles.writeLine)} /></td>
-              <td><span className={cx('write-line', styles.writeLine)} /></td>
-              <td><span className={cx('write-line', styles.writeLine)} /></td>
+    <section className="module-box attacks-cantrips">
+      <TemplateSlot name="attacks-cantrips:header" character={character}>
+        <h3 className="section-header">Attacks &amp; Cantrips</h3>
+      </TemplateSlot>
+      <TemplateSlot name="attacks-cantrips:table" character={character}>
+        <table className="attacks-cantrips__table">
+          <thead>
+            <tr>
+              <th className="attacks-cantrips__th">Name</th>
+              <th className="attacks-cantrips__th">Range</th>
+              <th className="attacks-cantrips__th">Hit/DC</th>
+              <th className="attacks-cantrips__th">Action</th>
+              <th className="attacks-cantrips__th">Damage</th>
+              <th className="attacks-cantrips__th">Notes</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {[...Array(5)].map((_, i) => (
+              <tr key={i} className="attacks-cantrips__row">
+                <td><span className="write-line" /></td>
+                <td><span className="write-line" /></td>
+                <td><span className="write-line" /></td>
+                <td><span className="write-line" /></td>
+                <td><span className="write-line" /></td>
+                <td><span className="write-line" /></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </TemplateSlot>
     </section>
   )
 }

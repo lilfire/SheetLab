@@ -1,3 +1,7 @@
+const COMMON_SETTINGS = [
+  { key: 'showHeader', type: 'toggle', label: 'Show Header', default: null },
+]
+
 /**
  * Shared style settings appended to every module.
  * type: 'color' renders a color picker; null default = no override.
@@ -50,8 +54,9 @@ export const STYLE_SETTING_KEYS = new Set(STYLE_SETTINGS.map((s) => s.key))
  *   default  — default value (null = defer to template CSS)
  */
 export const MODULE_SETTINGS_SCHEMA = {
-  header:           [...STYLE_SETTINGS],
+  header:           [...COMMON_SETTINGS, ...STYLE_SETTINGS],
   portrait: [
+    ...COMMON_SETTINGS,
     {
       key: 'aspectRatio',
       type: 'select',
@@ -68,6 +73,7 @@ export const MODULE_SETTINGS_SCHEMA = {
     ...STYLE_SETTINGS,
   ],
   raceclass: [
+    ...COMMON_SETTINGS,
     { key: 'showRace', type: 'toggle', label: 'Show Race', default: null },
     { key: 'showClass', type: 'toggle', label: 'Show Class', default: null },
     { key: 'showSubclass', type: 'toggle', label: 'Show Subclass', default: null },
@@ -79,8 +85,9 @@ export const MODULE_SETTINGS_SCHEMA = {
     { key: 'showCharacterTraits', type: 'toggle', label: 'Show Character Traits', default: null },
     ...STYLE_SETTINGS,
   ],
-  background:       [...STYLE_SETTINGS],
+  background:       [...COMMON_SETTINGS, ...STYLE_SETTINGS],
   ability: [
+    ...COMMON_SETTINGS,
     {
       key: 'showSavingThrows',
       type: 'toggle',
@@ -96,24 +103,26 @@ export const MODULE_SETTINGS_SCHEMA = {
     { key: 'shieldColor', type: 'color', label: 'Shield Color', default: null },
     ...STYLE_SETTINGS,
   ],
-  passive:          [...STYLE_SETTINGS],
-  insp:             [...STYLE_SETTINGS],
-  saving:           [...STYLE_SETTINGS],
-  combat:           [...STYLE_SETTINGS],
+  passive:          [...COMMON_SETTINGS, ...STYLE_SETTINGS],
+  insp:             [...COMMON_SETTINGS, ...STYLE_SETTINGS],
+  saving:           [...COMMON_SETTINGS, ...STYLE_SETTINGS],
+  combat:           [...COMMON_SETTINGS, ...STYLE_SETTINGS],
   hp: [
+    ...COMMON_SETTINGS,
     { key: 'orbColor', type: 'color', label: 'Orb Border Color', default: null },
     { key: 'orbFill', type: 'color', label: 'Orb Fill Color', default: null },
     { key: 'labelColor', type: 'color', label: 'Label Color', default: null },
     ...STYLE_SETTINGS,
   ],
-  featurePrimary:   [...STYLE_SETTINGS],
-  traits:           [...STYLE_SETTINGS],
-  featureSecondary: [...STYLE_SETTINGS],
-  abilities:        [...STYLE_SETTINGS],
-  subclassFeats:    [...STYLE_SETTINGS],
-  attacks:          [...STYLE_SETTINGS],
-  equipment:        [...STYLE_SETTINGS],
-  proficiency:      [...STYLE_SETTINGS],
+  deathsaves:       [...COMMON_SETTINGS, ...STYLE_SETTINGS],
+  featurePrimary:   [...COMMON_SETTINGS, ...STYLE_SETTINGS],
+  traits:           [...COMMON_SETTINGS, ...STYLE_SETTINGS],
+  featureSecondary: [...COMMON_SETTINGS, ...STYLE_SETTINGS],
+  abilities:        [...COMMON_SETTINGS, ...STYLE_SETTINGS],
+  subclassFeats:    [...COMMON_SETTINGS, ...STYLE_SETTINGS],
+  attacks:          [...COMMON_SETTINGS, ...STYLE_SETTINGS],
+  equipment:        [...COMMON_SETTINGS, ...STYLE_SETTINGS],
+  proficiency:      [...COMMON_SETTINGS, ...STYLE_SETTINGS],
 }
 
 /**
