@@ -122,7 +122,11 @@ export const MODULE_SETTINGS_SCHEMA = {
   abilities:        [...COMMON_SETTINGS, ...STYLE_SETTINGS],
   subclassFeats:    [...COMMON_SETTINGS, ...STYLE_SETTINGS],
   attacks:          [...COMMON_SETTINGS, ...STYLE_SETTINGS],
-  equipment:        [...COMMON_SETTINGS, ...STYLE_SETTINGS],
+  equipment: [
+    ...COMMON_SETTINGS,
+    { key: 'showCarryingCapacity', type: 'toggle', label: 'Show Carrying Capacity', default: null },
+    ...STYLE_SETTINGS,
+  ],
   proficiency:      [...COMMON_SETTINGS, ...STYLE_SETTINGS],
 }
 

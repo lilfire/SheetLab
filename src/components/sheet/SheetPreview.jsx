@@ -58,7 +58,7 @@ function useRenderMap(character, preset, moduleSettings, portraitImage, onPortra
     abilities:       <AbilitiesFeatures character={character} />,
     subclassFeats:   <SubclassFeats character={character} preset={preset} />,
     attacks:         <AttacksCantrips character={character} />,
-    equipment:       <Equipment character={character} />,
+    equipment:       <Equipment character={character} settings={moduleSettings.equipment} />,
     proficiency:     <Proficiency character={character} />,
   }), [character, preset, moduleSettings, portraitImage, onPortraitImage])
 }
