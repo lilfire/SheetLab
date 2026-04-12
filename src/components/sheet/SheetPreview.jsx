@@ -27,7 +27,9 @@ import RowSettingsModal from './RowSettingsModal.jsx'
 import { reflowLayout } from '../../data/layoutReflow.js'
 import DraggableModule from './DraggableModule.jsx'
 import ComponentPicker from './ComponentPicker.jsx'
+import PresetManager from './PresetManager.jsx'
 import usePageBreaks from '../../hooks/usePageBreaks.js'
+import { useLayoutPresets } from '../../hooks/useLayoutPresets.js'
 import { TemplateExtensionsContext } from '../template/TemplateExtensionsContext.jsx'
 import styles from './SheetPreview.module.css'
 
@@ -302,6 +304,7 @@ export default function SheetPreview({ character, preset, template, templateSett
   const [rowSettingsModal, setRowSettingsModal] = useState(null)
   const [portraitImage, setPortraitImage] = useState(null)
   const handlePortraitImage = useCallback((src) => setPortraitImage(src), [])
+  const { presets, savePreset, deletePreset } = useLayoutPresets(template)
 
   const moduleSettings = useMemo(() => {
     const s = {}
@@ -413,6 +416,20 @@ export default function SheetPreview({ character, preset, template, templateSett
     })
   }, [])
 
+  const handleSavePreset = useCallback((name) => {
+    savePreset(name, layoutConfig, rowConfig)
+  }, [savePreset, layoutConfig, rowConfig])
+
+  const handleLoadPreset = useCallback((preset) => {
+    setLayoutConfig(preset.layoutConfig)
+    setRowConfig(preset.rowConfig)
+  }, [])
+
+  const handleResetToDefault = useCallback(() => {
+    setLayoutConfig(buildInitialLayoutConfig(template))
+    setRowConfig({})
+  }, [template])
+
   function handlePrint() {
     window.print()
   }
@@ -454,9 +471,18 @@ export default function SheetPreview({ character, preset, template, templateSett
         />
       </TemplateExtensionsContext.Provider>
 
-      {/* ComponentPicker — shown only in edit mode, hidden on print */}
+      {/* ComponentPicker + PresetManager — shown only in edit mode, hidden on print */}
       {isEditMode && (
-        <ComponentPicker layoutConfig={layoutConfig} onToggle={handleToggle} />
+        <>
+          <ComponentPicker layoutConfig={layoutConfig} onToggle={handleToggle} />
+          <PresetManager
+            presets={presets}
+            onSave={handleSavePreset}
+            onLoad={handleLoadPreset}
+            onDelete={deletePreset}
+            onResetToDefault={handleResetToDefault}
+          />
+        </>
       )}
 
       {/* Module settings modal */}
