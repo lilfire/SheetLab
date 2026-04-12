@@ -40,7 +40,7 @@
   --mod-accent: #f1f5f9;
   --mod-bg: #ffffff;
   --mod-border-color: rgba(15, 23, 42, 0.12);
-  --mod-border-style: solid;
+  --mod-border-style: none;
   --mod-border-width: 1px;
 }
 

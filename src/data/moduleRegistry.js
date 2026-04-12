@@ -17,7 +17,7 @@ export const MODULE_REGISTRY = [
   { key: 'ability',         name: 'Ability Scores',            areaClass: 'abilityArea' },
   { key: 'passive',         name: 'Passive Stats',             areaClass: 'passiveArea' },
   { key: 'insp',            name: 'Inspiration',               areaClass: 'inspirationArea' },
-  { key: 'saving',          name: 'Saving Throws & Skills',    areaClass: 'savingArea' },
+  { key: 'saving',          name: 'Saving Throws & Skills',    areaClass: 'savingArea', defaultVisible: false },
   { key: 'combat',          name: 'Combat Stats',              areaClass: 'combatArea' },
   { key: 'hp',              name: 'HP Tracker',                areaClass: 'hpArea' },
   { key: 'deathsaves',      name: 'Death Saves',               areaClass: 'deathSavesArea' },
@@ -42,7 +42,8 @@ export function buildInitialLayoutConfig(templateId) {
   return Object.fromEntries(
     MODULE_REGISTRY.map((m) => {
       const pos = layout[m.key] || { row: 1, col: 1, rowSpan: 1, colSpan: 1 }
-      return [m.key, { visible: true, ...pos, style: {}, settings: getDefaultSettings(m.key) }]
+      const visible = m.defaultVisible !== false
+      return [m.key, { visible, ...pos, style: {}, settings: getDefaultSettings(m.key) }]
     })
   )
 }
