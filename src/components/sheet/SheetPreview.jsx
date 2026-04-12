@@ -120,19 +120,20 @@ const SheetGrid = memo(function SheetGrid({
     return tracks.join(' ')
   })()
 
-  // Build grid-template-rows for a single page (last row gets 1fr to fill).
+  // Build grid-template-rows for a single page.
+  // Uses measured track sizes (mm) when available for exact reproduction
+  // of the measurement layout, falling back to min-content sizing.
   function buildPageRows(page) {
     const tracks = []
     for (let r = page.startRow; r <= page.endRow; r++) {
-      if (r === page.endRow) {
-        tracks.push('1fr')
+      const mh = rowConfig?.[r]?.minHeight
+      const measured = trackSizes?.[r - 1]
+      if (mh != null) {
+        tracks.push(occupiedRows.has(r) ? `minmax(${mh}mm, max-content)` : `${mh}mm`)
+      } else if (measured != null && measured > 0) {
+        tracks.push(`minmax(${measured}mm, max-content)`)
       } else {
-        const mh = rowConfig?.[r]?.minHeight
-        if (mh != null) {
-          tracks.push(occupiedRows.has(r) ? `minmax(${mh}mm, max-content)` : `${mh}mm`)
-        } else {
-          tracks.push('minmax(48px, min-content)')
-        }
+        tracks.push('minmax(48px, min-content)')
       }
     }
     return tracks.join(' ')

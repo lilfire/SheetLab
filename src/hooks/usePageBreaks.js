@@ -2,7 +2,8 @@ import { useEffect, useLayoutEffect, useRef, useState, useCallback } from 'react
 
 const PAGE_HEIGHT_MM = 297
 const PAGE_PADDING_MM = 8
-const USABLE_HEIGHT_MM = PAGE_HEIGHT_MM - 2 * PAGE_PADDING_MM // 281mm
+const SAFETY_MARGIN_MM = 2 // prevent edge-case overflow from subpixel rounding
+const USABLE_HEIGHT_MM = PAGE_HEIGHT_MM - 2 * PAGE_PADDING_MM - SAFETY_MARGIN_MM // 279mm
 
 function getGridRowStart(el) {
   if (el.style.gridRowStart) return parseInt(el.style.gridRowStart, 10)
@@ -152,6 +153,7 @@ export default function usePageBreaks(gridRef, sheetRef, deps = []) {
   const rafId = useRef(null)
   const mounted = useRef(false)
   const trackSizesRef = useRef(null)
+  const printingRef = useRef(false)
 
   const measure = useCallback(() => {
     const grid = gridRef.current
@@ -181,16 +183,30 @@ export default function usePageBreaks(gridRef, sheetRef, deps = []) {
     setPages(null)
   }, deps)
 
-  // Window resize → re-measure (page dimensions change)
+  // Window resize → re-measure (page dimensions change).
+  // Suppressed during print — window.print() triggers a viewport resize
+  // that would switch back to the measurement grid, destroying the
+  // per-page layout that the print engine needs.
   useEffect(() => {
     let timer
     const handleResize = () => {
+      if (printingRef.current) return
       clearTimeout(timer)
       timer = setTimeout(() => setPages(null), 100)
     }
+    const handleBeforePrint = () => {
+      printingRef.current = true
+      clearTimeout(timer)
+    }
+    const handleAfterPrint = () => { printingRef.current = false }
+
     window.addEventListener('resize', handleResize)
+    window.addEventListener('beforeprint', handleBeforePrint)
+    window.addEventListener('afterprint', handleAfterPrint)
     return () => {
       window.removeEventListener('resize', handleResize)
+      window.removeEventListener('beforeprint', handleBeforePrint)
+      window.removeEventListener('afterprint', handleAfterPrint)
       clearTimeout(timer)
     }
   }, [])
@@ -199,7 +215,9 @@ export default function usePageBreaks(gridRef, sheetRef, deps = []) {
   useEffect(() => {
     document.fonts.ready.then(() => {
       cancelAnimationFrame(rafId.current)
-      rafId.current = requestAnimationFrame(() => setPages(null))
+      rafId.current = requestAnimationFrame(() => {
+        if (!printingRef.current) setPages(null)
+      })
     })
     return () => cancelAnimationFrame(rafId.current)
   }, [])

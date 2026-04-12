@@ -17,7 +17,7 @@ export default function RaceClassInfo({ character, preset, settings = {} }) {
   const anyExtraTrue = settings.showBackgroundAlignment === true || settings.showCharacterFeatures === true || settings.showCharacterTraits === true
   const allExtraFalse = settings.showBackgroundAlignment === false && settings.showCharacterFeatures === false && settings.showCharacterTraits === false
   const extraFieldsStyle = anyExtraTrue
-    ? { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '4px 8px', marginTop: '4px' }
+    ? { display: 'grid', gap: '4px 8px', marginTop: '4px' }
     : allExtraFalse
       ? { display: 'none' }
       : undefined

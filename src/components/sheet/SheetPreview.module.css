@@ -149,20 +149,24 @@
   box-shadow: 0 4px 20px rgba(15, 23, 42, 0.15);
 }
 
+.pageGrid {
+  height: 100%;
+}
+
 @media print {
   .page {
     height: auto;
     padding-top: 0;
     box-shadow: none;
     break-after: page;
+    break-inside: avoid;
   }
   .page:last-child {
     break-after: auto;
   }
-}
-
-.pageGrid {
-  height: 100%;
+  .pageGrid {
+    height: auto;
+  }
 }
 
 .pageGap {
