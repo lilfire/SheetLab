@@ -13,7 +13,16 @@
       "Bash(git stash:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "WebSearch",
+      "WebFetch(domain:gist.github.com)",
+      "WebFetch(domain:codepen.io)",
+      "WebFetch(domain:bennettfeely.com)",
+      "WebFetch(domain:css-irl.info)",
+      "WebFetch(domain:www.clairecodes.com)",
+      "WebFetch(domain:ibelick.com)",
+      "WebFetch(domain:css-tricks.com)",
+      "WebFetch(domain:ronenness.github.io)"
     ]
   }
 }

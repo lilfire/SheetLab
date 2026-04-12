@@ -16,20 +16,30 @@ describe('Scenario 5 – Print CSS static verification', () => {
     expect(printCss).toContain('display: none')
   })
 
-  it('@page uses vertical-only margins matching PAGE_CONTENT_HEIGHT_MM', () => {
+  it('@page uses zero margins so sheet padding controls spacing', () => {
     const printCss = readFileSync(
       resolve(__dirname, '../../styles/print.css'),
       'utf-8'
     )
-    // 8mm top/bottom for per-page spacing, 0 left/right so 210mm sheet fits without scaling
-    expect(printCss).toMatch(/@page\s*\{[^}]*margin:\s*8mm\s+0;/)
+    expect(printCss).toMatch(/@page\s*\{[^}]*margin:\s*8mm 0;/)
   })
 
-  it('sheet-preview padding is 0 during print to avoid double-margin', () => {
+  it('sheet-preview pages use break-after for pagination', () => {
     const printCss = readFileSync(
       resolve(__dirname, '../../styles/print.css'),
       'utf-8'
     )
-    expect(printCss).toMatch(/\.sheet-preview\s*\{[^}]*padding:\s*0\s*!important/)
+    expect(printCss).toContain('.sheet-preview')
+    expect(printCss).toContain('break-after: page')
+  })
+
+  it('module wrappers allow fragmentation and overflow in print', () => {
+    const printCss = readFileSync(
+      resolve(__dirname, '../../styles/print.css'),
+      'utf-8'
+    )
+    expect(printCss).toContain('[data-module-key]')
+    expect(printCss).toContain('overflow: visible !important')
+    expect(printCss).toContain('break-inside: avoid')
   })
 })

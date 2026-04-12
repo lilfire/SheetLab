@@ -9,7 +9,7 @@
      provides visual spacing on the first page. */
   @page {
     size: A4 portrait;
-    margin: 0;
+    margin: 8mm 0;
   }
 
   body {
@@ -24,14 +24,19 @@
     display: none !important;
   }
 
-  /* Sheet fills the page — keep the sheet's own padding so content
-     doesn't sit flush against the page edge. */
+  /* Each page fills one physical page. Padding-top removed because
+     @page margin already provides top spacing. */
   .sheet-preview {
     width: 100%;
-    min-height: 100%;
+    height: auto;
     margin: 0;
+    padding-top: 0;
     box-shadow: none;
-    page-break-after: avoid;
+    break-after: page;
+  }
+
+  .sheet-preview:last-child {
+    break-after: auto;
   }
 
   /* Ensure grid columns render correctly */
@@ -46,6 +51,13 @@
 
   /* Avoid page breaks inside modules */
   .module-box {
+    break-inside: avoid;
+  }
+
+  /* Override overflow:hidden on module wrappers so break-inside:avoid
+     on child .module-box is respected by the fragmentation engine */
+  [data-module-key] {
+    overflow: visible !important;
     break-inside: avoid;
   }
 

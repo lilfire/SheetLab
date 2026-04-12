@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo, useRef, useState } from 'react'
+import { Fragment, memo, useCallback, useMemo, useRef, useState } from 'react'
 import { DndContext, PointerSensor, pointerWithin, useDroppable, useSensor, useSensors } from '@dnd-kit/core'
 import HeaderBanner from '../modules/HeaderBanner/HeaderBanner.jsx'
 import CharacterPortrait from '../modules/CharacterPortrait/CharacterPortrait.jsx'
@@ -65,13 +65,13 @@ function useRenderMap(character, preset, moduleSettings) {
  * A droppable grid cell shown in edit mode over empty areas of the layout.
  * Dropping a dragged module here moves it to (row, col).
  */
-function CellDroppable({ row, col }) {
-  const { setNodeRef, isOver } = useDroppable({ id: `cell-${row}-${col}` })
+function CellDroppable({ absRow, displayRow, col }) {
+  const { setNodeRef, isOver } = useDroppable({ id: `cell-${absRow}-${col}` })
   return (
     <div
       ref={setNodeRef}
       className={`${styles.cellDroppable}${isOver ? ' ' + styles.cellDroppableActive : ''}`}
-      style={{ gridRow: row, gridColumn: col }}
+      style={{ gridRow: displayRow, gridColumn: col }}
     />
   )
 }
@@ -88,7 +88,7 @@ const SheetGrid = memo(function SheetGrid({
   const sheetRef = useRef(null)
   const gridRef = useRef(null)
   const renderMap = useRenderMap(character, preset, moduleSettings)
-  const { pageBreakLines } = usePageBreaks(gridRef, sheetRef, [layoutConfig, rowConfig])
+  const { pages, trackSizes } = usePageBreaks(gridRef, sheetRef, [layoutConfig, rowConfig])
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } })
   )
@@ -96,7 +96,7 @@ const SheetGrid = memo(function SheetGrid({
   // Figure out grid extents and which rows actually contain modules.
   const visibleModules = MODULE_REGISTRY
     .filter((m) => layoutConfig[m.key].visible)
-    .map((m) => ({ key: m.key, lc: layoutConfig[m.key] }))
+    .map((m) => ({ ...m, lc: layoutConfig[m.key] }))
   const maxRow = visibleModules.length > 0
     ? Math.max(...visibleModules.map(({ lc }) => lc.row + lc.rowSpan - 1))
     : 0
@@ -105,9 +105,7 @@ const SheetGrid = memo(function SheetGrid({
     for (let r = lc.row; r < lc.row + lc.rowSpan; r++) occupiedRows.add(r)
   }
 
-  // Build an explicit grid-template-rows when there's any row-level state,
-  // so per-row heights (or collapses) take effect. Rows without overrides
-  // keep the default `minmax(48px, min-content)` behavior.
+  // Build grid-template-rows for the measurement grid (all rows, no 1fr).
   const gridTemplateRows = (() => {
     if (maxRow === 0) return undefined
     const tracks = []
@@ -122,23 +120,27 @@ const SheetGrid = memo(function SheetGrid({
     return tracks.join(' ')
   })()
 
-  // When the row-settings gear is clicked, measure the row's currently-rendered
-  // height so the modal can use it as the floor (min-height) for occupied rows.
-  function handleRowGearClick(row) {
-    const grid = gridRef.current
-    const sheet = sheetRef.current
-    if (!grid || !sheet) {
-      onOpenRowSettings(row, 0)
-      return
+  // Build grid-template-rows for a single page (last row gets 1fr to fill).
+  function buildPageRows(page) {
+    const tracks = []
+    for (let r = page.startRow; r <= page.endRow; r++) {
+      if (r === page.endRow) {
+        tracks.push('1fr')
+      } else {
+        const mh = rowConfig?.[r]?.minHeight
+        if (mh != null) {
+          tracks.push(occupiedRows.has(r) ? `minmax(${mh}mm, max-content)` : `${mh}mm`)
+        } else {
+          tracks.push('minmax(48px, min-content)')
+        }
+      }
     }
-    const pxPerMm = sheet.offsetWidth / 210
-    const cs = getComputedStyle(grid)
-    const tracks = cs.gridTemplateRows
-      .split(' ')
-      .map((t) => parseFloat(t))
-      .filter((n) => !Number.isNaN(n))
-    const px = tracks[row - 1] ?? 0
-    const mm = pxPerMm > 0 ? Math.max(0, Math.round(px / pxPerMm)) : 0
+    return tracks.join(' ')
+  }
+
+  // Row-settings gear uses pre-measured track sizes from the hook.
+  function handleRowGearClick(row) {
+    const mm = trackSizes?.[row - 1] ?? 0
     onOpenRowSettings(row, mm)
   }
 
@@ -155,87 +157,127 @@ const SheetGrid = memo(function SheetGrid({
     }
   }
 
+  // Render edit-mode overlays (row zebra stripes + empty cell drop targets)
+  // for a range of rows, with row numbers remapped by rowOffset for grid display.
+  function renderEditOverlays(startRow, endRow, rowOffset, columns) {
+    if (!isEditMode) return null
+    const overlays = []
+    for (let r = startRow; r <= endRow; r++) {
+      const displayRow = r - rowOffset
+      const i = r - 1
+      overlays.push(
+        <div
+          key={`row-bg-${r}`}
+          className={styles.editRowOverlay}
+          style={{
+            gridRow: displayRow,
+            gridColumn: '1 / -1',
+            background: i % 2 === 0
+              ? 'rgba(148, 163, 184, 0.10)'
+              : 'rgba(148, 163, 184, 0.04)',
+          }}
+        >
+          <button
+            type="button"
+            className={styles.rowSettingsBtn}
+            onClick={(e) => { e.stopPropagation(); handleRowGearClick(r) }}
+            aria-label={`Row ${r} settings`}
+            title={`Row ${r} settings`}
+          >
+            ⚙
+          </button>
+        </div>
+      )
+    }
+    const cells = []
+    for (let r = startRow; r <= endRow; r++) {
+      const displayRow = r - rowOffset
+      for (let c = 1; c <= columns; c++) {
+        cells.push(
+          <CellDroppable key={`cell-${r}-${c}`} absRow={r} displayRow={displayRow} col={c} />
+        )
+      }
+    }
+    return [...overlays, ...cells]
+  }
+
+  // Render module components, with row numbers remapped by rowOffset.
+  function renderModules(moduleList, rowOffset) {
+    return moduleList.map((mod) => (
+      <DraggableModule
+        key={mod.key}
+        id={mod.key}
+        areaClass={mod.areaClass}
+        row={mod.lc.row - rowOffset}
+        col={mod.lc.col}
+        rowSpan={mod.lc.rowSpan}
+        colSpan={mod.lc.colSpan}
+        isEditMode={isEditMode}
+        onOpenSettings={() => onOpenSettings(mod.key)}
+        styleOverrides={mod.lc.style || {}}
+        hideHeader={mod.lc.settings?.showHeader === false}
+      >
+        {renderMap[mod.key]}
+      </DraggableModule>
+    ))
+  }
+
+  // ── Measurement mode: single grid for reading track sizes ──
+  if (!pages) {
+    return (
+      <DndContext sensors={sensors} collisionDetection={pointerWithin} onDragEnd={handleDragEnd}>
+        <div
+          ref={sheetRef}
+          className={`sheet-preview ${styles.sheet}`}
+          data-template={tpl.layout}
+          style={userOverrides}
+        >
+          <div
+            ref={gridRef}
+            className={`sheet-grid ${styles.grid}`}
+            style={gridTemplateRows ? { gridTemplateRows } : undefined}
+          >
+            {renderEditOverlays(1, maxRow, 0, tpl.columns)}
+            {renderModules(visibleModules, 0)}
+          </div>
+        </div>
+      </DndContext>
+    )
+  }
+
+  // ── Per-page mode: each page is its own A4 container with a grid ──
   return (
     <DndContext sensors={sensors} collisionDetection={pointerWithin} onDragEnd={handleDragEnd}>
-      <div
-        ref={sheetRef}
-        className={`sheet-preview ${styles.sheet}`}
-        data-template={tpl.layout}
-        style={userOverrides}
-      >
-        <div
-          ref={gridRef}
-          className={`sheet-grid ${styles.grid}`}
-          style={gridTemplateRows ? { gridTemplateRows } : undefined}
-        >
-          {isEditMode && (() => {
-            const rowOverlays = Array.from({ length: maxRow }, (_, i) => {
-              const rowNum = i + 1
-              return (
-                <div
-                  key={`row-bg-${rowNum}`}
-                  className={styles.editRowOverlay}
-                  style={{
-                    gridRow: rowNum,
-                    gridColumn: '1 / -1',
-                    background: i % 2 === 0
-                      ? 'rgba(148, 163, 184, 0.10)'
-                      : 'rgba(148, 163, 184, 0.04)',
-                  }}
-                >
-                  <button
-                    type="button"
-                    className={styles.rowSettingsBtn}
-                    onClick={(e) => { e.stopPropagation(); handleRowGearClick(rowNum) }}
-                    aria-label={`Row ${rowNum} settings`}
-                    title={`Row ${rowNum} settings`}
-                  >
-                    ⚙
-                  </button>
+      <div ref={sheetRef} className={styles.sheetContainer}>
+        {pages.map((page, pageIdx) => {
+          const rowOffset = page.startRow - 1
+          const pageModules = visibleModules.filter((m) =>
+            m.lc.row >= page.startRow && m.lc.row + m.lc.rowSpan - 1 <= page.endRow
+          )
+
+          return (
+            <Fragment key={pageIdx}>
+              {pageIdx > 0 && (
+                <div className={`no-print ${styles.pageGap}`}>
+                  <span className={styles.pageLabel}>Page {pageIdx + 1}</span>
                 </div>
-              )
-            })
-            const cellDroppables = []
-            for (let r = 1; r <= maxRow; r++) {
-              for (let c = 1; c <= tpl.columns; c++) {
-                cellDroppables.push(
-                  <CellDroppable key={`cell-${r}-${c}`} row={r} col={c} />
-                )
-              }
-            }
-            return [...rowOverlays, ...cellDroppables]
-          })()}
-          {MODULE_REGISTRY.map((mod) => {
-            const lc = layoutConfig[mod.key]
-            if (!lc.visible) return null
-            return (
-              <DraggableModule
-                key={mod.key}
-                id={mod.key}
-                areaClass={mod.areaClass}
-                row={lc.row}
-                col={lc.col}
-                rowSpan={lc.rowSpan}
-                colSpan={lc.colSpan}
-                isEditMode={isEditMode}
-                onOpenSettings={() => onOpenSettings(mod.key)}
-                styleOverrides={lc.style || {}}
-                hideHeader={lc.settings?.showHeader === false}
+              )}
+              <div
+                className={`sheet-preview ${styles.page}`}
+                data-template={tpl.layout}
+                style={userOverrides}
               >
-                {renderMap[mod.key]}
-              </DraggableModule>
-            )
-          })}
-        </div>
-        {pageBreakLines.map(({ yPx, pageNumber }) => (
-          <div
-            key={pageNumber}
-            className={`no-print ${styles.pageBreakLine}`}
-            style={{ top: `${yPx}px` }}
-          >
-            <span className={styles.pageLabel}>Page {pageNumber}</span>
-          </div>
-        ))}
+                <div
+                  className={`sheet-grid ${styles.grid} ${styles.pageGrid}`}
+                  style={{ gridTemplateRows: buildPageRows(page) }}
+                >
+                  {renderEditOverlays(page.startRow, page.endRow, rowOffset, tpl.columns)}
+                  {renderModules(pageModules, rowOffset)}
+                </div>
+              </div>
+            </Fragment>
+          )
+        })}
       </div>
     </DndContext>
   )
