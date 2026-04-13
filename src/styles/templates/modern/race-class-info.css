@@ -8,6 +8,15 @@
   letter-spacing: 0.06em;
 }
 
+/* Each field spans 2 internal tracks so 4 visible fields = 8 parent columns */
+[data-template="modern"] .race-class-info__fields {
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+}
+
+[data-template="modern"] .race-class-info__field {
+  grid-column: span 2;
+}
+
 /* Show extra fields in modern */
 [data-template="modern"] .race-class-info__extra-fields {
   display: grid;

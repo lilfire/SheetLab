@@ -10,6 +10,7 @@ import PassiveStats from '../modules/PassiveStats/PassiveStats.jsx'
 import Inspiration from '../modules/Inspiration/Inspiration.jsx'
 import CombatStats from '../modules/CombatStats/CombatStats.jsx'
 import HPTracker from '../modules/HPTracker/HPTracker.jsx'
+import HitDice from '../modules/HitDice/HitDice.jsx'
 import DeathSaves from '../modules/DeathSaves/DeathSaves.jsx'
 import AbilitiesFeatures from '../modules/AbilitiesFeatures/AbilitiesFeatures.jsx'
 import AttacksCantrips from '../modules/AttacksCantrips/AttacksCantrips.jsx'
@@ -51,6 +52,7 @@ function useRenderMap(character, preset, moduleSettings, portraitImage, onPortra
     saving:          <SavingThrowsSkills character={character} preset={preset} />,
     combat:          <CombatStats character={character} />,
     hp:              <HPTracker character={character} settings={moduleSettings.hp} />,
+    hitdice:         <HitDice character={character} settings={moduleSettings.hitdice} />,
     deathsaves:      <DeathSaves character={character} settings={moduleSettings.deathsaves} />,
     featurePrimary:  <ClassFeaturePrimary character={character} preset={preset} />,
     traits:          <RaceClassTraits character={character} preset={preset} />,
@@ -219,6 +221,7 @@ const SheetGrid = memo(function SheetGrid({
         onOpenSettings={() => onOpenSettings(mod.key)}
         styleOverrides={mod.lc.style || {}}
         hideHeader={mod.lc.settings?.showHeader === false}
+        fillRowHeight={mod.lc.settings?.fillRowHeight}
       >
         {renderMap[mod.key]}
       </DraggableModule>

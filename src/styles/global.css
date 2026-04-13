@@ -52,6 +52,15 @@ body {
   display: none;
 }
 
+/* Fill Row Height — stretch inner module-box to match the grid row */
+[data-fill-row] {
+  display: flex;
+  flex-direction: column;
+}
+[data-fill-row] > .module-box {
+  flex: 1;
+}
+
 /* Static write-in line (replaces input[type=text] for pen-filling) */
 .write-line {
   display: inline-block;

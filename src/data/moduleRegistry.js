@@ -2,7 +2,7 @@ import { getTemplate } from '../templates/index.js'
 import { getDefaultSettings } from './moduleSettings.js'
 
 /**
- * MODULE_REGISTRY — canonical list of all 19 sheet modules.
+ * MODULE_REGISTRY — canonical list of all 20 sheet modules.
  *
  * Each entry describes:
  *   key        — unique identifier used in layoutConfig
@@ -20,6 +20,7 @@ export const MODULE_REGISTRY = [
   { key: 'saving',          name: 'Saving Throws & Skills',    areaClass: 'savingArea', defaultVisible: false },
   { key: 'combat',          name: 'Combat Stats',              areaClass: 'combatArea' },
   { key: 'hp',              name: 'HP Tracker',                areaClass: 'hpArea' },
+  { key: 'hitdice',         name: 'Hit Dice',                  areaClass: 'hitDiceArea' },
   { key: 'deathsaves',      name: 'Death Saves',               areaClass: 'deathSavesArea' },
   { key: 'featurePrimary',  name: 'Class Feature (Primary)',   areaClass: 'featurePrimaryArea' },
   { key: 'traits',          name: 'Race / Class Traits',       areaClass: 'traitsArea' },

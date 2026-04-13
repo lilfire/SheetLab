@@ -44,13 +44,6 @@ export default function HPTracker({ character, settings = {} }) {
         </div>
       </TemplateSlot>
 
-      <TemplateSlot name="hp-tracker:hit-dice" character={character} settings={settings}>
-        <div className="hp-tracker__hit-dice-row">
-          <span className="hp-tracker__hit-dice-label" style={lblStyle}>Hit Dice</span>
-          <span className="write-line" aria-label="Hit Dice" />
-        </div>
-      </TemplateSlot>
-
       <TemplateSlot name="hp-tracker:temp-hp" character={character} settings={settings}>
         <div className="hp-tracker__temp-hp">
           <span className="hp-tracker__temp-label" style={lblStyle}>Temporary HP</span>

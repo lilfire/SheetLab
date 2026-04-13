@@ -26,11 +26,6 @@
   display: none;
 }
 
-/* Hit Dice row — hidden by default */
-.hp-tracker__hit-dice-row {
-  display: none;
-}
-
 .hp-tracker__orb {
   width: 100px;
   height: 100px;
@@ -128,11 +123,4 @@
   min-height: 1em;
 }
 
-.hp-tracker__hit-dice-label {
-  font-size: 0.6rem;
-  font-variant: small-caps;
-  color: var(--mod-heading, var(--color-gold));
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-}
 

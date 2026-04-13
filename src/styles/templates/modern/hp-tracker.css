@@ -6,7 +6,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 10px 8px;
   width: 100%;
-  padding: 4px 0;
+  padding: 6px 4px;
   justify-items: center;
 }
 
@@ -76,37 +76,53 @@
   display: none;
 }
 
-/* ── Badges — Max HP & Temp HP as rounded cards ── */
+/* ── Badges — Max HP & Temp HP with gradient and depth ── */
 [data-template="modern"] .hp-tracker__max-hp-ring,
 [data-template="modern"] .hp-tracker__temp-hp-ring {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2px;
+  gap: 3px;
   width: 100%;
   height: auto;
   border-radius: 10px;
-  border: 1.5px solid var(--mod-accent, rgba(15, 23, 42, 0.15));
-  background: var(--mod-bg, #f1f5f9);
-  padding: 6px 8px;
+  border: 2px solid var(--mod-accent, rgba(15, 23, 42, 0.12));
+  background: linear-gradient(
+    180deg,
+    var(--mod-bg, #ffffff) 0%,
+    var(--mod-accent, #f1f5f9) 100%
+  );
+  padding: 8px 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 [data-template="modern"] .hp-tracker__satellite-label {
   font-family: 'Segoe UI', system-ui, sans-serif;
   font-variant: normal;
   text-transform: uppercase;
-  font-size: 0.4rem;
+  font-size: 0.42rem;
   font-weight: 700;
   color: var(--mod-heading, #000000);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
+}
+
+/* Thin accent line under satellite label (mirrors orb label treatment) */
+[data-template="modern"] .hp-tracker__satellite-label::after {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1.5px;
+  background: var(--mod-muted, rgba(100, 116, 139, 0.25));
+  border-radius: 1px;
+  margin: 3px auto 1px;
 }
 
 [data-template="modern"] .hp-tracker__satellite-input {
   font-family: 'Segoe UI', system-ui, sans-serif;
-  font-size: 0.85rem;
-  font-weight: 600;
-  width: 32px;
+  font-size: 1rem;
+  font-weight: 700;
+  width: 36px;
   border-bottom-color: var(--mod-muted, rgba(100, 116, 139, 0.25));
   color: var(--mod-text, #0f172a);
 }
@@ -116,20 +132,3 @@
   display: none;
 }
 
-/* ── Hit Dice ── */
-[data-template="modern"] .hp-tracker__hit-dice-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  padding: 4px 0;
-}
-
-[data-template="modern"] .hp-tracker__hit-dice-label {
-  font-family: 'Segoe UI', system-ui, sans-serif;
-  font-variant: normal;
-  text-transform: uppercase;
-  font-size: 0.5rem;
-  font-weight: 600;
-  color: var(--mod-heading, #000000);
-}

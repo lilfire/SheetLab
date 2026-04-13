@@ -1,5 +1,6 @@
 const COMMON_SETTINGS = [
   { key: 'showHeader', type: 'toggle', label: 'Show Header', default: null },
+  { key: 'fillRowHeight', type: 'toggle', label: 'Fill Row Height', default: null },
 ]
 
 /**
@@ -115,6 +116,7 @@ export const MODULE_SETTINGS_SCHEMA = {
     { key: 'labelColor', type: 'color', label: 'Label Color', default: null },
     ...STYLE_SETTINGS,
   ],
+  hitdice:          [...COMMON_SETTINGS, ...STYLE_SETTINGS],
   deathsaves:       [...COMMON_SETTINGS, ...STYLE_SETTINGS],
   featurePrimary:   [...COMMON_SETTINGS, ...STYLE_SETTINGS],
   traits:           [...COMMON_SETTINGS, ...STYLE_SETTINGS],

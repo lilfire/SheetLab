@@ -52,7 +52,7 @@ const GearIcon = () => (
 
 export default function DraggableModule({
   id, areaClass, row, col, rowSpan, colSpan,
-  isEditMode, onOpenSettings, styleOverrides = {}, hideHeader, children,
+  isEditMode, onOpenSettings, styleOverrides = {}, hideHeader, fillRowHeight, children,
 }) {
   const { listeners, setNodeRef: setDragRef, transform, isDragging } = useDraggable({ id })
   const { setNodeRef: setDropRef, isOver } = useDroppable({ id })
@@ -77,6 +77,7 @@ export default function DraggableModule({
     gridRowEnd: row + rowSpan,
     gridColumnStart: col,
     gridColumnEnd: col + colSpan,
+    ...(fillRowHeight === true ? { alignSelf: 'stretch' } : fillRowHeight === false ? { alignSelf: 'start' } : {}),
     ...cssVars,
     ...remainingOverrides,
     ...(isEditMode && { cursor: isDragging ? 'grabbing' : 'grab' }),
@@ -92,6 +93,7 @@ export default function DraggableModule({
       className={styles[areaClass]}
       data-module-key={id}
       {...(hideHeader ? { 'data-hide-header': '' } : {})}
+      {...(fillRowHeight === true ? { 'data-fill-row': '' } : {})}
       {...(isEditMode ? listeners : {})}
     >
       <button
