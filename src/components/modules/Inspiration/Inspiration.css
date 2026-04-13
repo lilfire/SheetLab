@@ -27,7 +27,7 @@
   font-size: 1.1rem;
   line-height: 1;
   user-select: none;
-  color: var(--mod-accent, var(--color-gold));
+  color: var(--mod-accent, #1a1a1a);
 }
 
 .inspiration__inspired {

@@ -53,7 +53,7 @@
 
 [data-template="modern"] .module-box {
   border-radius: 10px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: none;
   border: var(--mod-border-width) var(--mod-border-style) var(--mod-border-color);
   background: var(--mod-bg, #ffffff);
   padding: 8px 10px;

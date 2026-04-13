@@ -42,8 +42,10 @@ export function buildInitialLayoutConfig(templateId) {
   return Object.fromEntries(
     MODULE_REGISTRY.map((m) => {
       const pos = layout[m.key] || { row: 1, col: 1, rowSpan: 1, colSpan: 1 }
-      const visible = m.defaultVisible !== false
-      return [m.key, { visible, ...pos, style: {}, settings: getDefaultSettings(m.key) }]
+      const { visible: tplVisible, settings: tplSettings, ...coords } = pos
+      const visible = tplVisible !== undefined ? tplVisible : m.defaultVisible !== false
+      const settings = { ...getDefaultSettings(m.key), ...tplSettings }
+      return [m.key, { visible, ...coords, style: {}, settings }]
     })
   )
 }

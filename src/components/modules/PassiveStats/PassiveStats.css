@@ -6,9 +6,9 @@
 }
 
 .passive-stats__list {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 4px 8px;
 }
 
 .passive-stats__stat {
