@@ -174,14 +174,13 @@ export default function usePageBreaks(gridRef, sheetRef, deps = []) {
 
   // When deps change, reset to measurement mode (skip initial mount —
   // the effect above already handles the first measurement).
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useLayoutEffect(() => {
     if (!mounted.current) {
       mounted.current = true
       return
     }
     setPages(null)
-  }, deps)
+  }, deps) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Window resize → re-measure (page dimensions change).
   // Suppressed during print — window.print() triggers a viewport resize

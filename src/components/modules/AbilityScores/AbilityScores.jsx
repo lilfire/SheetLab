@@ -29,7 +29,7 @@ export default function AbilityScores({ character, preset, settings = {} }) {
       </TemplateSlot>
       <TemplateSlot name="ability-scores:grid" character={character} preset={preset} settings={settings}>
         <div className="ability-scores__grid">
-          {ABILITIES.map(({ key, label, full, save, skills }) => (
+          {ABILITIES.map(({ key, label, full, skills }) => (
             <TemplateSlot
               key={key}
               name="ability-scores:column"
