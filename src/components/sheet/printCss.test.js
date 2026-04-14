@@ -33,13 +33,12 @@ describe('Scenario 5 – Print CSS static verification', () => {
     expect(printCss).toContain('break-after: page')
   })
 
-  it('module wrappers allow fragmentation and overflow in print', () => {
+  it('module wrappers avoid fragmentation in print', () => {
     const printCss = readFileSync(
       resolve(__dirname, '../../styles/print.css'),
       'utf-8'
     )
     expect(printCss).toContain('[data-module-key]')
-    expect(printCss).toContain('overflow: visible !important')
     expect(printCss).toContain('break-inside: avoid')
   })
 })

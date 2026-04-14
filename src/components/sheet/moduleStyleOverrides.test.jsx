@@ -19,7 +19,8 @@ describe('buildInitialLayoutConfig – style field', () => {
   it('preserves visible and coordinate fields alongside style', () => {
     const config = buildInitialLayoutConfig('two-column')
     for (const mod of MODULE_REGISTRY) {
-      expect(config[mod.key].visible).toBe(true)
+      const expectedVisible = mod.defaultVisible !== false
+      expect(config[mod.key].visible).toBe(expectedVisible)
       expect(config[mod.key].row).toBeDefined()
       expect(config[mod.key].col).toBeDefined()
       expect(config[mod.key].style).toBeDefined()
@@ -178,13 +179,13 @@ describe('SheetPreview – module styles via settings modal', () => {
     // Enter edit mode
     await user.click(screen.getByRole('button', { name: /edit layout/i }))
 
-    // Remove header module
-    const removeBtns = screen.getAllByRole('button', { name: /remove module/i })
-    await user.click(removeBtns[0])
+    // Toggle off header via ComponentPicker
+    const hideBtn = screen.getByTitle(new RegExp(`hide ${MODULE_REGISTRY[0].name}`, 'i'))
+    await user.click(hideBtn)
 
-    // Re-add via ComponentPicker
-    const toggleBtn = screen.getByTitle(new RegExp(`show ${MODULE_REGISTRY[0].name}`, 'i'))
-    await user.click(toggleBtn)
+    // Toggle back on
+    const showBtn = screen.getByTitle(new RegExp(`show ${MODULE_REGISTRY[0].name}`, 'i'))
+    await user.click(showBtn)
 
     // Check the module is back with no extra styles
     const grid = container.querySelector('.sheet-grid')

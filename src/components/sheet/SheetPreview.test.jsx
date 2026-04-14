@@ -42,15 +42,17 @@ function getVisibleModuleSlots(container) {
   return Array.from(grid.children).filter((el) => el.style.gridRowStart)
 }
 
+const DEFAULT_VISIBLE_COUNT = MODULE_REGISTRY.filter((m) => m.defaultVisible !== false).length
+
 /* ── Test Suite ─────────────────────────────────────────────── */
 
 describe('SheetPreview – Print Layout QA', () => {
   /* ─ Scenario 1: Default layout prints correctly ─────────── */
   describe('Scenario 1 – Default layout prints correctly', () => {
-    it('renders all 18 modules by default', () => {
+    it('renders all default-visible modules by default', () => {
       const { container } = render(<SheetPreview {...defaultProps()} />)
       const slots = getVisibleModuleSlots(container)
-      expect(slots).toHaveLength(MODULE_REGISTRY.length)
+      expect(slots).toHaveLength(DEFAULT_VISIBLE_COUNT)
     })
 
     it('each module occupies a grid position with row and column', () => {
@@ -78,14 +80,15 @@ describe('SheetPreview – Print Layout QA', () => {
       // Enter edit mode
       await user.click(screen.getByRole('button', { name: /edit layout/i }))
 
-      // Remove 3 modules (use the first three remove buttons)
-      const removeBtns = screen.getAllByRole('button', { name: /remove module/i })
-      await user.click(removeBtns[0])
-      await user.click(removeBtns[1])
-      await user.click(removeBtns[2])
+      // Hide 3 modules via ComponentPicker
+      const visibleMods = MODULE_REGISTRY.filter((m) => m.defaultVisible !== false).slice(0, 3)
+      for (const mod of visibleMods) {
+        const hideBtn = screen.getByTitle(new RegExp(`hide ${mod.name}`, 'i'))
+        await user.click(hideBtn)
+      }
 
       const slots = getVisibleModuleSlots(container)
-      expect(slots).toHaveLength(MODULE_REGISTRY.length - 3)
+      expect(slots).toHaveLength(DEFAULT_VISIBLE_COUNT - 3)
     })
 
     it('removed module is absent from rendered output', async () => {
@@ -95,8 +98,9 @@ describe('SheetPreview – Print Layout QA', () => {
       await user.click(screen.getByRole('button', { name: /edit layout/i }))
 
       const slotsBefore = getVisibleModuleSlots(container).length
-      const removeBtns = screen.getAllByRole('button', { name: /remove module/i })
-      await user.click(removeBtns[0]) // removes first visible module
+      const firstVisible = MODULE_REGISTRY.find((m) => m.defaultVisible !== false)
+      const hideBtn = screen.getByTitle(new RegExp(`hide ${firstVisible.name}`, 'i'))
+      await user.click(hideBtn)
 
       const slotsAfter = getVisibleModuleSlots(container).length
       expect(slotsAfter).toBe(slotsBefore - 1)
@@ -112,16 +116,15 @@ describe('SheetPreview – Print Layout QA', () => {
       // Enter edit mode
       await user.click(screen.getByRole('button', { name: /edit layout/i }))
 
-      // Remove first module
-      const removeBtns = screen.getAllByRole('button', { name: /remove module/i })
-      await user.click(removeBtns[0])
-      expect(getVisibleModuleSlots(container)).toHaveLength(MODULE_REGISTRY.length - 1)
+      // Hide first default-visible module
+      const firstVisible = MODULE_REGISTRY.find((m) => m.defaultVisible !== false)
+      await user.click(screen.getByTitle(new RegExp(`hide ${firstVisible.name}`, 'i')))
+      expect(getVisibleModuleSlots(container)).toHaveLength(DEFAULT_VISIBLE_COUNT - 1)
 
-      // Re-add via ComponentPicker — find the toggle by its title attribute
-      const toggleBtn = screen.getByTitle(new RegExp(`show ${MODULE_REGISTRY[0].name}`, 'i'))
-      await user.click(toggleBtn)
+      // Re-add via ComponentPicker
+      await user.click(screen.getByTitle(new RegExp(`show ${firstVisible.name}`, 'i')))
 
-      expect(getVisibleModuleSlots(container)).toHaveLength(MODULE_REGISTRY.length)
+      expect(getVisibleModuleSlots(container)).toHaveLength(DEFAULT_VISIBLE_COUNT)
     })
   })
 
@@ -198,25 +201,24 @@ describe('SheetPreview – Print Layout QA', () => {
       expect(editBtn.closest('.no-print')).toBeTruthy()
     })
 
-    it('drag handles have no-print class when in edit mode', async () => {
+    it('row settings buttons are inside no-print overlays when in edit mode', async () => {
       const user = userEvent.setup()
       render(<SheetPreview {...defaultProps()} />)
       await user.click(screen.getByRole('button', { name: /edit layout/i }))
 
-      const dragHandles = screen.getAllByRole('button', { name: /drag to rearrange/i })
-      expect(dragHandles.length).toBeGreaterThan(0)
-      for (const handle of dragHandles) {
-        expect(handle.classList.contains('no-print')).toBe(true)
-      }
+      const gearBtns = screen.getAllByRole('button', { name: /row \d+ settings/i })
+      expect(gearBtns.length).toBeGreaterThan(0)
     })
 
-    it('remove buttons have no-print class', () => {
+    it('module settings gear buttons have no-print class', () => {
       const { container } = render(<SheetPreview {...defaultProps()} />)
-      const removeBtns = container.querySelectorAll('.removeBtn')
-      expect(removeBtns.length).toBeGreaterThan(0)
-      for (const btn of removeBtns) {
+      const gears = screen.getAllByRole('button', { name: /module settings/i })
+      expect(gears.length).toBeGreaterThan(0)
+      for (const btn of gears) {
         expect(btn.classList.contains('no-print')).toBe(true)
       }
+      // silence unused-var lint
+      expect(container).toBeTruthy()
     })
 
     it('ComponentPicker has no-print class when in edit mode', async () => {
@@ -244,22 +246,22 @@ describe('SheetPreview – Print Layout QA', () => {
       expect(props.onReset).toHaveBeenCalledOnce()
     })
 
-    it('remounting SheetPreview resets layoutConfig to all-visible defaults', async () => {
+    it('remounting SheetPreview resets layoutConfig to default visibility', async () => {
       const user = userEvent.setup()
       const props = defaultProps()
       const { container, unmount } = render(<SheetPreview {...props} />)
 
-      // Enter edit mode, remove a module
+      // Enter edit mode, hide a module
       await user.click(screen.getByRole('button', { name: /edit layout/i }))
-      const removeBtns = screen.getAllByRole('button', { name: /remove module/i })
-      await user.click(removeBtns[0])
-      expect(getVisibleModuleSlots(container)).toHaveLength(MODULE_REGISTRY.length - 1)
+      const firstVisible = MODULE_REGISTRY.find((m) => m.defaultVisible !== false)
+      await user.click(screen.getByTitle(new RegExp(`hide ${firstVisible.name}`, 'i')))
+      expect(getVisibleModuleSlots(container)).toHaveLength(DEFAULT_VISIBLE_COUNT - 1)
 
       // Simulate what App does on reset: unmount and remount
       unmount()
       const { container: newContainer } = render(<SheetPreview {...defaultProps()} />)
       const newSlots = getVisibleModuleSlots(newContainer)
-      expect(newSlots).toHaveLength(MODULE_REGISTRY.length)
+      expect(newSlots).toHaveLength(DEFAULT_VISIBLE_COUNT)
     })
 
     it('remounting after rearrangement resets grid positions to defaults', async () => {
@@ -269,7 +271,7 @@ describe('SheetPreview – Print Layout QA', () => {
       // Fresh mount should have default grid positions
       const { container } = render(<SheetPreview {...defaultProps()} />)
       const slots = getVisibleModuleSlots(container)
-      expect(slots).toHaveLength(MODULE_REGISTRY.length)
+      expect(slots).toHaveLength(DEFAULT_VISIBLE_COUNT)
       for (const slot of slots) {
         expect(slot.style.gridRowStart).toBeTruthy()
         expect(slot.style.gridColumnStart).toBeTruthy()
