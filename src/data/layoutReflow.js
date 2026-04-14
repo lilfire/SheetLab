@@ -32,6 +32,7 @@ function collidesWithAny(mod, placed) {
  * @param {number} maxColumns - grid column count (2 or 3)
  * @returns {Object} new layoutConfig with adjusted row/col positions
  */
+// eslint-disable-next-line no-unused-vars
 export function reflowLayout(layoutConfig, changedKey, maxColumns) {
   // Collect visible modules
   const entries = Object.entries(layoutConfig)
