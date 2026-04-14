@@ -1,10 +1,10 @@
-.header-banner {
+.character-name {
   display: flex;
   flex-direction: column;
   padding: 2px 0;
 }
 
-.header-banner__scroll {
+.character-name__scroll {
   display: flex;
   align-items: center;
   flex: 1;
@@ -13,8 +13,8 @@
   overflow: hidden;
 }
 
-.header-banner__scroll-left,
-.header-banner__scroll-right {
+.character-name__scroll-left,
+.character-name__scroll-right {
   flex-shrink: 0;
   width: 16px;
   height: 100%;
@@ -23,7 +23,7 @@
   align-self: stretch;
 }
 
-.header-banner__content {
+.character-name__content {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -32,7 +32,7 @@
   text-align: center;
 }
 
-.header-banner__label {
+.character-name__label {
   font-family: var(--font-serif);
   font-variant: small-caps;
   font-size: 0.65rem;
@@ -41,16 +41,16 @@
   margin-bottom: 2px;
 }
 
-.header-banner__name {
+.character-name__name {
   display: block;
   font-family: var(--font-serif);
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: bold;
   text-align: center;
   color: var(--mod-text, var(--color-text));
   border-bottom: 1px solid var(--mod-accent, var(--color-gold));
   background: transparent;
   width: 100%;
-  padding: 2px 0;
+  padding: 4px 0;
   min-height: 1.4em;
 }

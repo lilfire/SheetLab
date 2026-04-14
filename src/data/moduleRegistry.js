@@ -10,7 +10,7 @@ import { getDefaultSettings } from './moduleSettings.js'
  *   areaClass  — corresponds to the CSS module class in SheetPreview.module.css
  */
 export const MODULE_REGISTRY = [
-  { key: 'header',          name: 'Header Banner',             areaClass: 'headerArea' },
+  { key: 'header',          name: 'Character Name',            areaClass: 'headerArea' },
   { key: 'portrait',        name: 'Character Portrait',        areaClass: 'portraitArea' },
   { key: 'raceclass',       name: 'Race & Class Info',         areaClass: 'raceClassArea' },
   { key: 'background',      name: 'Background Info',           areaClass: 'backgroundArea' },

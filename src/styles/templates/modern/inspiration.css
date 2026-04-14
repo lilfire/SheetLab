@@ -1,5 +1,5 @@
 [data-template="modern"] .inspiration__checkbox {
-  color: var(--mod-accent, #000000);
+  color: var(--mod-text, #000000);
 }
 
 [data-template="modern"] .inspiration__inspired {

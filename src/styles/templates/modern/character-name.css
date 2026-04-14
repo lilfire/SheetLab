@@ -1,4 +1,4 @@
-[data-template="modern"] .module-box.header-banner {
+[data-template="modern"] .module-box.character-name {
   border-radius: 0;
   box-shadow: none;
   border: none;
@@ -6,7 +6,7 @@
   position: relative;
 }
 
-[data-template="modern"] .header-banner__scroll {
+[data-template="modern"] .character-name__scroll {
   background: none;
   border: none;
   border-radius: 0;
@@ -14,17 +14,17 @@
   box-shadow: none;
 }
 
-[data-template="modern"] .header-banner__scroll-left,
-[data-template="modern"] .header-banner__scroll-right {
+[data-template="modern"] .character-name__scroll-left,
+[data-template="modern"] .character-name__scroll-right {
   display: none;
 }
 
-[data-template="modern"] .header-banner__content {
+[data-template="modern"] .character-name__content {
   padding: 6px 20px;
   text-align: left;
 }
 
-[data-template="modern"] .header-banner__label {
+[data-template="modern"] .character-name__label {
   font-family: 'Segoe UI', system-ui, sans-serif;
   font-variant: normal;
   text-transform: uppercase;
@@ -34,9 +34,9 @@
   letter-spacing: 0.15em;
 }
 
-[data-template="modern"] .header-banner__name {
+[data-template="modern"] .character-name__name {
   font-family: 'Segoe UI', system-ui, sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
   color: var(--mod-text, #0f172a);
   border-bottom: 1px solid var(--mod-muted, rgba(100, 116, 139, 0.25));

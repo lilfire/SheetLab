@@ -1,6 +1,6 @@
 import { Fragment, memo, useCallback, useMemo, useRef, useState } from 'react'
 import { DndContext, PointerSensor, pointerWithin, useDroppable, useSensor, useSensors } from '@dnd-kit/core'
-import HeaderBanner from '../modules/HeaderBanner/HeaderBanner.jsx'
+import CharacterName from '../modules/CharacterName/CharacterName.jsx'
 import CharacterPortrait from '../modules/CharacterPortrait/CharacterPortrait.jsx'
 import RaceClassInfo from '../modules/RaceClassInfo/RaceClassInfo.jsx'
 import BackgroundInfo from '../modules/BackgroundInfo/BackgroundInfo.jsx'
@@ -43,7 +43,7 @@ import styles from './SheetPreview.module.css'
  */
 function useRenderMap(character, preset, moduleSettings, portraitImage, onPortraitImage) {
   return useMemo(() => ({
-    header:          <HeaderBanner character={character} />,
+    header:          <CharacterName character={character} />,
     portrait:        <CharacterPortrait character={character} settings={moduleSettings.portrait} imageSrc={portraitImage} onImageChange={onPortraitImage} />,
     raceclass:       <RaceClassInfo character={character} preset={preset} settings={moduleSettings.raceclass} />,
     background:      <BackgroundInfo character={character} />,
