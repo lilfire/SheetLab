@@ -1,7 +1,7 @@
 import TemplateSlot from '../../template/TemplateSlot.jsx'
 import './AbilitiesFeatures.css'
 
-export default function AbilitiesFeatures({ character }) {
+export default function AbilitiesFeatures({ character, settings = {} }) {
   return (
     <section className="module-box abilities-features">
       <TemplateSlot name="abilities-features:header" character={character}>
@@ -17,7 +17,7 @@ export default function AbilitiesFeatures({ character }) {
             </tr>
           </thead>
           <tbody>
-            {[...Array(6)].map((_, i) => (
+            {[...Array(settings.lineCount ?? 6)].map((_, i) => (
               <tr key={i} className="abilities-features__row">
                 <td><span className="write-line" /></td>
                 <td><span className="write-line" /></td>

@@ -1,7 +1,7 @@
 import TemplateSlot from '../../template/TemplateSlot.jsx'
 import './RaceClassTraits.css'
 
-export default function RaceClassTraits({ character, preset }) {
+export default function RaceClassTraits({ character, preset, settings = {} }) {
   const traits = preset?.raceTraits ?? []
 
   return (
@@ -17,7 +17,7 @@ export default function RaceClassTraits({ character, preset }) {
               ))
             : <li className="race-class-traits__placeholder">Select race and class to see traits</li>
           }
-          {[...Array(Math.max(0, 6 - traits.length))].map((_, i) => (
+          {[...Array(Math.max(0, (settings.lineCount ?? 6) - traits.length))].map((_, i) => (
             <li key={`blank-${i}`} className="race-class-traits__blank">
               <span className="write-line" />
             </li>

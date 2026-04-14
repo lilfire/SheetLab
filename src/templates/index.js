@@ -48,6 +48,7 @@ export const TEMPLATES = [
       attacks:         { row: 12, col: 2, rowSpan: 1, colSpan: 1 },
       equipment:       { row: 13, col: 2, rowSpan: 1, colSpan: 1 },
       proficiency:     { row: 14, col: 2, rowSpan: 1, colSpan: 1 },
+      notes:           { row: 13, col: 1, rowSpan: 1, colSpan: 1 },
     },
   },
   {
@@ -78,6 +79,7 @@ export const TEMPLATES = [
       equipment:       { row: 9, col: 2, rowSpan: 1, colSpan: 1 },
       subclassFeats:   { row: 9, col: 3, rowSpan: 1, colSpan: 1 },
       proficiency:     { row: 10, col: 1, rowSpan: 1, colSpan: 2 },
+      notes:           { row: 10, col: 3, rowSpan: 1, colSpan: 1 },
     },
   },
   {
@@ -111,6 +113,7 @@ export const TEMPLATES = [
       attacks:         { row: 8, col: 1,  rowSpan: 1, colSpan: 12 },
       equipment:       { row: 5, col: 9,  rowSpan: 3, colSpan: 4 },
       proficiency:     { row: 18, col: 5,  rowSpan: 1, colSpan: 4, visible: false },
+      notes:           { row: 9,  col: 1,  rowSpan: 1, colSpan: 12 },
     },
     extensions: modernExtensions,
   },

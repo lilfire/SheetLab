@@ -1,7 +1,7 @@
 import TemplateSlot from '../../template/TemplateSlot.jsx'
 import './AttacksCantrips.css'
 
-export default function AttacksCantrips({ character }) {
+export default function AttacksCantrips({ character, settings = {} }) {
   return (
     <section className="module-box attacks-cantrips">
       <TemplateSlot name="attacks-cantrips:header" character={character}>
@@ -20,7 +20,7 @@ export default function AttacksCantrips({ character }) {
             </tr>
           </thead>
           <tbody>
-            {[...Array(5)].map((_, i) => (
+            {[...Array(settings.lineCount ?? 5)].map((_, i) => (
               <tr key={i} className="attacks-cantrips__row">
                 <td><span className="write-line" /></td>
                 <td><span className="write-line" /></td>

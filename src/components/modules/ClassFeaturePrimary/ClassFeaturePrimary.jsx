@@ -1,7 +1,7 @@
 import TemplateSlot from '../../template/TemplateSlot.jsx'
 import './ClassFeaturePrimary.css'
 
-export default function ClassFeaturePrimary({ character, preset }) {
+export default function ClassFeaturePrimary({ character, preset, settings = {} }) {
   const feature = preset?.modules?.classFeaturePrimary
 
   return (
@@ -21,7 +21,7 @@ export default function ClassFeaturePrimary({ character, preset }) {
               <span className="class-feature-primary__usage-col">DMG</span>
               <span className="class-feature-primary__usage-col">Total</span>
             </div>
-            {[1, 2, 3, 4, 5, 6].map((i) => (
+            {[...Array(settings.lineCount ?? 6)].map((_, i) => (
               <div key={i} className="class-feature-primary__usage-row">
                 <span className="pen-checkbox">○</span>
                 <span className="write-line" />

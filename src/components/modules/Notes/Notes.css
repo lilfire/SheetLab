@@ -1,0 +1,17 @@
+.notes {
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--mod-bg, var(--color-parchment));
+  color: var(--mod-text, var(--color-text));
+}
+
+.notes__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.notes__line span {
+  font-size: 0.7rem;
+}

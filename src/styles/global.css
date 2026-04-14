@@ -66,8 +66,8 @@ body {
   display: inline-block;
   width: 100%;
   border-bottom: 1px solid var(--color-text-light);
-  min-height: 1.2em;
-  padding: 1px 2px;
+  min-height: 1.8em;
+  padding: 3px 2px;
   font-size: 0.8rem;
   color: var(--color-text);
   background: transparent;

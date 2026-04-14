@@ -30,6 +30,7 @@ export const MODULE_REGISTRY = [
   { key: 'attacks',         name: 'Attacks & Cantrips',        areaClass: 'attacksArea' },
   { key: 'equipment',       name: 'Equipment',                 areaClass: 'equipmentArea' },
   { key: 'proficiency',     name: 'Proficiency',               areaClass: 'proficiencyArea' },
+  { key: 'notes',           name: 'Notes',                     areaClass: 'notesArea' },
 ]
 
 /**

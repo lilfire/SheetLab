@@ -255,6 +255,32 @@ export default function ModuleSettingsModal({
                   })}
                 </div>
               )}
+              {def.type === 'number' && (() => {
+                const val = settings[def.key] ?? def.default
+                return (
+                  <div className={styles.stepper}>
+                    <button
+                      type="button"
+                      className={styles.stepperBtn}
+                      onClick={() => onSettingsChange(moduleKey, { [def.key]: Math.max(def.min ?? 1, val - 1) })}
+                      disabled={val <= (def.min ?? 1)}
+                      aria-label={`Decrease ${def.label}`}
+                    >
+                      <MinusIcon />
+                    </button>
+                    <span className={styles.stepperLabel}>{val}</span>
+                    <button
+                      type="button"
+                      className={styles.stepperBtn}
+                      onClick={() => onSettingsChange(moduleKey, { [def.key]: Math.min(def.max ?? 99, val + 1) })}
+                      disabled={val >= (def.max ?? 99)}
+                      aria-label={`Increase ${def.label}`}
+                    >
+                      <PlusIcon />
+                    </button>
+                  </div>
+                )
+              })()}
               {def.type === 'color' && (() => {
                 const colorValue = settings[def.key] ?? effectiveValues[def.key]
                 const { hex, alpha } = splitColor(colorValue)

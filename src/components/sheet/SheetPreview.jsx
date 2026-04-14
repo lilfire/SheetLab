@@ -20,6 +20,7 @@ import RaceClassTraits from '../modules/RaceClassTraits/RaceClassTraits.jsx'
 import ClassFeaturePrimary from '../modules/ClassFeaturePrimary/ClassFeaturePrimary.jsx'
 import ClassFeatureSecondary from '../modules/ClassFeatureSecondary/ClassFeatureSecondary.jsx'
 import SubclassFeats from '../modules/SubclassFeats/SubclassFeats.jsx'
+import Notes from '../modules/Notes/Notes.jsx'
 import { getTemplate } from '../../templates/index.js'
 import { MODULE_REGISTRY, buildInitialLayoutConfig } from '../../data/moduleRegistry.js'
 import { STYLE_SETTING_KEYS } from '../../data/moduleSettings.js'
@@ -47,21 +48,22 @@ function useRenderMap(character, preset, moduleSettings, portraitImage, onPortra
     raceclass:       <RaceClassInfo character={character} preset={preset} settings={moduleSettings.raceclass} />,
     background:      <BackgroundInfo character={character} />,
     ability:         <AbilityScores character={character} preset={preset} settings={moduleSettings.ability} />,
-    passive:         <PassiveStats character={character} />,
+    passive:         <PassiveStats character={character} settings={moduleSettings.passive} />,
     insp:            <Inspiration character={character} />,
     saving:          <SavingThrowsSkills character={character} preset={preset} />,
     combat:          <CombatStats character={character} />,
     hp:              <HPTracker character={character} settings={moduleSettings.hp} />,
     hitdice:         <HitDice character={character} settings={moduleSettings.hitdice} />,
     deathsaves:      <DeathSaves character={character} settings={moduleSettings.deathsaves} />,
-    featurePrimary:  <ClassFeaturePrimary character={character} preset={preset} />,
-    traits:          <RaceClassTraits character={character} preset={preset} />,
-    featureSecondary:<ClassFeatureSecondary character={character} preset={preset} />,
-    abilities:       <AbilitiesFeatures character={character} />,
-    subclassFeats:   <SubclassFeats character={character} preset={preset} />,
-    attacks:         <AttacksCantrips character={character} />,
+    featurePrimary:  <ClassFeaturePrimary character={character} preset={preset} settings={moduleSettings.featurePrimary} />,
+    traits:          <RaceClassTraits character={character} preset={preset} settings={moduleSettings.traits} />,
+    featureSecondary:<ClassFeatureSecondary character={character} preset={preset} settings={moduleSettings.featureSecondary} />,
+    abilities:       <AbilitiesFeatures character={character} settings={moduleSettings.abilities} />,
+    subclassFeats:   <SubclassFeats character={character} preset={preset} settings={moduleSettings.subclassFeats} />,
+    attacks:         <AttacksCantrips character={character} settings={moduleSettings.attacks} />,
     equipment:       <Equipment character={character} settings={moduleSettings.equipment} />,
     proficiency:     <Proficiency character={character} />,
+    notes:           <Notes character={character} settings={moduleSettings.notes} />,
   }), [character, preset, moduleSettings, portraitImage, onPortraitImage])
 }
 

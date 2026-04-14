@@ -1,11 +1,20 @@
 .hit-dice {
   border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
   border-radius: 4px;
-  padding: 6px 8px;
+  padding: 4px 8px;
   background: var(--mod-bg, var(--color-parchment));
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 2px;
+}
+
+.hit-dice .section-header {
+  margin-bottom: 2px;
+}
+
+.hit-dice .write-line {
+  min-height: 1.2em;
+  width: auto;
 }
 
 .hit-dice__type {
@@ -25,8 +34,8 @@
 
 .hit-dice__count,
 .hit-dice__die {
-  flex: 1;
-  min-width: 20px;
+  width: 30px;
+  flex: none;
 }
 
 .hit-dice__d {

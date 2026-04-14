@@ -49,7 +49,7 @@ export const STYLE_SETTING_KEYS = new Set(STYLE_SETTINGS.map((s) => s.key))
  *
  * Each setting has:
  *   key      — unique identifier within the module
- *   type     — 'select' | 'toggle' | 'color'
+ *   type     — 'select' | 'toggle' | 'color' | 'number'
  *   label    — human-readable label
  *   options  — (for select) array of { value, label }
  *   default  — default value (null = defer to template CSS)
@@ -105,7 +105,13 @@ export const MODULE_SETTINGS_SCHEMA = {
     { key: 'shieldColor', type: 'color', label: 'Shield Color', default: null },
     ...STYLE_SETTINGS,
   ],
-  passive:          [...COMMON_SETTINGS, ...STYLE_SETTINGS],
+  passive: [
+    ...COMMON_SETTINGS,
+    { key: 'showPerception', type: 'toggle', label: 'Show Perception', default: null },
+    { key: 'showInvestigation', type: 'toggle', label: 'Show Investigation', default: null },
+    { key: 'showInsight', type: 'toggle', label: 'Show Insight', default: null },
+    ...STYLE_SETTINGS,
+  ],
   insp:             [...COMMON_SETTINGS, ...STYLE_SETTINGS],
   saving:           [...COMMON_SETTINGS, ...STYLE_SETTINGS],
   combat:           [...COMMON_SETTINGS, ...STYLE_SETTINGS],
@@ -118,18 +124,48 @@ export const MODULE_SETTINGS_SCHEMA = {
   ],
   hitdice:          [...COMMON_SETTINGS, ...STYLE_SETTINGS],
   deathsaves:       [...COMMON_SETTINGS, ...STYLE_SETTINGS],
-  featurePrimary:   [...COMMON_SETTINGS, ...STYLE_SETTINGS],
-  traits:           [...COMMON_SETTINGS, ...STYLE_SETTINGS],
-  featureSecondary: [...COMMON_SETTINGS, ...STYLE_SETTINGS],
-  abilities:        [...COMMON_SETTINGS, ...STYLE_SETTINGS],
-  subclassFeats:    [...COMMON_SETTINGS, ...STYLE_SETTINGS],
-  attacks:          [...COMMON_SETTINGS, ...STYLE_SETTINGS],
+  featurePrimary: [
+    ...COMMON_SETTINGS,
+    { key: 'lineCount', type: 'number', label: 'Lines', default: 6, min: 1, max: 20 },
+    ...STYLE_SETTINGS,
+  ],
+  traits: [
+    ...COMMON_SETTINGS,
+    { key: 'lineCount', type: 'number', label: 'Lines', default: 6, min: 1, max: 20 },
+    ...STYLE_SETTINGS,
+  ],
+  featureSecondary: [
+    ...COMMON_SETTINGS,
+    { key: 'lineCount', type: 'number', label: 'Lines', default: 6, min: 1, max: 20 },
+    ...STYLE_SETTINGS,
+  ],
+  abilities: [
+    ...COMMON_SETTINGS,
+    { key: 'lineCount', type: 'number', label: 'Lines', default: 6, min: 1, max: 20 },
+    ...STYLE_SETTINGS,
+  ],
+  subclassFeats: [
+    ...COMMON_SETTINGS,
+    { key: 'lineCount', type: 'number', label: 'Lines', default: 8, min: 1, max: 30 },
+    ...STYLE_SETTINGS,
+  ],
+  attacks: [
+    ...COMMON_SETTINGS,
+    { key: 'lineCount', type: 'number', label: 'Lines', default: 5, min: 1, max: 20 },
+    ...STYLE_SETTINGS,
+  ],
   equipment: [
     ...COMMON_SETTINGS,
     { key: 'showCarryingCapacity', type: 'toggle', label: 'Show Carrying Capacity', default: null },
+    { key: 'lineCount', type: 'number', label: 'Lines', default: 8, min: 1, max: 30 },
     ...STYLE_SETTINGS,
   ],
   proficiency:      [...COMMON_SETTINGS, ...STYLE_SETTINGS],
+  notes: [
+    ...COMMON_SETTINGS,
+    { key: 'lineCount', type: 'number', label: 'Lines', default: 10, min: 1, max: 30 },
+    ...STYLE_SETTINGS,
+  ],
 }
 
 /**

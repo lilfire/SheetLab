@@ -1,7 +1,7 @@
 import TemplateSlot from '../../template/TemplateSlot.jsx'
 import './PassiveStats.css'
 
-export default function PassiveStats({ character }) {
+export default function PassiveStats({ character, settings = {} }) {
   return (
     <section className="module-box passive-stats">
       <TemplateSlot name="passive-stats:header" character={character}>
@@ -9,18 +9,24 @@ export default function PassiveStats({ character }) {
       </TemplateSlot>
       <TemplateSlot name="passive-stats:list" character={character}>
         <div className="passive-stats__list">
-          <div className="passive-stats__stat">
-            <span className="passive-stats__label">Passive Perception</span>
-            <span className="passive-stats__value" />
-          </div>
-          <div className="passive-stats__stat">
-            <span className="passive-stats__label">Passive Investigation</span>
-            <span className="passive-stats__value" />
-          </div>
-          <div className="passive-stats__stat">
-            <span className="passive-stats__label">Passive Insight</span>
-            <span className="passive-stats__value" />
-          </div>
+          {settings.showPerception !== false && (
+            <div className="passive-stats__stat">
+              <span className="passive-stats__label">Passive Perception</span>
+              <span className="passive-stats__value" />
+            </div>
+          )}
+          {settings.showInvestigation !== false && (
+            <div className="passive-stats__stat">
+              <span className="passive-stats__label">Passive Investigation</span>
+              <span className="passive-stats__value" />
+            </div>
+          )}
+          {settings.showInsight !== false && (
+            <div className="passive-stats__stat">
+              <span className="passive-stats__label">Passive Insight</span>
+              <span className="passive-stats__value" />
+            </div>
+          )}
         </div>
       </TemplateSlot>
     </section>

@@ -1,10 +1,10 @@
 import TemplateSlot from '../../template/TemplateSlot.jsx'
 import './SubclassFeats.css'
 
-export default function SubclassFeats({ character, preset }) {
+export default function SubclassFeats({ character, preset, settings = {} }) {
   const subclass = preset?.modules?.subclassFeats
   const title = subclass?.title ?? 'Subclass Feats'
-  const slots = subclass?.slots ?? 8
+  const slots = settings.lineCount ?? subclass?.slots ?? 8
 
   return (
     <section className="module-box subclass-feats">

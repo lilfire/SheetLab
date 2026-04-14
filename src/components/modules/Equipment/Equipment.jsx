@@ -18,7 +18,7 @@ export default function Equipment({ character, settings = {} }) {
       )}
       <TemplateSlot name="equipment:items" character={character}>
         <div className="equipment__list">
-          {[...Array(8)].map((_, i) => (
+          {[...Array(settings.lineCount ?? 8)].map((_, i) => (
             <div key={i} className="equipment__item">
               <span className="write-line" />
             </div>

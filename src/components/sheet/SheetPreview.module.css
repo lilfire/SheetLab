@@ -232,7 +232,8 @@
 .subclassFeatsArea,
 .attacksArea,
 .equipmentArea,
-.proficiencyArea {
+.proficiencyArea,
+.notesArea {
   position: relative;
   overflow: hidden;
 }
@@ -263,7 +264,8 @@
 .editMode .subclassFeatsArea,
 .editMode .attacksArea,
 .editMode .equipmentArea,
-.editMode .proficiencyArea {
+.editMode .proficiencyArea,
+.editMode .notesArea {
   outline: 1px dashed rgba(37, 99, 235, 0.4);
   outline-offset: -1px;
 }
