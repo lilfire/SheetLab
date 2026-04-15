@@ -1,0 +1,35 @@
+.race-class-info {
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--mod-bg, var(--color-parchment));
+  color: var(--mod-text, var(--color-text));
+}
+
+.race-class-info__fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 4px 8px;
+}
+
+.race-class-info__field {
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.race-class-info__label {
+  font-size: 0.6rem;
+  font-variant: small-caps;
+  color: var(--mod-heading, var(--color-gold));
+  letter-spacing: 0.05em;
+}
+
+/* Extra fields — hidden by default */
+.race-class-info__extra-fields {
+  display: none;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 4px 8px;
+}

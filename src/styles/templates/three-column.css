@@ -1,0 +1,5 @@
+/* Three-column template: owns all grid layout. Color tokens come from :root. */
+
+[data-template="three-column"] .sheet-grid {
+  grid-template-columns: 1fr 1fr 1fr;
+}

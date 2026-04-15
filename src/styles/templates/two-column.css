@@ -1,0 +1,5 @@
+/* Two-column template: owns all grid layout. Color tokens come from :root. */
+
+[data-template="two-column"] .sheet-grid {
+  grid-template-columns: 1fr 1fr;
+}

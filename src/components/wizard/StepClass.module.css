@@ -1,0 +1,95 @@
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.heading {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  color: var(--color-text);
+  text-align: center;
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  text-align: center;
+  font-style: italic;
+}
+
+.hint strong {
+  color: var(--color-text);
+  font-style: normal;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.card {
+  background: var(--color-parchment-dark);
+  border: 2px solid var(--color-gold);
+  border-radius: 6px;
+  padding: 16px 8px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  text-align: center;
+}
+
+.card:hover {
+  background: var(--color-gold);
+  transform: translateY(-2px);
+}
+
+.card:hover .className {
+  color: var(--color-parchment);
+}
+
+.className {
+  font-family: var(--font-serif);
+  font-variant: small-caps;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  letter-spacing: 0.05em;
+}
+
+.navRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.backBtn {
+  background: none;
+  border: 1px solid var(--color-gold);
+  border-radius: 4px;
+  color: var(--color-gold);
+  font-size: 0.8rem;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+}
+
+.backBtn:hover {
+  background: var(--color-gold);
+  color: var(--color-parchment);
+}
+
+.skipBtn {
+  background: none;
+  border: 1px solid var(--color-gold);
+  border-radius: 4px;
+  color: var(--color-gold);
+  font-size: 0.8rem;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+}
+
+.skipBtn:hover {
+  background: var(--color-gold);
+  color: var(--color-parchment);
+}

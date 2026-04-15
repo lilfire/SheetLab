@@ -1,0 +1,134 @@
+/* ── Grid layout ──
+   Row 1: Shield (current HP) centered, spanning full width
+   Row 2: Max HP badge | Temp HP badge side-by-side                    */
+[data-template="modern"] .hp-tracker__ring-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 8px;
+  width: 100%;
+  padding: 6px 4px;
+  justify-items: center;
+}
+
+/* Connectors hidden in shield layout */
+[data-template="modern"] .hp-tracker__connector {
+  display: none;
+}
+
+/* ── Shield — heraldic crest shape for current HP ──
+   border-radius trick: flat top + 50% bottom corners meet at center
+   to form a downward-pointing shield silhouette.                      */
+[data-template="modern"] .hp-tracker__orb {
+  grid-column: 1 / -1;
+  order: -1;
+  justify-self: center;
+  width: 140px;
+  height: 155px;
+  border-radius: 10px 10px 50% 50%;
+  border: 3px solid var(--mod-accent, #000000);
+  box-shadow:
+    0 0 0 3px var(--mod-bg, #ffffff),
+    0 0 0 6px var(--mod-muted, rgba(100, 116, 139, 0.25)),
+    inset 0 4px 12px rgba(255, 255, 255, 0.4),
+    0 6px 16px rgba(0, 0, 0, 0.08);
+  background: linear-gradient(
+    180deg,
+    var(--mod-bg, #ffffff) 0%,
+    var(--mod-accent, #e2e8f0) 65%,
+    var(--mod-muted, #cbd5e1) 100%
+  );
+  flex-shrink: 0;
+  padding: 12px 8px 40px;
+}
+
+[data-template="modern"] .hp-tracker__orb-label {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-variant: normal;
+  text-transform: uppercase;
+  font-size: 0.45rem;
+  font-weight: 700;
+  color: var(--mod-heading, #000000);
+  letter-spacing: 0.06em;
+}
+
+/* Thin accent line under the label */
+[data-template="modern"] .hp-tracker__orb-label::after {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 1.5px;
+  background: var(--mod-muted, rgba(100, 116, 139, 0.25));
+  border-radius: 1px;
+  margin: 4px auto 2px;
+}
+
+[data-template="modern"] .hp-tracker__hp-input {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  width: 80px;
+  border-bottom-color: var(--mod-muted, rgba(100, 116, 139, 0.25));
+  color: var(--mod-text, #0f172a);
+}
+
+/* Hide inline max HP (shown in badge below) */
+[data-template="modern"] .hp-tracker__inline-max {
+  display: none;
+}
+
+/* ── Badges — Max HP & Temp HP with gradient and depth ── */
+[data-template="modern"] .hp-tracker__max-hp-ring,
+[data-template="modern"] .hp-tracker__temp-hp-ring {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 2px solid var(--mod-accent, rgba(15, 23, 42, 0.12));
+  background: linear-gradient(
+    180deg,
+    var(--mod-bg, #ffffff) 0%,
+    var(--mod-accent, #f1f5f9) 100%
+  );
+  padding: 8px 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+[data-template="modern"] .hp-tracker__satellite-label {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-variant: normal;
+  text-transform: uppercase;
+  font-size: 0.42rem;
+  font-weight: 700;
+  color: var(--mod-heading, #000000);
+  letter-spacing: 0.06em;
+}
+
+/* Thin accent line under satellite label (mirrors orb label treatment) */
+[data-template="modern"] .hp-tracker__satellite-label::after {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1.5px;
+  background: var(--mod-muted, rgba(100, 116, 139, 0.25));
+  border-radius: 1px;
+  margin: 3px auto 1px;
+}
+
+[data-template="modern"] .hp-tracker__satellite-input {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  width: 36px;
+  border-bottom-color: var(--mod-muted, rgba(100, 116, 139, 0.25));
+  color: var(--mod-text, #0f172a);
+}
+
+/* Hide inline temp HP (shown as badge) */
+[data-template="modern"] .hp-tracker__temp-hp {
+  display: none;
+}
+

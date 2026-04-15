@@ -1,0 +1,56 @@
+.hit-dice {
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
+  border-radius: 4px;
+  padding: 4px 8px;
+  background: var(--mod-bg, var(--color-parchment));
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hit-dice .section-header {
+  margin-bottom: 2px;
+}
+
+.hit-dice .write-line {
+  min-height: 1.2em;
+  width: auto;
+}
+
+.hit-dice__type {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hit-dice__label {
+  font-size: 0.65rem;
+  font-variant: small-caps;
+  color: var(--mod-heading, var(--color-gold));
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.hit-dice__count,
+.hit-dice__die {
+  width: 30px;
+  flex: none;
+}
+
+.hit-dice__d {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--mod-text, var(--color-text));
+}
+
+.hit-dice__used {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hit-dice__used-input {
+  flex: 1;
+  min-width: 20px;
+}

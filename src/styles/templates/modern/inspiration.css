@@ -1,0 +1,13 @@
+[data-template="modern"] .inspiration__checkbox {
+  color: var(--mod-text, #000000);
+}
+
+[data-template="modern"] .inspiration__inspired {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-variant: normal;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--mod-heading, #000000);
+  letter-spacing: 0.06em;
+}

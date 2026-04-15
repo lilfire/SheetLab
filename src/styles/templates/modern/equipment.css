@@ -1,0 +1,13 @@
+[data-template="modern"] .equipment__capacity {
+  border-bottom-color: var(--mod-muted, rgba(100, 116, 139, 0.2));
+}
+
+[data-template="modern"] .equipment__capacity-label {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: var(--mod-heading, #000000);
+  font-size: 0.6rem;
+}
+
+[data-template="modern"] .equipment__capacity-value {
+  border-bottom-color: var(--mod-muted, rgba(100, 116, 139, 0.2));
+}

@@ -1,0 +1,85 @@
+/* Custom properties.
+   NOTE: token names are legacy (--color-parchment, --color-gold). Values have
+   been repurposed to a neutral-modern palette. Rename when the palette stabilizes. */
+:root {
+  --color-parchment: #ffffff;           /* surface */
+  --color-parchment-dark: #f1f5f9;      /* slate-100 — subtle accent bg */
+  --color-text: #0f172a;                /* slate-900 */
+  --color-text-light: #64748b;          /* slate-500 */
+  --color-gold: #2563eb;                /* blue-600 — the accent */
+  --color-gold-light: #3b82f6;          /* blue-500 */
+  --color-border: #cbd5e1;              /* slate-300 */
+  --font-serif: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --border-ornate: 1px solid var(--color-border);
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-parchment);
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Section headers shared style */
+.section-header {
+  font-family: var(--font-serif);
+  font-variant: small-caps;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: var(--color-gold);
+  border-bottom: 1px solid var(--color-gold);
+  padding-bottom: 2px;
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+}
+[data-hide-header] .section-header {
+  display: none;
+}
+
+/* Fill Row Height — stretch inner module-box to match the grid row */
+[data-fill-row] {
+  display: flex;
+  flex-direction: column;
+}
+[data-fill-row] > .module-box {
+  flex: 1;
+}
+
+/* Static write-in line (replaces input[type=text] for pen-filling) */
+.write-line {
+  display: inline-block;
+  width: 100%;
+  border-bottom: 1px solid var(--color-text-light);
+  min-height: 1.8em;
+  padding: 3px 2px;
+  font-size: 0.8rem;
+  color: var(--color-text);
+  background: transparent;
+}
+
+/* Pen-fill circle (replaces checkbox for pen-filling) */
+.pen-checkbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  line-height: 1;
+  user-select: none;
+}

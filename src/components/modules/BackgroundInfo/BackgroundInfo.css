@@ -1,0 +1,32 @@
+.background-info {
+  border: var(--mod-border-width, 1px) var(--mod-border-style, solid) var(--mod-border-color, rgba(139, 115, 85, 0.25));
+  border-radius: 4px;
+  padding: 6px 8px;
+  background: var(--mod-bg, var(--color-parchment));
+  color: var(--mod-text, var(--color-text));
+}
+
+.background-info__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(120px, calc(50% - 4px)), 1fr));
+  gap: 4px 8px;
+}
+
+.background-info__field {
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.background-info__field--wide {
+  grid-column: 1 / -1;
+}
+
+.background-info__label {
+  font-size: 0.6rem;
+  font-variant: small-caps;
+  color: var(--mod-heading, var(--color-gold));
+  letter-spacing: 0.05em;
+}

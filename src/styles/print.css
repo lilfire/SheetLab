@@ -1,0 +1,76 @@
+@media print {
+  :root {
+    --color-parchment: #ffffff;
+    --color-parchment-dark: #f0f0f0;
+  }
+
+  /* A4: 210mm × 297mm — margin: 0 so page breaks align regardless of
+     the user's print-dialog margin setting. The sheet's own padding
+     provides visual spacing on the first page. */
+  @page {
+    size: A4 portrait;
+    margin: 8mm 0;
+  }
+
+  body {
+    background: white;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Hide wizard and non-sheet UI */
+  .wizard-container,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Each page fills one physical page. Padding-top removed because
+     @page margin already provides top spacing.
+     break-inside:avoid prevents the browser from fragmenting a page's
+     grid across physical pages (CSS Grid fragmentation is unreliable). */
+  .sheet-preview {
+    width: 210mm;
+    height: auto;
+    margin: 0;
+    padding-top: 0;
+    box-shadow: none;
+    break-after: page;
+    break-inside: avoid;
+  }
+
+  .sheet-preview:last-child {
+    break-after: auto;
+  }
+
+  /* Ensure grid renders correctly in print.
+     grid-template-rows: unset overrides the inline style so rows fall back
+     to grid-auto-rows (minmax(48px, min-content)) — Chrome's print engine
+     has bugs with explicit grid-template-rows values (minmax, mm units)
+     that cause rows to collapse and modules to overlap. */
+  .sheet-grid {
+    display: grid !important;
+    grid-template-rows: unset !important;
+  }
+
+  /* Ensure write-in lines print clearly */
+  .write-line {
+    border-bottom: 1px solid #999;
+  }
+
+  /* Avoid page breaks inside modules */
+  .module-box {
+    break-inside: avoid;
+  }
+
+  /* Keep overflow hidden on module wrappers — overflow:visible causes
+     content to overlap adjacent modules when printed.  break-inside:avoid
+     on the .page container already prevents grid fragmentation. */
+  [data-module-key] {
+    break-inside: avoid;
+  }
+
+  /* Modern template: remove shadows for clean print */
+  [data-template="modern"] .module-box {
+    box-shadow: none;
+  }
+}

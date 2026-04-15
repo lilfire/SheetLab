@@ -1,0 +1,9 @@
+[data-template="modern"] .subclass-feats__slot {
+  border-bottom-color: var(--mod-muted, rgba(100, 116, 139, 0.1));
+  padding: 3px 0;
+}
+
+[data-template="modern"] .subclass-feats__index {
+  color: var(--mod-heading, #000000);
+  font-weight: 600;
+}

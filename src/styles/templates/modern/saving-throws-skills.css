@@ -1,0 +1,29 @@
+[data-template="modern"] .saving-throws-skills__row {
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+[data-template="modern"] .saving-throws-skills__row:nth-child(even) {
+  background: var(--mod-accent, rgba(100, 116, 139, 0.04));
+}
+
+[data-template="modern"] .saving-throws-skills__check {
+  color: var(--mod-heading, #000000);
+}
+
+[data-template="modern"] .saving-throws-skills__modifier {
+  border-bottom-color: var(--mod-muted, rgba(100, 116, 139, 0.2));
+  color: var(--mod-text, #0f172a);
+}
+
+[data-template="modern"] .saving-throws-skills__name {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.65rem;
+  color: var(--mod-text, #0f172a);
+}
+
+[data-template="modern"] .saving-throws-skills__ability {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.55rem;
+  color: var(--mod-muted, rgba(100, 116, 139, 0.5));
+}

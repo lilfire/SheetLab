@@ -1,0 +1,353 @@
+.wrapper {
+  background: #e2e8f0;
+  min-height: 100vh;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+@media print {
+  .wrapper {
+    background: none;
+    padding: 0;
+    gap: 0;
+  }
+}
+
+/* Toolbar above the sheet */
+.toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.printBtn {
+  background: var(--color-gold);
+  border: 1px solid var(--color-gold);
+  border-radius: 4px;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding: 8px 20px;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.printBtn:hover {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+.resetBtn {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-size: 0.875rem;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.resetBtn:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.editBtn {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.editBtn:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.editBtnActive {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: #ffffff;
+}
+
+.editBtnActive:hover {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+/* ── Edit-mode overlay ───────────────────────────────────────── */
+
+/* ── Settings gear button ────────────────────────────────────── */
+
+.settingsBtn {
+  display: none;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 10;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  color: #475569;
+  font-size: 0.875rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+  transition: background 0.1s, border-color 0.1s, color 0.1s;
+}
+
+.settingsBtn:hover {
+  background: #eff6ff;
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+.editMode .settingsBtn {
+  display: flex;
+}
+
+/* A4 sheet — always pure white since this surface gets printed. */
+.sheet {
+  position: relative;
+  width: 210mm;
+  min-height: 297mm;
+  background: #ffffff;
+  padding: 8mm;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.15);
+}
+
+/* ── Per-page layout ──────────────────────────────────────── */
+
+.sheetContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  background: #ffffff;
+  padding: 8mm;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.15);
+}
+
+.pageGrid {
+  height: 100%;
+}
+
+@media print {
+  .page {
+    height: auto;
+    padding-top: 0;
+    box-shadow: none;
+    break-after: page;
+    break-inside: avoid;
+  }
+  .page:last-child {
+    break-after: auto;
+  }
+  .pageGrid {
+    height: auto;
+  }
+}
+
+.pageGap {
+  width: calc(210mm + 8px);
+  height: 20px;
+  background: #e2e8f0;
+  position: relative;
+  box-shadow:
+    inset 0  6px 6px -4px rgba(15, 23, 42, 0.12),
+    inset 0 -6px 6px -4px rgba(15, 23, 42, 0.12);
+}
+
+.pageLabel {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  color: #64748b;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  padding: 1px 6px;
+  border-radius: 2px;
+}
+
+/* Shared grid base */
+.grid {
+  display: grid;
+  gap: 4px;
+  /* 48px floor so empty rows stay visible after a delete or move */
+  grid-auto-rows: minmax(48px, min-content);
+  align-items: start;
+  isolation: isolate;
+}
+
+
+/* Spanning modules that should fill their grid area */
+.savingArea,
+.featurePrimaryArea,
+.featureSecondaryArea,
+.subclassFeatsArea,
+.portraitArea {
+  align-self: stretch;
+}
+
+/* All area slots need position:relative for the remove-button overlay */
+.headerArea,
+.portraitArea,
+.raceClassArea,
+.backgroundArea,
+.abilityArea,
+.passiveArea,
+.inspirationArea,
+.savingArea,
+.combatArea,
+.hpArea,
+.hitDiceArea,
+.deathSavesArea,
+.featurePrimaryArea,
+.traitsArea,
+.featureSecondaryArea,
+.abilitiesFeaturesArea,
+.subclassFeatsArea,
+.attacksArea,
+.equipmentArea,
+.proficiencyArea,
+.notesArea {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ability scores needs overflow visible for mod-bubbles and drop-shadows */
+.abilityArea {
+  overflow: visible;
+}
+
+/* Grid placement is now handled by inline styles (gridRow / gridColumn) */
+
+/* In edit mode, highlight all slots with a dashed outline */
+.editMode .headerArea,
+.editMode .portraitArea,
+.editMode .raceClassArea,
+.editMode .backgroundArea,
+.editMode .abilityArea,
+.editMode .passiveArea,
+.editMode .inspirationArea,
+.editMode .savingArea,
+.editMode .combatArea,
+.editMode .hpArea,
+.editMode .hitDiceArea,
+.editMode .featurePrimaryArea,
+.editMode .traitsArea,
+.editMode .featureSecondaryArea,
+.editMode .abilitiesFeaturesArea,
+.editMode .subclassFeatsArea,
+.editMode .attacksArea,
+.editMode .equipmentArea,
+.editMode .proficiencyArea,
+.editMode .notesArea {
+  outline: 1px dashed rgba(37, 99, 235, 0.4);
+  outline-offset: -1px;
+}
+
+/* ── Edit mode: grid visual ──────────────────────────────── */
+
+.editMode .grid {
+  gap: 6px;
+  border-radius: 4px;
+  padding: 3px;
+}
+
+/* In edit mode, module content is visual-only — pointer events pass through
+   to the wrapper where the dnd-kit drag listener lives. The gear button
+   re-enables its own pointer events. */
+.editMode [data-module-key] {
+  user-select: none;
+}
+
+.editMode [data-module-key] * {
+  pointer-events: none;
+}
+
+.editMode [data-module-key] .settingsBtn {
+  pointer-events: auto;
+}
+
+/* ── Row-level zebra overlay ─────────────────────────────── */
+
+.editRowOverlay {
+  position: relative;
+  pointer-events: none;
+  border-radius: 4px;
+  z-index: 10;
+  align-self: stretch;
+}
+
+.rowSettingsBtn {
+  position: absolute;
+  top: 2px;
+  left: calc(-8mm - 30px);
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  color: #475569;
+  font-size: 0.8rem;
+  line-height: 1;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+  transition: background 0.1s, border-color 0.1s, color 0.1s;
+  z-index: 11;
+}
+
+.rowSettingsBtn:hover {
+  background: #eff6ff;
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+/* ── Cell droppables (empty-cell drop zones in edit mode) ── */
+
+.cellDroppable {
+  align-self: stretch;
+  min-height: 36px;
+  background: transparent;
+  border: 1px dashed rgba(148, 163, 184, 0.45);
+  border-radius: 4px;
+  transition: background 0.1s, border-color 0.1s, border-style 0.1s;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.cellDroppableActive {
+  background: rgba(37, 99, 235, 0.12);
+  border-color: #2563eb;
+  border-style: solid;
+}
+

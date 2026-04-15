@@ -1,0 +1,53 @@
+/* ── Dice type row — centered with prominent "d" separator ── */
+[data-template="modern"] .hit-dice__type {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  padding: 4px 0;
+}
+
+[data-template="modern"] .hit-dice__label {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-variant: normal;
+  text-transform: uppercase;
+  font-size: 0.42rem;
+  font-weight: 700;
+  color: var(--mod-heading, #000000);
+  letter-spacing: 0.06em;
+}
+
+[data-template="modern"] .hit-dice__d {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--mod-text, #0f172a);
+}
+
+[data-template="modern"] .hit-dice__used {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+}
+
+[data-template="modern"] .hit-dice__used-input {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  flex: 1;
+  border-bottom-color: var(--mod-muted, rgba(100, 116, 139, 0.25));
+  color: var(--mod-text, #0f172a);
+}
+
+[data-template="modern"] .hit-dice__count,
+[data-template="modern"] .hit-dice__die {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  width: 28px;
+  flex: none;
+  text-align: center;
+  border-bottom-color: var(--mod-muted, rgba(100, 116, 139, 0.25));
+  color: var(--mod-text, #0f172a);
+}
